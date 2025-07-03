@@ -1,0 +1,69 @@
+package com.elton.xdordersprototipojetpackcompose.ui.components
+
+import android.R.attr.icon
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.elton.xdordersprototipojetpackcompose.R
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TopBarXD(
+    title: String,
+    navController: NavController,
+    showBackButton: Boolean = true,
+    backgroundColor: Color = Color(0xFF223E48)
+) {
+    TopAppBar(
+        navigationIcon = {
+            if (showBackButton) {
+
+                IconButton(
+                    onClick = { navController.navigate("home") { popUpTo(0) } },
+                    modifier = Modifier.size(78.dp) // Ajuste o tamanho conforme necessário
+                ) {
+                    Row {
+                        Icon(
+                            imageVector = Icons.Rounded.ArrowBack,
+                            contentDescription = "Voltar",
+                            tint = Color.White,
+                            modifier = Modifier.size(38.dp)
+                        )
+
+                        Spacer(modifier = Modifier.width(2.dp))
+
+                        Icon(
+                            painter = painterResource(id = R.drawable.xd_logo),
+                            contentDescription = "Logo XD",
+                            modifier = Modifier.size(38.dp), // Tamanho maior para o logo
+                            tint = Color.Unspecified
+                        )
+                    }
+                }
+            }
+        },
+        title = {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleMedium,
+                color = Color.White
+            )
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = backgroundColor
+        )
+    )
+}

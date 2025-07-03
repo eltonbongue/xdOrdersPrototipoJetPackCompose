@@ -41,6 +41,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.elton.xdordersprototipojetpackcompose.navigation.AppNavigator
 import com.elton.xdordersprototipojetpackcompose.ui.theme.XdOrdersPrototipoJetPackComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -49,121 +50,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             XdOrdersPrototipoJetPackComposeTheme {
-                    HomeScreen()
-                }
-            }
-        }
-    }
-@Preview
-@Composable
-fun HomeScreen() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFF2D87BF))
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.xd_orders_home),
-            contentDescription = "Logo XD",
-            contentScale = ContentScale.Fit,
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .padding(top = 26.dp)
-        )
-
-
-        Text(
-            text = "Versão 2.18.0",
-            style = MaterialTheme.typography.bodyMedium,
-            color = Color.White,
-            fontSize = 18.sp,
-            fontWeight = Bold,
-            fontFamily = FontFamily.Serif,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.align(Alignment.Center)
-                .padding(top = 544.dp)
-
-        )
-
-
-        // Fixed buttons row in the footer
-
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 60.dp, start = 12.dp, end = 12.dp)
-        )  {
-
-            Button(
-                onClick = { /* ação */ },
-                modifier = Modifier
-                    .weight(1.1f)
-                    .height(90.dp),
-                shape = RoundedCornerShape(16.dp),
-                colors = androidx.compose.material3.ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF1B1F23)
-                )
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(
-                        imageVector = Icons.Rounded.AccountCircle,
-                        contentDescription = "Usuários",
-                        modifier = Modifier.size(30.dp)
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text("USUÁRIOS")
-                }
-            }
-
-
-            Button(
-                onClick = { /* ação */ },
-                modifier = Modifier
-                    .weight(1.2f)
-                    .height(90.dp),
-                shape = RoundedCornerShape(16.dp),
-                colors = androidx.compose.material3.ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF1B1F23)
-                )
-
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(
-                        imageVector = Icons.Rounded.Settings,
-                        contentDescription = "Definições",
-                        modifier = Modifier.size(30.dp)
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text("DEFINIÇÕES")
-                }
-            }
-
-
-            Button(
-                onClick = { /* ação */ },
-                modifier = Modifier
-                    .weight(1.1f)
-                    .height(90.dp),
-                shape = RoundedCornerShape(16.dp),
-                colors = androidx.compose.material3.ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF1B1F23)
-                )
-
-
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(
-                        imageVector = Icons.Rounded.PlayArrow,
-                        contentDescription = "Iniciar",
-                        modifier = Modifier.size(30.dp)
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text("INICIAR")
+                val navController = androidx.navigation.compose.rememberNavController()
+                AppNavigator(navController)
                 }
             }
         }
     }
 
-}
