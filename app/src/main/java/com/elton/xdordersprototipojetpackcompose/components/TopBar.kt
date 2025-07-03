@@ -33,7 +33,7 @@ fun TopBarXD(
 
                 IconButton(
                     onClick = { navController.navigate("home") { popUpTo(0) } },
-                    modifier = Modifier.size(78.dp) // Ajuste o tamanho conforme necessário
+                    modifier = Modifier.size(78.dp)
                 ) {
                     Row {
                         Icon(

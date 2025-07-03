@@ -76,7 +76,11 @@ fun HomeScreen(navController: androidx.navigation.NavHostController) {
         )  {
 
             Button(
-                onClick = { /* ação */ },
+                onClick = { navController.navigate(Screen.UserLogin.route)
+                {
+                    popUpTo(Screen.UserLogin.route) { inclusive = true }
+                }
+                },
                 modifier = Modifier
                     .weight(1.1f)
                     .height(90.dp),
