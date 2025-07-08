@@ -28,6 +28,7 @@ import com.elton.xdordersprototipojetpackcompose.data.settingsList
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.ui.Alignment
+import com.elton.xdordersprototipojetpackcompose.components.BottomBarXD
 import com.elton.xdordersprototipojetpackcompose.ui.components.TopBarXD
 
 
@@ -35,12 +36,14 @@ import com.elton.xdordersprototipojetpackcompose.ui.components.TopBarXD
 @Composable
 fun SettingsScreen(navController: NavController) {
     Scaffold(
-        topBar = {
-            TopBarXD(
-                title = "Definições",
-                navController = navController
-            )
-        },
+        topBar = { TopBarXD(
+            title = "Definições",
+            navController = navController
+        ) },
+        bottomBar = {
+            BottomBarXD()
+        }
+        ,
         content = { innerPadding ->
             Column(modifier = Modifier.padding(innerPadding)
                 .background(
@@ -123,7 +126,7 @@ fun SettingBoxItem(item: SettingItemData) {
             Column {
                 Text(
                     text = item.label,
-                    fontSize = 14.sp,
+                    fontSize = 15.sp,
                     fontFamily = FontFamily.SansSerif,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black
@@ -131,7 +134,7 @@ fun SettingBoxItem(item: SettingItemData) {
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = item.value,
-                    fontSize = 12.sp,
+                    fontSize = 13.sp,
                     fontFamily = FontFamily.SansSerif,
                     color = Color.DarkGray
                 )

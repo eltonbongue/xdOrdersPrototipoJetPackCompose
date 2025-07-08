@@ -2,6 +2,7 @@ package com.elton.xdordersprototipojetpackcompose
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,6 +37,8 @@ import com.elton.xdordersprototipojetpackcompose.navigation.Screen
 
 @Composable
 fun HomeScreen(navController: androidx.navigation.NavHostController) {
+    val isDark = isSystemInDarkTheme()
+    val ContentColor = if (isDark) Color.White else Color.White
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -93,10 +96,14 @@ fun HomeScreen(navController: androidx.navigation.NavHostController) {
                     Icon(
                         imageVector = Icons.Rounded.AccountCircle,
                         contentDescription = "Usuários",
-                        modifier = Modifier.size(30.dp)
+                        modifier = Modifier.size(30.dp),
+                        tint = ContentColor
                     )
                     Spacer(modifier = Modifier.height(4.dp))
-                    Text("USUÁRIOS")
+                    Text(
+                        text = "USUÁRIOS",
+                        color = ContentColor
+                    )
                 }
             }
 
@@ -120,16 +127,20 @@ fun HomeScreen(navController: androidx.navigation.NavHostController) {
                     Icon(
                         imageVector = Icons.Rounded.Settings,
                         contentDescription = "Definições",
-                        modifier = Modifier.size(30.dp)
+                        modifier = Modifier.size(30.dp),
+                        tint = ContentColor
                     )
                     Spacer(modifier = Modifier.height(4.dp))
-                    Text("DEFINIÇÕES")
+                    Text(
+                        text ="DEFINIÇÕES",
+                      color = ContentColor
+                    )
                 }
             }
 
 
             Button(
-                onClick = { /* ação */ },
+                onClick = { },
                 modifier = Modifier
                     .weight(1.1f)
                     .height(90.dp),
@@ -144,10 +155,14 @@ fun HomeScreen(navController: androidx.navigation.NavHostController) {
                     Icon(
                         imageVector = Icons.Rounded.PlayArrow,
                         contentDescription = "Iniciar",
-                        modifier = Modifier.size(30.dp)
+                        modifier = Modifier.size(30.dp),
+                        tint = ContentColor
                     )
                     Spacer(modifier = Modifier.height(4.dp))
-                    Text("INICIAR")
+                    Text(
+                        text ="INICIAR",
+                        color = ContentColor
+                    )
                 }
             }
         }

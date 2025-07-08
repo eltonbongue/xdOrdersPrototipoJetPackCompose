@@ -42,6 +42,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.elton.xdordersprototipojetpackcompose.navigation.AppNavigator
+import com.elton.xdordersprototipojetpackcompose.ui.screens.HomePage
 import com.elton.xdordersprototipojetpackcompose.ui.theme.XdOrdersPrototipoJetPackComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -50,8 +51,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             XdOrdersPrototipoJetPackComposeTheme {
-                val navController = androidx.navigation.compose.rememberNavController()
-                AppNavigator(navController)
+                //val navController = androidx.navigation.compose.rememberNavController()
+                HomePage()
+               // AppNavigator(navController)
                 }
             }
         }

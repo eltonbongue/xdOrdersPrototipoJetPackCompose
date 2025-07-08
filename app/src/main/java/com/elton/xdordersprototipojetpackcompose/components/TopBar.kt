@@ -25,7 +25,7 @@ fun TopBarXD(
     title: String,
     navController: NavController,
     showBackButton: Boolean = true,
-    backgroundColor: Color = Color(0xFF223E48)
+    backgroundColor: Color = Color(0xFF103175)
 ) {
     TopAppBar(
         navigationIcon = {
