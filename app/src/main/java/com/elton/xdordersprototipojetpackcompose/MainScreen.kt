@@ -111,7 +111,7 @@ fun HomeScreen(navController: androidx.navigation.NavHostController) {
             Button(
                 onClick = { navController.navigate(Screen.Settings.route)
                 {
-                    popUpTo(Screen.Home.route) { inclusive = true }
+                    popUpTo(Screen.Settings.route) { inclusive = true }
                 }
                           },
                 modifier = Modifier

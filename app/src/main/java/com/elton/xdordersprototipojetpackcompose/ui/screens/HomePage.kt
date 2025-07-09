@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -18,9 +17,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Divider
+import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.material.icons.filled.CalendarToday
@@ -45,64 +45,85 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.elton.xdordersprototipojetpackcompose.R
 
 @Composable
-fun HomePage(){
-        val backgroundColor = Color(0xFF23007A)
-        val buttonColor = Color(0xFF3C1B9E)
+fun HomePage(navController: NavController) {
+    val backgroundColor = Color(0xFF23007A)
+    val buttonColor = Color(0xFF3C1B9E)
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(backgroundColor)
-                .padding(16.dp)
-        ) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(backgroundColor)
+            .padding(16.dp)
+    ) {
 
-            Row(
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 24.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                    .padding(vertical = 40.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(buttonColor)
+                    .padding(16.dp)
             ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(
-                        painter = painterResource(R.drawable.ic_launcher_foreground),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(100.dp)
-                            .clip(RoundedCornerShape(8.dp))
-                            .background(Color.Black)
+                Row(
+                   verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+
+                ) {
+                    Column {
+                Image(
+                    painter = painterResource(R.drawable.account_user_png_photo),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(80.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(Color.Black)
+                )
+
+                Text(
+                    text = "Supervisor",
+                    color = Color.White,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+                    }
+
+                Spacer(modifier = Modifier.width(100.dp))
+
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.width(180.dp)
+                ) {
+                    TopActionButton(
+                        icon = Icons.Default.Upload,
+                        label = "CAIXA DE SAÍDA"
                     )
-                    Text(
-                        text = "Supervisor",
-                        color = Color.White,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(top = 8.dp)
+                    Divider(
+                        color = Color.White.copy(alpha = 0.5f),
+                        thickness = 0.5.dp,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 16.dp)
+                    )
+                    TopActionButton(
+                        icon = Icons.Default.Message,
+                        label = "MENSAGENS"
                     )
                 }
-
-                Column {
-                    Box(
-                        modifier = Modifier
-                            .background(Color.Transparent)
-                    )
-                    {
-                        Column {
-                            TopActionButton(icon = Icons.Default.Upload, label = "CAIXA DE SAÍDA")
-                            Spacer(modifier = Modifier.height(16.dp))
-                            TopActionButton(icon = Icons.Default.Message, label = "MENSAGENS")
-                        }
-                    }
                 }
             }
 
+        Spacer(modifier = Modifier.height(56.dp))
             // Voice Control
             FullWidthButton(text = "CONTROLE POR VOZ", icon = Icons.Default.Mic, buttonColor)
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(50.dp))
 
             // Grid Buttons
             val buttons = listOf(
@@ -120,7 +141,7 @@ fun HomePage(){
             LazyVerticalGrid(
                 columns = GridCells.Fixed(3),
                 modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
+                verticalArrangement = Arrangement.spacedBy(24.dp),
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 contentPadding = PaddingValues(bottom = 24.dp)
             ) {
@@ -128,8 +149,8 @@ fun HomePage(){
                     GridButton(text = text, icon = icon, backgroundColor = buttonColor)
                 }
             }
-        }
     }
+}
 
 
 @Composable

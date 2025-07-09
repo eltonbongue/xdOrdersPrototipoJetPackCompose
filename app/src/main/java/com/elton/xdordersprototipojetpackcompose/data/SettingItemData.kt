@@ -1,15 +1,26 @@
 package com.elton.xdordersprototipojetpackcompose.data
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AppBlocking
+import androidx.compose.material.icons.filled.AppShortcut
+import androidx.compose.material.icons.filled.Apps
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.LocalPrintshop
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material.icons.filled.Policy
+import androidx.compose.material.icons.filled.Print
+import androidx.compose.material.icons.filled.PrivacyTip
+import androidx.compose.material.icons.filled.PrivateConnectivity
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.SignalWifiConnectedNoInternet4
+import androidx.compose.material.icons.filled.Wifi
+import androidx.compose.material.icons.filled.WifiTethering
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 
@@ -25,15 +36,15 @@ val settingsList = listOf(
     SettingItemData(
         label = "Smart Connect",
         value = "Conecte-se ao servidor utilizando a tecnologia Smart Connect.",
-        icon = Icons.Default.Share,
-        iconColor = Color(0xFF1565C0),
+        icon = Icons.Default.WifiTethering,
+        iconColor = Color(0xFF4FC3F7),
         group = "Servidor"
     ),
     SettingItemData(
         label = "Licença",
         value = "Atual: XDPT.16394",
-        icon = Icons.Default.Info,
-        iconColor = Color(0xFF4CAF50),
+        icon = Icons.Default.PrivacyTip,
+        iconColor = Color(0xFF26C6DA),
         group = "Licença"
     ),
     SettingItemData(
@@ -47,15 +58,15 @@ val settingsList = listOf(
     SettingItemData(
         label = "Porta",
         value = "Atual: 8978",
-        icon = Icons.Default.Menu,
-        iconColor = Color.DarkGray,
+        icon = Icons.Default.Apps,
+        iconColor = Color(0xFF81C784),
         group = "Configurações de Rede"
     ),
     SettingItemData(
         label = "Nome da(s) rede(s) Wi-Fi(SSID)",
         value = "- Campo opcional. Nome da(s) rede(s) Wi-Fi que o dispositivo deve se conectar para sincronizar com o servidor. A partir do Android, necessita de permissões de localização.",
-        icon = Icons.Filled.MoreVert,
-        iconColor = Color(0xFF4CAF50),
+        icon = Icons.Default.Wifi,
+        iconColor = Color(0xFF4FC3F7),
         group = "Servidor"
     ),
     SettingItemData(
@@ -68,42 +79,42 @@ val settingsList = listOf(
     SettingItemData(
         label = "Selecione a impressora",
         value = "Selecione qual impressora deseja utilizar",
-        icon = Icons.Default.ArrowDropDown,
-        iconColor = Color.DarkGray,
+        icon = Icons.Default.Print,
+        iconColor = Color(0xFF000000),
         group = "Impressora Bluetooth"
     ),
     SettingItemData(
         label = "Dpi da impressora",
         value = "Padrão: 150dpi",
-        icon = Icons.Default.Info,
-        iconColor = Color.DarkGray,
+        icon = Icons.Default.LocalPrintshop,
+        iconColor = Color(0xFF000000),
         group = "Impressora Bluetooth"
     ),
     SettingItemData(
         label = "Largura da impressora",
         value = "Padrão: 58mm",
-        icon = Icons.Default.Info,
-        iconColor = Color.DarkGray,
+        icon = Icons.Default.LocalPrintshop,
+        iconColor = Color(0xFF000000),
         group = "Impressora Bluetooth"
     ),
     SettingItemData(
         label = "Número de caracters por linha",
         value = "Padrão: 32",
-        icon = Icons.Default.Info,
-        iconColor = Color.DarkGray,
+        icon = Icons.Default.LocalPrintshop ,
+        iconColor = Color(0xFF000000),
         group = "Impressora Bluetooth"
     ),
     SettingItemData(
         label = "Interface",
         value = "Personalize a interface ao seu gosto, adaptando o aplicativo à froma como você a utiliza. ",
-        icon = Icons.Default.Info,
+        icon = Icons.Default.AppBlocking,
         iconColor = Color.DarkGray,
         group = "Outras Configurações"
     ),
     SettingItemData(
         label = "Aplicativo",
         value = "Padrão: 32",
-        icon = Icons.Default.Info,
+        icon = Icons.Default.AppShortcut,
         iconColor = Color.DarkGray,
         group = "Outras Configurações"
     ),

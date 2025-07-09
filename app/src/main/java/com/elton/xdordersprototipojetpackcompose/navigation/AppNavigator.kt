@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.elton.xdordersprototipojetpackcompose.HomeScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.HomePage
 import com.elton.xdordersprototipojetpackcompose.ui.screens.SettingsScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.UserLoginScreen
 
@@ -27,6 +28,10 @@ fun AppNavigator(navController: NavHostController) {
         }
         composable(Screen.Settings.route) {
             SettingsScreen(navController)
+        }
+
+        composable(Screen.HomePage.route) {
+           HomePage(navController)
         }
     }
 }
