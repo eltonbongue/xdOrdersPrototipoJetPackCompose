@@ -44,7 +44,7 @@ fun TopBarXD(
                         Icon(
                             painter = painterResource(id = R.drawable.xd_logo),
                             contentDescription = "Logo XD",
-                            modifier = Modifier.size(38.dp), // Tamanho maior para o logo
+                            modifier = Modifier.size(38.dp),
                             tint = Color.Unspecified
                         )
                     }

@@ -2,6 +2,7 @@ package com.elton.xdordersprototipojetpackcompose.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -191,7 +192,13 @@ fun FullWidthButton(text: String, icon: ImageVector, backgroundColor: Color) {
         colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
         modifier = Modifier
             .fillMaxWidth()
-            .height(56.dp),
+            .height(56.dp)
+            .border(
+                width = .5.dp,
+                color = Color(0xFF5E608D),
+                shape = RoundedCornerShape(12.dp)
+            )
+        ,
         shape = RoundedCornerShape(8.dp)
     ) {
         Icon(imageVector = icon, contentDescription = text, tint = Color.White)
@@ -214,7 +221,12 @@ fun GridButton(text: String, icon: ImageVector, backgroundColor: Color, onClick:
         colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
         modifier = Modifier
             .fillMaxWidth()
-            .height(85.dp),
+            .height(90.dp)
+            .border(
+                width = .5.dp,
+                color = Color(0xFF5E608D), // Substitua pela cor desejada
+                shape = RoundedCornerShape(12.dp)
+            ),
         shape = RoundedCornerShape(12.dp)
     ) {
         Column(

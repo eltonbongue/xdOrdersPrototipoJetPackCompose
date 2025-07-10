@@ -97,7 +97,7 @@ fun SearchAreaWithTabs() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(4.dp, 16.dp, 4.dp, 4.dp),
     ) {
         Row(
             modifier = Modifier
@@ -105,6 +105,7 @@ fun SearchAreaWithTabs() {
                 .padding(bottom = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
+
             TextField(
                 value = searchText,
                 onValueChange = { searchText = it },
