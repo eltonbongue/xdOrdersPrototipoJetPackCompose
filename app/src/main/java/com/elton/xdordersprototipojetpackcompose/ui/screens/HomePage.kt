@@ -43,13 +43,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.elton.xdordersprototipojetpackcompose.R
+import com.elton.xdordersprototipojetpackcompose.data.GridButtonItem
 
 @Composable
-fun HomePage(navController: NavController) {
+fun HomePageScreen(navController: NavController) {
     val backgroundColor = Color(0xFF23007A)
     val buttonColor = Color(0xFF3C1B9E)
 
@@ -127,15 +129,15 @@ fun HomePage(navController: NavController) {
 
             // Grid Buttons
             val buttons = listOf(
-                "PEDIR" to Icons.Default.CalendarToday,
-                "ANULAR" to Icons.Default.Cancel,
-                "SUBTOTAL" to Icons.Default.CalendarToday,
-                "CONTA" to Icons.Default.Receipt,
-                "TRANSFERÊNCIA" to Icons.Default.SwapHoriz,
-                "PAGAMENTO PARCIAL" to Icons.Default.CreditCard,
-                "OUTROS" to Icons.Default.CalendarToday,
-                "DESCONTO" to Icons.Default.AttachMoney,
-                "MENU INICIAL" to Icons.Default.ArrowBack
+                GridButtonItem("PEDIR", Icons.Default.CalendarToday) { navController.navigate("order_page") },
+                GridButtonItem("ANULAR", Icons.Default.Cancel) { navController.navigate("rota_anular") },
+                GridButtonItem("SUBTOTAL", Icons.Default.CalendarToday) { navController.navigate("rota_subtotal") },
+                GridButtonItem("CONTA", Icons.Default.Receipt) { navController.navigate("rota_conta") },
+                GridButtonItem("TRANSFERÊNCIA", Icons.Default.SwapHoriz) { navController.navigate("rota_transferencia") },
+                GridButtonItem("PAGAMENTO PARCIAL", Icons.Default.CreditCard) { navController.navigate("rota_pagamento") },
+                GridButtonItem("OUTROS", Icons.Default.CalendarToday) { navController.navigate("rota_outros") },
+                GridButtonItem("DESCONTO", Icons.Default.AttachMoney) { navController.navigate("rota_desconto") },
+                GridButtonItem("MENU INICIAL", Icons.Default.ArrowBack) { navController.popBackStack() }
             )
 
             LazyVerticalGrid(
@@ -143,11 +145,17 @@ fun HomePage(navController: NavController) {
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(24.dp),
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
-                contentPadding = PaddingValues(bottom = 24.dp)
+                contentPadding = PaddingValues(bottom = 24.dp),
             ) {
-                items(buttons) { (text, icon) ->
-                    GridButton(text = text, icon = icon, backgroundColor = buttonColor)
+                items(buttons) { buttonItem ->
+                    GridButton(
+                        text = buttonItem.text,
+                        icon = buttonItem.icon,
+                        backgroundColor = buttonColor,
+                        onClick = buttonItem.onClick
+                    )
                 }
+
             }
     }
 }
@@ -200,19 +208,37 @@ fun FullWidthButton(text: String, icon: ImageVector, backgroundColor: Color) {
 
 
 @Composable
-fun GridButton(text: String, icon: ImageVector, backgroundColor: Color) {
+fun GridButton(text: String, icon: ImageVector, backgroundColor: Color, onClick: () -> Unit) {
     Button(
-        onClick = { },
+        onClick = onClick,
         colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
         modifier = Modifier
             .fillMaxWidth()
-            .aspectRatio(1.8f),
+            .height(85.dp),
         shape = RoundedCornerShape(12.dp)
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Icon(imageVector = icon, contentDescription = text, tint = Color.White)
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = text,
+                tint = Color.White,
+                modifier = Modifier.size(20.dp) // ⬅️ Ícone um pouco menor se quiser mais espaço
+            )
             Spacer(modifier = Modifier.height(8.dp))
-            Text(text = text, color = Color.White)
+            Text(
+                text = text,
+                color = Color.White,
+                fontSize = 11.sp,
+                maxLines = 2,
+                softWrap = true,
+                lineHeight = 14.sp,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(horizontal = 2.dp)
+            )
         }
     }
 }
+
