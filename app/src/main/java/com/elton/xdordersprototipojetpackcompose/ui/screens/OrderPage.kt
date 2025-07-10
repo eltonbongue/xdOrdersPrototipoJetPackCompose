@@ -10,17 +10,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.elton.xdordersprototipojetpackcompose.components.BaseOrderLayout
 import com.elton.xdordersprototipojetpackcompose.components.BottomBarXD
-import com.elton.xdordersprototipojetpackcompose.ui.components.TopBarOrderXD
-import com.elton.xdordersprototipojetpackcompose.ui.components.TopBarXD
+
 
 @Composable
 fun OrderPageScreen(navController: NavController) {
     Scaffold(
-        topBar = { TopBarOrderXD(
-            title = "Mesa/Cartão",
-            navController = navController
-        ) },
+        topBar = {
+            BaseOrderLayout(
+                title = "Mesa/Cartão",
+                navController = navController
+            ){}
+        },
         bottomBar = {
             BottomBarXD()
         }
