@@ -44,6 +44,10 @@ fun AppNavigator(navController: NavHostController) {
             OrderPageScreen(navController)
         }
 
+        composable(Screen.BillPage.route) {
+            OrderPageScreen(navController)
+        }
+
 
     }
 }

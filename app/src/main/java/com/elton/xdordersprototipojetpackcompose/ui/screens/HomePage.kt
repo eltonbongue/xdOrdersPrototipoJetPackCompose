@@ -133,7 +133,7 @@ fun HomePageScreen(navController: NavController) {
                 GridButtonItem("PEDIR", Icons.Default.CalendarToday) { navController.navigate("table_page") },
                 GridButtonItem("ANULAR", Icons.Default.Cancel) { navController.navigate("rota_anular") },
                 GridButtonItem("SUBTOTAL", Icons.Default.CalendarToday) { navController.navigate("rota_subtotal") },
-                GridButtonItem("CONTA", Icons.Default.Receipt) { navController.navigate("rota_conta") },
+                GridButtonItem("CONTA", Icons.Default.Receipt) { navController.navigate("bill_page") },
                 GridButtonItem("TRANSFERÊNCIA", Icons.Default.SwapHoriz) { navController.navigate("rota_transferencia") },
                 GridButtonItem("PAGAMENTO PARCIAL", Icons.Default.CreditCard) { navController.navigate("rota_pagamento") },
                 GridButtonItem("OUTROS", Icons.Default.CalendarToday) { navController.navigate("rota_outros") },
