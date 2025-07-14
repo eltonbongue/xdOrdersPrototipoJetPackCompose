@@ -130,7 +130,7 @@ fun HomePageScreen(navController: NavController) {
 
             // Grid Buttons
             val buttons = listOf(
-                GridButtonItem("PEDIR", Icons.Default.CalendarToday) { navController.navigate("order_page") },
+                GridButtonItem("PEDIR", Icons.Default.CalendarToday) { navController.navigate("table_page") },
                 GridButtonItem("ANULAR", Icons.Default.Cancel) { navController.navigate("rota_anular") },
                 GridButtonItem("SUBTOTAL", Icons.Default.CalendarToday) { navController.navigate("rota_subtotal") },
                 GridButtonItem("CONTA", Icons.Default.Receipt) { navController.navigate("rota_conta") },
@@ -224,7 +224,7 @@ fun GridButton(text: String, icon: ImageVector, backgroundColor: Color, onClick:
             .height(90.dp)
             .border(
                 width = .5.dp,
-                color = Color(0xFF5E608D), // Substitua pela cor desejada
+                color = Color(0xFF5E608D),
                 shape = RoundedCornerShape(12.dp)
             ),
         shape = RoundedCornerShape(12.dp)
@@ -237,7 +237,7 @@ fun GridButton(text: String, icon: ImageVector, backgroundColor: Color, onClick:
                 imageVector = icon,
                 contentDescription = text,
                 tint = Color.White,
-                modifier = Modifier.size(20.dp) // ⬅️ Ícone um pouco menor se quiser mais espaço
+                modifier = Modifier.size(20.dp)
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(

@@ -6,5 +6,6 @@ sealed class Screen(val route: String) {
     object UserLogin : Screen("user_login")
     object Settings : Screen("settings")
     object HomePage : Screen("home_page")
+    object TablePage : Screen("table_page")
     object OrderPage : Screen("order_page")
 }
