@@ -5,6 +5,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.elton.xdordersprototipojetpackcompose.HomeScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.BillPageScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.FinishBillPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.HomePageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.OrderPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.TablePageScreen
@@ -45,8 +47,14 @@ fun AppNavigator(navController: NavHostController) {
         }
 
         composable(Screen.BillPage.route) {
-            OrderPageScreen(navController)
+            BillPageScreen(navController)
         }
+
+        composable(Screen.FinishBillPage.route) {
+            FinishBillPageScreen(navController)
+        }
+
+
 
 
     }

@@ -33,6 +33,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.elton.xdordersprototipojetpackcompose.R
 import com.elton.xdordersprototipojetpackcompose.navigation.Screen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.MinhasScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.TodasScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.ZonaPrincipalScreen
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -181,59 +184,14 @@ fun TopBarTableXD(
 
             HorizontalPager(state = pagerState) { page ->
                 when (page) {
-                    0 -> MinhasScreen(navController)
+                    0 -> MinhasScreen(navController, "")
                     1 -> TodasScreen()
                     2 -> ZonaPrincipalScreen()
                 }
             }
-
 
         }
     }
 
 
 
-@Composable
-fun MinhasScreen(
-    navController : NavController
-) {
-
-  Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp)
-    ) {
-
-      Button(
-          onClick = {
-              navController.navigate(Screen.OrderPage.route)
-          { popUpTo(0) } },
-          modifier = Modifier
-              .width(150.dp)
-              .height(130.dp),
-          colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1565C0)),
-          shape = RoundedCornerShape(10.dp)
-      ) {
-          Text(
-              text = "Mesa/Cartão 1",
-              modifier = Modifier
-                  .padding(4.dp),
-              color = Color.White,
-              fontSize = 14.sp
-          )
-
-
-      }
-
-    }
-}
-
-@Composable
-fun TodasScreen() {
-    Text("Conteúdo da aba Todas", modifier = Modifier.padding(16.dp))
-}
-
-@Composable
-fun ZonaPrincipalScreen() {
-    Text("Conteúdo da aba Zona Principal", modifier = Modifier.padding(16.dp))
-}

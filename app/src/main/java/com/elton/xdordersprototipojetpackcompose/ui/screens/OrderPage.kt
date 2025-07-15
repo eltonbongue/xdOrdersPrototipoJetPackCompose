@@ -1,12 +1,24 @@
 package com.elton.xdordersprototipojetpackcompose.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
@@ -20,6 +32,7 @@ import androidx.navigation.NavController
 import com.elton.xdordersprototipojetpackcompose.components.BottomBarXD
 import com.elton.xdordersprototipojetpackcompose.components.TopBarOrderXD
 import kotlinx.coroutines.launch
+
 
 
 @Composable
@@ -87,7 +100,99 @@ fun OrderPageScreen(navController: NavController) {
 
 @Composable
 fun CosmeticaScreen() {
-    Text("Conteúdo da aba Todas", modifier = Modifier.padding(16.dp))
+    Column {
+        Row {
+            Button(
+                onClick = { },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1565C0)),
+                modifier = Modifier
+                    .size(120.dp)
+                    .padding(top = 16.dp)
+                    .aspectRatio(1f),
+                shape = RoundedCornerShape(1.dp)
+            ) {
+                Text("Botão de Ação", color = Color.White)
+            }
+
+            Spacer(
+                modifier = Modifier.width(3.dp)
+            )
+
+            Button(
+                onClick = { },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1565C0)),
+                modifier = Modifier
+                    .size(120.dp)
+                    .padding(top = 16.dp)
+                    .aspectRatio(1f),
+                shape = RoundedCornerShape(1.dp)
+            ) {
+                Text("Botão de Ação", color = Color.White)
+            }
+
+            Spacer(
+                modifier = Modifier.width(3.dp)
+            )
+            Button(
+                onClick = { },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1565C0)),
+                modifier = Modifier
+                    .size(120.dp)
+                    .padding(top = 16.dp)
+                    .aspectRatio(1f),
+                shape = RoundedCornerShape(1.dp)
+            ) {
+                Text("Botão de Ação", color = Color.White)
+            }
+        }
+    Spacer(modifier = Modifier.height(3.dp))
+
+        Row {
+        Button(
+            onClick = { },
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1565C0)),
+            modifier = Modifier
+                .size(120.dp)
+                .padding(top = 16.dp)
+                .aspectRatio(1f),
+            shape = RoundedCornerShape(1.dp)
+        ) {
+            Text("Botão de Ação", color = Color.White)
+        }
+
+        Spacer(
+            modifier = Modifier.width(3.dp)
+        )
+        Button(
+            onClick = { },
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1565C0)),
+            modifier = Modifier
+                .size(120.dp)
+                .padding(top = 16.dp)
+                .aspectRatio(1f),
+            shape = RoundedCornerShape(1.dp)
+        ) {
+            Text("Botão de Ação", color = Color.White)
+        }
+
+        Spacer(
+            modifier = Modifier.width(3.dp)
+        )
+
+        Button(
+            onClick = { },
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1565C0)),
+            modifier = Modifier
+                .size(120.dp)
+                .padding(top = 16.dp)
+                .aspectRatio(1f),
+            shape = RoundedCornerShape(1.dp)
+        ) {
+            Text("Botão de Ação", color = Color.White)
+        }
+    }
+
+    }
 }
 
 @Composable

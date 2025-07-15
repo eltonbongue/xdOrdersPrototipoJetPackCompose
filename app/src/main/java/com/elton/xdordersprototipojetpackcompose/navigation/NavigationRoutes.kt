@@ -9,4 +9,5 @@ sealed class Screen(val route: String) {
     object TablePage : Screen("table_page")
     object OrderPage : Screen("order_page")
     object BillPage : Screen("bill_page")
+    object FinishBillPage : Screen("finish_bill_page")
 }
