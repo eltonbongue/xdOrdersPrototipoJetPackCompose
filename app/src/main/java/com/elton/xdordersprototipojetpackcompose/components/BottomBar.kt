@@ -1,31 +1,43 @@
 package com.elton.xdordersprototipojetpackcompose.components
 
-
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.foundation.layout.windowInsetsBottomHeight
-import androidx.compose.ui.graphics.Color
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-
-
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 
 @Composable
-fun BottomBarXD(
-    backgroundColor: Color = Color(0xFF223E48)
-
+fun BottomActionBar(
+    onVoltarClick: () -> Unit,
+    onEnviarClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
-
-    Box(
-        modifier = Modifier
+    Row(
+        modifier = modifier
             .fillMaxWidth()
-            .windowInsetsBottomHeight(WindowInsets.navigationBars)
-            .background(backgroundColor),
-        contentAlignment = Alignment.BottomCenter
-    ){}
-}
+            .padding(12.dp)
+            .navigationBarsPadding(),
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        Button(
+            onClick = onVoltarClick,
+            modifier = Modifier
+                .weight(1f)
+                .height(50.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.LightGray)
+        ) {
+            Text("Voltar", color = Color.Black)
+        }
 
+        Button(
+            onClick = onEnviarClick,
+            modifier = Modifier
+                .weight(1f)
+                .height(50.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1565C0))
+        ) {
+            Text("Enviar", color = Color.White)
+        }
+    }
+}

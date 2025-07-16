@@ -1,4 +1,4 @@
-package com.elton.xdordersprototipojetpackcompose.ui.screens
+package com.elton.xdordersprototipojetpackcompose.ui.screens.Discount
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -12,20 +12,25 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.elton.xdordersprototipojetpackcompose.components.BaseOrderLayout
-
-
+import com.elton.xdordersprototipojetpackcompose.components.HorizontalPagerXD
+import com.elton.xdordersprototipojetpackcompose.navigation.Screen
 
 @Composable
-fun BillPageScreen(navController: NavController) {
+fun DiscountPageScreen(navController: NavController) {
     Scaffold(
         topBar = {
             BaseOrderLayout(
-                title = "Mesa/Conta",
+                title = "Mesa/Cartão",
                 subtitle = "Selecione o/a mesa/cartão.",
                 navController = navController,
 
-            ) {
-
+                ) {
+                HorizontalPagerXD(
+                    navController = navController,
+                    onMinhasButtonClick = {
+                        navController.navigate(Screen.DiscountPagePrincipal .route)
+                    }
+                )
             }
         },
 
@@ -41,10 +46,6 @@ fun BillPageScreen(navController: NavController) {
             ) {
 
             }
-            MinhasScreen(
-                navController = navController,
-                contextoDaTela = "bill_page"
-            )
         }
     )
 }

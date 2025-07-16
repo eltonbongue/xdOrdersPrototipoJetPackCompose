@@ -11,7 +11,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.elton.xdordersprototipojetpackcompose.components.BaseOrderLayout
-import com.elton.xdordersprototipojetpackcompose.components.BottomBarXD
 
 @Composable
 fun FinishBillPageScreen(navController: NavController) {
@@ -24,9 +23,6 @@ fun FinishBillPageScreen(navController: NavController) {
             ){
 
             }
-        },
-        bottomBar = {
-            BottomBarXD()
         }
         ,
         content = { innerPadding ->

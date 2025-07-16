@@ -29,7 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.elton.xdordersprototipojetpackcompose.components.BottomBarXD
 import com.elton.xdordersprototipojetpackcompose.components.TopBarOrderXD
 import kotlinx.coroutines.launch
 
@@ -52,9 +51,7 @@ fun OrderPageScreen(navController: NavController) {
                 navController = navController
             )
         },
-        bottomBar = {
-            BottomBarXD()
-        }
+
     ) { innerPadding ->
         Column(
             modifier = Modifier

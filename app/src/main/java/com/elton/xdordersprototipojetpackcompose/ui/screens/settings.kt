@@ -28,7 +28,6 @@ import com.elton.xdordersprototipojetpackcompose.data.settingsList
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.ui.Alignment
-import com.elton.xdordersprototipojetpackcompose.components.BottomBarXD
 import com.elton.xdordersprototipojetpackcompose.ui.components.TopBarXD
 
 
@@ -40,10 +39,7 @@ fun SettingsScreen(navController: NavController) {
             title = "Definições",
             navController = navController
         ) },
-        bottomBar = {
-            BottomBarXD()
-        }
-        ,
+
         content = { innerPadding ->
             Column(modifier = Modifier.padding(innerPadding)
                 .background(

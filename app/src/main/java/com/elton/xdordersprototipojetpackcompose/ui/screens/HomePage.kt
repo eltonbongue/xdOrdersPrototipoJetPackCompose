@@ -137,7 +137,7 @@ fun HomePageScreen(navController: NavController) {
                 GridButtonItem("TRANSFERÊNCIA", Icons.Default.SwapHoriz) { navController.navigate("rota_transferencia") },
                 GridButtonItem("PAGAMENTO PARCIAL", Icons.Default.CreditCard) { navController.navigate("rota_pagamento") },
                 GridButtonItem("OUTROS", Icons.Default.CalendarToday) { navController.navigate("rota_outros") },
-                GridButtonItem("DESCONTO", Icons.Default.AttachMoney) { navController.navigate("rota_desconto") },
+                GridButtonItem("DESCONTO", Icons.Default.AttachMoney) { navController.navigate("discount_page") },
                 GridButtonItem("MENU INICIAL", Icons.Default.ArrowBack) { navController.popBackStack() }
             )
 
