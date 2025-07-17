@@ -12,4 +12,6 @@ sealed class Screen(val route: String) {
     object FinishBillPage : Screen("finish_bill_page")
     object DiscountPage : Screen("discount_page")
     object DiscountPagePrincipal: Screen("discount_page_principal")
+    object SubtotalPage : Screen("subtotal_page")
+    object SubtotalPagePrincipal: Screen("subtotal_page_principal")
 }

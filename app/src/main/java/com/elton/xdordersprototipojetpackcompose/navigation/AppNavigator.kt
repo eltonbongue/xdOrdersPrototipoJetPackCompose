@@ -8,11 +8,13 @@ import com.elton.xdordersprototipojetpackcompose.HomeScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Bill.BillPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Discount.DiscountPagePrincipalScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Discount.DiscountPageScreen
-import com.elton.xdordersprototipojetpackcompose.ui.screens.FinishBillPageScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.Bill.FinishBillPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.HomePageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.OrderPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.TablePageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.SettingsScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.Subtotal.SubtotalPagePrincipalScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.Subtotal.SubtotalPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.UserLoginScreen
 
 
@@ -64,7 +66,13 @@ fun AppNavigator(navController: NavHostController) {
              DiscountPagePrincipalScreen(navController)
         }
 
+        composable(Screen.SubtotalPage.route) {
+            SubtotalPageScreen(navController)
+        }
 
+        composable (Screen.SubtotalPagePrincipal.route){
+            SubtotalPagePrincipalScreen (navController)
+        }
 
     }
 }

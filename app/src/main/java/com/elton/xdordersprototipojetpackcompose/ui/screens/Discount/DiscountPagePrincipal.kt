@@ -5,10 +5,16 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -20,40 +26,46 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.elton.xdordersprototipojetpackcompose.components.BaseOrderLayout
-import com.elton.xdordersprototipojetpackcompose.components.BottomActionBar
+import com.elton.xdordersprototipojetpackcompose.components.BottomActionBars
+import com.elton.xdordersprototipojetpackcompose.ui.components.TopBarTableXD
 
 
 @Composable
 fun DiscountPagePrincipalScreen(navController: NavController) {
     Scaffold(
         topBar = {
-            BaseOrderLayout(
+            TopBarTableXD(
                 title = "(Desconto) Mesa/Cartão: 1",
                 subtitle = "Indique o desconto(em percentagem)",
                 navController = navController,
-            ) {}
+            )
         },
+
         bottomBar = {
-            BottomActionBar(
+            BottomActionBars(
                 onVoltarClick = { navController.popBackStack() },
                 onEnviarClick = { navController.navigate("FinalPage") }
             )
         }
+
+
     ) { innerPadding ->
         Column(
             modifier = Modifier
-                .padding(innerPadding)
                 .fillMaxSize()
+                .padding(innerPadding)
+
+
         ) {
             DiscountContent(
                 modifier = Modifier
-                    .weight(1f) // ← garante que o conteúdo ocupa o espaço restante
                     .fillMaxWidth()
+                    .weight(1f)
             )
         }
     }
@@ -66,12 +78,14 @@ fun DiscountButtonGrid(onSelect: (Float) -> Unit) {
 
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxWidth()
+
     ) {
         for (row in buttons.chunked(3)) {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.wrapContentWidth()
             ) {
                 row.forEach { label ->
                     Button(
@@ -83,8 +97,10 @@ fun DiscountButtonGrid(onSelect: (Float) -> Unit) {
                             }
                         },
                         modifier = Modifier
-                            .weight(1f)
-                            .aspectRatio(1f),
+                            .width(100.dp)
+                            .height(100.dp),
+                        shape = RoundedCornerShape(4.dp)
+                            ,
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color(0xFF1565C0)
                         )

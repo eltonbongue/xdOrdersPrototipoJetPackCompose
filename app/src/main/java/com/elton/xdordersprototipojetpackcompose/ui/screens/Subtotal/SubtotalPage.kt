@@ -1,4 +1,4 @@
-package com.elton.xdordersprototipojetpackcompose.ui.screens
+package com.elton.xdordersprototipojetpackcompose.ui.screens.Subtotal
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -21,14 +21,14 @@ fun SubtotalPageScreen(navController: NavController) {
         topBar = {
             BaseOrderLayout(
                 title = "Mesa/Conta",
-                subtitle = "Selecione o/a mesa/cartão.",
+                subtitle = "(Subtotal) Mesa/Cartão:1 ",
                 navController = navController,
 
                 ) {
                 HorizontalPagerXD(
                     navController = navController,
                     onMinhasButtonClick = {
-                        navController.navigate(Screen.FinishBillPage.route)
+                        navController.navigate(Screen.SubtotalPagePrincipal.route)
                     }
                 )
             }

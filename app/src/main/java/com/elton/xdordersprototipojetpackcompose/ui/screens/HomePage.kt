@@ -132,7 +132,7 @@ fun HomePageScreen(navController: NavController) {
             val buttons = listOf(
                 GridButtonItem("PEDIR", Icons.Default.CalendarToday) { navController.navigate("table_page") },
                 GridButtonItem("ANULAR", Icons.Default.Cancel) { navController.navigate("rota_anular") },
-                GridButtonItem("SUBTOTAL", Icons.Default.CalendarToday) { navController.navigate("rota_subtotal") },
+                GridButtonItem("SUBTOTAL", Icons.Default.CalendarToday) { navController.navigate("subtotal_page") },
                 GridButtonItem("CONTA", Icons.Default.Receipt) { navController.navigate("bill_page") },
                 GridButtonItem("TRANSFERÊNCIA", Icons.Default.SwapHoriz) { navController.navigate("rota_transferencia") },
                 GridButtonItem("PAGAMENTO PARCIAL", Icons.Default.CreditCard) { navController.navigate("rota_pagamento") },
