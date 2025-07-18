@@ -10,7 +10,7 @@ import com.elton.xdordersprototipojetpackcompose.ui.screens.Discount.DiscountPag
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Discount.DiscountPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Bill.FinishBillPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.HomePageScreen
-import com.elton.xdordersprototipojetpackcompose.ui.screens.OrderPageScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.Order.OrderPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.TablePageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.SettingsScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Subtotal.SubtotalPagePrincipalScreen

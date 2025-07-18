@@ -97,8 +97,8 @@ fun DiscountButtonGrid(onSelect: (Float) -> Unit) {
                             }
                         },
                         modifier = Modifier
-                            .width(100.dp)
-                            .height(100.dp),
+                            .width(120.dp)
+                            .height(120.dp),
                         shape = RoundedCornerShape(4.dp)
                             ,
                         colors = ButtonDefaults.buttonColors(
