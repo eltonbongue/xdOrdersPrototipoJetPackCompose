@@ -131,7 +131,7 @@ fun HomePageScreen(navController: NavController) {
             // Grid Buttons
             val buttons = listOf(
                 GridButtonItem("PEDIR", Icons.Default.CalendarToday) { navController.navigate("table_page") },
-                GridButtonItem("ANULAR", Icons.Default.Cancel) { navController.navigate("rota_anular") },
+                GridButtonItem("ANULAR", Icons.Default.Cancel) { navController.navigate("cancel_page") },
                 GridButtonItem("SUBTOTAL", Icons.Default.CalendarToday) { navController.navigate("subtotal_page") },
                 GridButtonItem("CONTA", Icons.Default.Receipt) { navController.navigate("bill_page") },
                 GridButtonItem("TRANSFERÊNCIA", Icons.Default.SwapHoriz) { navController.navigate("rota_transferencia") },

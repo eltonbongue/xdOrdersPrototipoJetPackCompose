@@ -14,4 +14,8 @@ sealed class Screen(val route: String) {
     object DiscountPagePrincipal: Screen("discount_page_principal")
     object SubtotalPage : Screen("subtotal_page")
     object SubtotalPagePrincipal: Screen("subtotal_page_principal")
+    object CancelPage : Screen("cancel_page")
+    object CancelPagePrincipal: Screen("cancel_page_principal")
+    object TransferPage : Screen("transfer_page")
+    object TransferPagePrincipal: Screen("transfer_page_principal")
 }
