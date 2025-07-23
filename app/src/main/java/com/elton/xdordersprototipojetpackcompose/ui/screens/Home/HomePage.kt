@@ -193,7 +193,7 @@ fun TopActionButton(icon: ImageVector, label: String, onClick: () -> Unit) {
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .background(Color.Transparent)
-            .clickable { }
+            .clickable(onClick = onClick)
     ) {
         Icon(
             imageVector = icon,
