@@ -13,6 +13,7 @@ import com.elton.xdordersprototipojetpackcompose.ui.screens.Cancel.CancelPagePri
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Cancel.CancelPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Home.HomePageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Home.PopUpPageScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.Message.MessagePageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Order.OrderPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Others.OtherPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Out.OutBoxPageScreen
@@ -127,6 +128,10 @@ fun AppNavigator(navController: NavHostController) {
 
         composable(Screen.OutBoxPage.route) {
              OutBoxPageScreen(navController)
+        }
+
+        composable(Screen.MessagePage.route) {
+             MessagePageScreen(navController)
         }
 
 

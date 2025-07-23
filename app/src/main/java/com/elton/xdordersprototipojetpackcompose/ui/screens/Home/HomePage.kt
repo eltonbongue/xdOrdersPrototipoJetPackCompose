@@ -126,7 +126,7 @@ fun HomePageScreen(navController: NavController) {
                     TopActionButton(
                         icon = Icons.Default.Message,
                         label = "MENSAGENS",
-                        onClick = { navController.navigate("messages_page") }
+                        onClick = { navController.navigate("message_page") }
                     )
                 }
                 }
