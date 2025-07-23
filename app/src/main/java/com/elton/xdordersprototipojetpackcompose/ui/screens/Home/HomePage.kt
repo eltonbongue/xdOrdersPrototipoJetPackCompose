@@ -113,7 +113,8 @@ fun HomePageScreen(navController: NavController) {
                 ) {
                     TopActionButton(
                         icon = Icons.Default.Upload,
-                        label = "CAIXA DE SAÍDA"
+                        label = "CAIXA DE SAÍDA",
+                        onClick = { navController.navigate("outbox_page") }
                     )
                     Divider(
                         color = Color.White.copy(alpha = 0.5f),
@@ -124,7 +125,8 @@ fun HomePageScreen(navController: NavController) {
                     )
                     TopActionButton(
                         icon = Icons.Default.Message,
-                        label = "MENSAGENS"
+                        label = "MENSAGENS",
+                        onClick = { navController.navigate("messages_page") }
                     )
                 }
                 }
@@ -186,7 +188,7 @@ fun HomePageScreen(navController: NavController) {
 
 
 @Composable
-fun TopActionButton(icon: ImageVector, label: String) {
+fun TopActionButton(icon: ImageVector, label: String, onClick: () -> Unit) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
