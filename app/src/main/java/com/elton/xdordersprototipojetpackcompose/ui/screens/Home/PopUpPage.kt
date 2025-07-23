@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
-import com.elton.xdordersprototipojetpackcompose.components.TopBarOrderXD
+import com.elton.xdordersprototipojetpackcompose.components.TopBar.TopBarOrderXD
 
 @Composable
 fun PopUpPageScreen(navController: NavController , onDismiss: () -> Unit) {

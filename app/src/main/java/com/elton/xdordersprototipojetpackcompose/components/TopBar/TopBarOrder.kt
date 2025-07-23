@@ -1,4 +1,4 @@
-package com.elton.xdordersprototipojetpackcompose.components
+package com.elton.xdordersprototipojetpackcompose.components.TopBar
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
