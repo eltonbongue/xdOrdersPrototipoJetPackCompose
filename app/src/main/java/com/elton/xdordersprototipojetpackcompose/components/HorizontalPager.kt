@@ -38,6 +38,7 @@ import com.elton.xdordersprototipojetpackcompose.components.pages.ZonaPrincipalS
 import kotlinx.coroutines.launch
 
 
+
 @Composable
 fun HorizontalPagerXD(navController: NavController, onMinhasButtonClick: () -> Unit) {
 var searchText by remember { mutableStateOf("") }

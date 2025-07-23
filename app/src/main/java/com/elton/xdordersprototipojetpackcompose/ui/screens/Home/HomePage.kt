@@ -1,4 +1,4 @@
-package com.elton.xdordersprototipojetpackcompose.ui.screens
+package com.elton.xdordersprototipojetpackcompose.ui.screens.Home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -63,6 +62,7 @@ import com.elton.xdordersprototipojetpackcompose.data.GridButtonItem
 fun HomePageScreen(navController: NavController) {
     val backgroundColor = Color(0xFF23007A)
     val buttonColor = Color(0xFF3C1B9E)
+    var showDialog by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -132,9 +132,24 @@ fun HomePageScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(56.dp))
             // Voice Control
-            FullWidthButton(text = "CONTROLE POR VOZ", icon = Icons.Default.Mic, buttonColor)
+        FullWidthButton(
+            text = "CONTROLE POR VOZ",
+            icon = Icons.Default.Mic,
+            backgroundColor = Color(0xFF3C1B9E),
+            onClick = {
+                showDialog = true
+            }
+        )
 
-            Spacer(modifier = Modifier.height(50.dp))
+        if (showDialog) {
+            PopUpPageScreen(
+                navController = navController,
+                onDismiss = { showDialog = false }
+            )
+        }
+
+
+        Spacer(modifier = Modifier.height(50.dp))
 
             // Grid Buttons
             val buttons = listOf(
@@ -192,21 +207,24 @@ fun TopActionButton(icon: ImageVector, label: String) {
 
 
 
-
 @Composable
-fun FullWidthButton(text: String, icon: ImageVector, backgroundColor: Color) {
+fun FullWidthButton(
+    text: String,
+    icon: ImageVector,
+    backgroundColor: Color,
+    onClick: () -> Unit // ← recebe o onClick
+) {
     Button(
-        onClick = { },
+        onClick = onClick, // ← usa o onClick recebido
         colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
         modifier = Modifier
             .fillMaxWidth()
             .height(56.dp)
             .border(
-                width = .5.dp,
+                width = 0.5.dp,
                 color = Color(0xFF5E608D),
                 shape = RoundedCornerShape(12.dp)
-            )
-        ,
+            ),
         shape = RoundedCornerShape(8.dp)
     ) {
         Icon(imageVector = icon, contentDescription = text, tint = Color.White)
@@ -256,47 +274,5 @@ fun GridButton(text: String, icon: ImageVector, backgroundColor: Color, onClick:
             )
         }
     }
-}
-
-@Composable
-fun PopupExampleScreen() {
-    var showDialog by remember { mutableStateOf(false) }
-
-    // Botão para abrir o popup
-
-    // Diálogo (Popup)
-    if (showDialog) {
-        AlertDialog(
-            onDismissRequest = { showDialog = false },
-            confirmButton = {
-                TextButton(onClick = {
-                    showDialog = false
-                    // ação de confirmação aqui
-                }) {
-                    Text("Confirmar", color = MaterialTheme.colorScheme.primary)
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { showDialog = false }) {
-                    Text("Cancelar")
-                }
-            },
-            title = {
-                Text("Título do Popup")
-            },
-            text = {
-                Text("Você tem certeza que deseja continuar?")
-            },
-            containerColor = MaterialTheme.colorScheme.surface,
-            tonalElevation = 4.dp,
-            shape = RoundedCornerShape(16.dp)
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PopupExamplePreview() {
-    PopupExampleScreen()
 }
 

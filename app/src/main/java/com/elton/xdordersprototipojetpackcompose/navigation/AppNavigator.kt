@@ -11,12 +11,19 @@ import com.elton.xdordersprototipojetpackcompose.ui.screens.Discount.DiscountPag
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Bill.FinishBillPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Cancel.CancelPagePrincipalScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Cancel.CancelPageScreen
-import com.elton.xdordersprototipojetpackcompose.ui.screens.HomePageScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.Home.HomePageScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.Home.PopUpPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Order.OrderPageScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.Others.OtherPageScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.Payment.PartialPaymentPagePrincipalScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.Payment.PartialPaymentPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.TablePageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.SettingsScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Subtotal.SubtotalPagePrincipalScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Subtotal.SubtotalPageScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.Transfer.TransferOrderPageDestinationScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.Transfer.TransferOrderPagePrincipalScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.Transfer.TransferOrderPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.UserLoginScreen
 
 
@@ -82,5 +89,41 @@ fun AppNavigator(navController: NavHostController) {
         composable (Screen.CancelPagePrincipal.route){
             CancelPagePrincipalScreen(navController)
         }
+
+        composable(Screen.TransferOrderPage.route) {
+             TransferOrderPageScreen(navController)
+        }
+
+        composable(Screen.TransferOrderPagePrincipal.route) {
+             TransferOrderPagePrincipalScreen(navController)
+        }
+
+        composable(Screen.TransferOderPageDestination.route) {
+             TransferOrderPageDestinationScreen(navController)
+        }
+
+        composable(Screen.OtherPage.route) {
+            OtherPageScreen(navController)
+        }
+        composable(Screen.OtherPagePrincipal.route) {
+            // OtherPagePrincipalScreen(navController)
+        }
+
+        composable(Screen.PartialPaymentPage.route) {
+            PartialPaymentPageScreen(navController)
+        }
+
+        composable (Screen.PartialPaymentPagePrincipal.route) {
+            PartialPaymentPagePrincipalScreen(navController)
+        }
+
+        composable(Screen.PopUpPage.route) {
+            PopUpPageScreen(
+                navController = navController,
+                onDismiss = { navController.popBackStack() }
+            )
+        }
+
+
     }
 }

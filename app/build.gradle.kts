@@ -42,6 +42,7 @@ android {
 dependencies {
 
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.34.0")
+    implementation("com.google.accompanist:accompanist-pager:0.34.0")
     implementation("androidx.compose.material:material-icons-extended:1.5.0")
     implementation("androidx.compose.foundation:foundation:1.5.0")
     implementation("androidx.compose.material:material:1.5.0")
@@ -49,6 +50,7 @@ dependencies {
     implementation("androidx.compose.foundation:foundation:1.5.0")
     implementation ("com.google.accompanist:accompanist-pager:0.31.3-beta")
     implementation("androidx.compose.material3:material3:1.2.0")
+
 
 
 

@@ -16,18 +16,18 @@ import com.elton.xdordersprototipojetpackcompose.components.HorizontalPagerXD
 import com.elton.xdordersprototipojetpackcompose.navigation.Screen
 
 @Composable
-fun TransferPageScreen (navController: NavController) {
+fun TransferOrderPageScreen (navController: NavController) {
     Scaffold(
         topBar = {
             BaseOrderLayout(
-                title = "(Anulação)Mesa/Cartão",
+                title = "(Transferência)Mesa/Cartão",
                 subtitle = "Selecione o/a mesa/cartão.",
                 navController = navController
             ) {
                 HorizontalPagerXD(
                     navController = navController,
                     onMinhasButtonClick = {
-                        navController.navigate(Screen.CancelPagePrincipal.route)
+                        navController.navigate(Screen.TransferOderPageDestination.route)
                     }
                 )
             }
