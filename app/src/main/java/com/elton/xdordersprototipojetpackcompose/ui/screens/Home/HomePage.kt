@@ -20,7 +20,9 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.AlertDialog
 import androidx.compose.material.Divider
+import androidx.compose.material.TextButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.AttachMoney
@@ -35,8 +37,13 @@ import androidx.compose.material.icons.filled.Upload
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,6 +52,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -134,11 +142,11 @@ fun HomePageScreen(navController: NavController) {
                 GridButtonItem("ANULAR", Icons.Default.Cancel) { navController.navigate("cancel_page") },
                 GridButtonItem("SUBTOTAL", Icons.Default.CalendarToday) { navController.navigate("subtotal_page") },
                 GridButtonItem("CONTA", Icons.Default.Receipt) { navController.navigate("bill_page") },
-                GridButtonItem("TRANSFERÊNCIA", Icons.Default.SwapHoriz) { navController.navigate("rota_transferencia") },
-                GridButtonItem("PAGAMENTO PARCIAL", Icons.Default.CreditCard) { navController.navigate("rota_pagamento") },
-                GridButtonItem("OUTROS", Icons.Default.CalendarToday) { navController.navigate("rota_outros") },
+                GridButtonItem("TRANSFERÊNCIA", Icons.Default.SwapHoriz) { navController.navigate("transfer_page") },
+                GridButtonItem("PAGAMENTO PARCIAL", Icons.Default.CreditCard) { navController.navigate("partial_payment_page") },
+                GridButtonItem("OUTROS", Icons.Default.CalendarToday) { navController.navigate("other_page") },
                 GridButtonItem("DESCONTO", Icons.Default.AttachMoney) { navController.navigate("discount_page") },
-                GridButtonItem("MENU INICIAL", Icons.Default.ArrowBack) { navController.popBackStack() }
+                GridButtonItem("MENU INICIAL", Icons.Default.ArrowBack) { navController.navigate("home") }
             )
 
             LazyVerticalGrid(
@@ -248,5 +256,47 @@ fun GridButton(text: String, icon: ImageVector, backgroundColor: Color, onClick:
             )
         }
     }
+}
+
+@Composable
+fun PopupExampleScreen() {
+    var showDialog by remember { mutableStateOf(false) }
+
+    // Botão para abrir o popup
+
+    // Diálogo (Popup)
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            confirmButton = {
+                TextButton(onClick = {
+                    showDialog = false
+                    // ação de confirmação aqui
+                }) {
+                    Text("Confirmar", color = MaterialTheme.colorScheme.primary)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDialog = false }) {
+                    Text("Cancelar")
+                }
+            },
+            title = {
+                Text("Título do Popup")
+            },
+            text = {
+                Text("Você tem certeza que deseja continuar?")
+            },
+            containerColor = MaterialTheme.colorScheme.surface,
+            tonalElevation = 4.dp,
+            shape = RoundedCornerShape(16.dp)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PopupExamplePreview() {
+    PopupExampleScreen()
 }
 
