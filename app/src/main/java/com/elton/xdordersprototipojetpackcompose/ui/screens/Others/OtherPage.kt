@@ -91,7 +91,8 @@ fun OtherPageScreen(navController: NavController) {
                 ) {
                     TopActionButton(
                         icon = Icons.Default.Upload,
-                        label = "CAIXA DE SAÍDA"
+                        label = "CAIXA DE SAÍDA",
+                        onClick = { navController.navigate("outbox_page") }
                     )
                     Divider(
                         color = Color.White.copy(alpha = 0.5f),
@@ -102,7 +103,8 @@ fun OtherPageScreen(navController: NavController) {
                     )
                     TopActionButton(
                         icon = Icons.Default.Message,
-                        label = "MENSAGENS"
+                        label = "MENSAGENS",
+                        onClick = { navController.navigate("message_page") }
                     )
                 }
             }
