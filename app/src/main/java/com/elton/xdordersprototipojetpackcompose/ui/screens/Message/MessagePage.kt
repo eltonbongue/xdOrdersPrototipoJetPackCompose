@@ -12,12 +12,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.elton.xdordersprototipojetpackcompose.components.TopBarOrderXD
+import com.elton.xdordersprototipojetpackcompose.components.TopBarOutBoxXD
 
 @Composable
 fun MessagePageScreen(navController: NavController) {
     Scaffold(
         topBar = {
-            TopBarOrderXD(
+            TopBarOutBoxXD(
                 title = "Mensagens",
                 navController = navController,
 
