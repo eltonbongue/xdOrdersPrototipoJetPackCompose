@@ -11,10 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.elton.xdordersprototipojetpackcompose.components.BaseOrderLayout
-import com.elton.xdordersprototipojetpackcompose.components.HorizontalPagerXD
 import com.elton.xdordersprototipojetpackcompose.components.TopBarOrderXD
-import com.elton.xdordersprototipojetpackcompose.navigation.Screen
 
 @Composable
 fun OutBoxPageScreen(navController: NavController) {

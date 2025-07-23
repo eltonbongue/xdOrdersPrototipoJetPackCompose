@@ -15,6 +15,7 @@ import com.elton.xdordersprototipojetpackcompose.ui.screens.Home.HomePageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Home.PopUpPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Order.OrderPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Others.OtherPageScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.Out.OutBoxPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Payment.PartialPaymentPagePrincipalScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Payment.PartialPaymentPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.TablePageScreen
@@ -122,6 +123,10 @@ fun AppNavigator(navController: NavHostController) {
                 navController = navController,
                 onDismiss = { navController.popBackStack() }
             )
+        }
+
+        composable(Screen.OutBoxPage.route) {
+             OutBoxPageScreen(navController)
         }
 
 

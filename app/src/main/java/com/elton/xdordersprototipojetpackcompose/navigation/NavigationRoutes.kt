@@ -24,4 +24,5 @@ sealed class Screen(val route: String) {
     object PartialPaymentPage : Screen("partial_payment_page")
     object PartialPaymentPagePrincipal: Screen("partial_payment_page_principal")
     object PopUpPage : Screen("popup_page")
+    object OutBoxPage: Screen("outbox_page")
 }
