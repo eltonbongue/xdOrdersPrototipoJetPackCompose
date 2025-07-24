@@ -1,24 +1,19 @@
-package com.elton.xdordersprototipojetpackcompose.data
+package com.elton.xdordersprototipojetpackcompose.ui.screens.Settings
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AppBlocking
 import androidx.compose.material.icons.filled.AppShortcut
 import androidx.compose.material.icons.filled.Apps
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.Group
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LocalPrintshop
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Phone
-import androidx.compose.material.icons.filled.Policy
 import androidx.compose.material.icons.filled.Print
 import androidx.compose.material.icons.filled.PrivacyTip
-import androidx.compose.material.icons.filled.PrivateConnectivity
+import androidx.compose.material.icons.filled.ProductionQuantityLimits
 import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.filled.Share
-import androidx.compose.material.icons.filled.SignalWifiConnectedNoInternet4
 import androidx.compose.material.icons.filled.Wifi
 import androidx.compose.material.icons.filled.WifiTethering
 import androidx.compose.ui.graphics.Color
@@ -139,5 +134,25 @@ val settingsList = listOf(
         icon = Icons.Default.Info,
         iconColor = Color.DarkGray,
         group = "Sobre"
-    )
+    ),
+
+    SettingItemData(
+        label = "Users",
+        value = "Cadastrar usuários" +
+                "\n" +"Nome da versão:2.18.0" + "\n" +"Código da versão: 161",
+        icon = Icons.Default.Group,
+        iconColor = Color.DarkGray,
+        group = "Teste"
+    ),
+
+    SettingItemData(
+        label = "Produtos",
+        value = "Cadastrar Produtos" +
+            "\n" +"Nome da versão:2.18.0" + "\n" +"Código da versão: 161",
+        icon = Icons.Default.ProductionQuantityLimits,
+        iconColor = Color.DarkGray,
+        group = "Teste"
+)
+
+
 )

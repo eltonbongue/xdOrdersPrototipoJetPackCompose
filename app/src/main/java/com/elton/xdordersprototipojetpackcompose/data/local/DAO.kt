@@ -1,7 +1,8 @@
 package com.elton.xdordersprototipojetpackcompose.data.local
 
 import android.content.ContentValues
-/*
+import com.elton.xdordersprototipojetpackcompose.domain.model.Order
+
 class DAO (private val dbHelper: DatabaseHelper) {
 
     fun insertOrder(order: Order) {
@@ -14,7 +15,7 @@ class DAO (private val dbHelper: DatabaseHelper) {
         db.close()
     }
 
-    // Example method to get all orders
+
     fun getAllOrders(): List<Order> {
         val db = dbHelper.readableDatabase
         val cursor = db.query("orders", null, null, null, null, null, null)
@@ -32,4 +33,4 @@ class DAO (private val dbHelper: DatabaseHelper) {
         return orders
     }
 }
-*/
+

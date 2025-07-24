@@ -1,10 +1,11 @@
 package com.elton.xdordersprototipojetpackcompose.navigation
 
+import UserPageScreen
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.elton.xdordersprototipojetpackcompose.HomeScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.HomeScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Bill.BillPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Discount.DiscountPagePrincipalScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Discount.DiscountPageScreen
@@ -20,7 +21,7 @@ import com.elton.xdordersprototipojetpackcompose.ui.screens.Out.OutBoxPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Payment.PartialPaymentPagePrincipalScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Payment.PartialPaymentPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.TablePageScreen
-import com.elton.xdordersprototipojetpackcompose.ui.screens.SettingsScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.Settings.SettingsScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Subtotal.SubtotalPagePrincipalScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Subtotal.SubtotalPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Transfer.TransferOrderPageDestinationScreen
@@ -132,6 +133,10 @@ fun AppNavigator(navController: NavHostController) {
 
         composable(Screen.MessagePage.route) {
              MessagePageScreen(navController)
+        }
+
+        composable(Screen.UserPage.route) {
+             UserPageScreen(navController)
         }
 
 

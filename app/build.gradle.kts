@@ -50,6 +50,8 @@ dependencies {
     implementation("androidx.compose.foundation:foundation:1.5.0")
     implementation ("com.google.accompanist:accompanist-pager:0.31.3-beta")
     implementation("androidx.compose.material3:material3:1.2.0")
+    implementation("androidx.compose.material3:material3:1.2.1") // Ou a versão mais recente
+
 
 
 

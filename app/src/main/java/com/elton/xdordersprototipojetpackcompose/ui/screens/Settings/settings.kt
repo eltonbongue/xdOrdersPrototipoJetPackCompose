@@ -1,4 +1,4 @@
-package com.elton.xdordersprototipojetpackcompose.ui.screens
+package com.elton.xdordersprototipojetpackcompose.ui.screens.Settings
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,8 +23,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.elton.xdordersprototipojetpackcompose.data.SettingItemData
-import com.elton.xdordersprototipojetpackcompose.data.settingsList
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.ui.Alignment

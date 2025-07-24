@@ -1,4 +1,4 @@
-package com.elton.xdordersprototipojetpackcompose
+package com.elton.xdordersprototipojetpackcompose.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -19,6 +19,7 @@ import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -33,10 +34,12 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import com.elton.xdordersprototipojetpackcompose.R
 import com.elton.xdordersprototipojetpackcompose.navigation.Screen
 
 @Composable
-fun HomeScreen(navController: androidx.navigation.NavHostController) {
+fun HomeScreen(navController: NavHostController) {
     val isDark = isSystemInDarkTheme()
     val ContentColor = if (isDark) Color.White else Color.White
     Box(
@@ -88,7 +91,7 @@ fun HomeScreen(navController: androidx.navigation.NavHostController) {
                     .weight(1.1f)
                     .height(90.dp),
                 shape = RoundedCornerShape(16.dp),
-                colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF1B1F23)
                 )
             ) {
@@ -118,7 +121,7 @@ fun HomeScreen(navController: androidx.navigation.NavHostController) {
                     .weight(1.2f)
                     .height(90.dp),
                 shape = RoundedCornerShape(16.dp),
-                colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF1B1F23)
                 )
 
@@ -145,7 +148,7 @@ fun HomeScreen(navController: androidx.navigation.NavHostController) {
                     .weight(1.1f)
                     .height(90.dp),
                 shape = RoundedCornerShape(16.dp),
-                colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF1B1F23)
                 )
 
