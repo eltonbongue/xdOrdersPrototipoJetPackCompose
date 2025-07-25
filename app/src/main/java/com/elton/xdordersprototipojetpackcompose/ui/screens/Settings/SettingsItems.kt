@@ -142,6 +142,6 @@ val settingsList: List<SettingItemData> = listOf(
         icon = Icons.Default.ProductionQuantityLimits,
         iconColor = Color.DarkGray,
         group = "Teste",
-        screen = Screen.DiscountPage
+        screen = Screen.ProductPage
     )
 )

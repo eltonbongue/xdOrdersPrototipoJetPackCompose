@@ -1,3 +1,5 @@
+import android.R.attr.enabled
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,15 +27,23 @@ import androidx.navigation.NavController
 import com.elton.xdordersprototipojetpackcompose.components.BaseOrderLayout
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalContext
+import com.elton.xdordersprototipojetpackcompose.data.local.DAO
+import com.elton.xdordersprototipojetpackcompose.data.local.DatabaseHelper
 import com.elton.xdordersprototipojetpackcompose.ui.components.TopBarXD
 
 
 @Composable
 fun UserPageScreen(
     navController: NavController,
+    dbHelper: DatabaseHelper,
     onSaveClick: (String, String, String) -> Unit = { _, _, _ -> },
     onCancelClick: () -> Unit = {}
 ) {
+
+    val dao = remember { DAO(dbHelper) }
+    val context = LocalContext.current
+
     // Estados para os campos de entrada
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
@@ -94,7 +104,19 @@ fun UserPageScreen(
                         Text("Cancelar")
                     }
                     Button(
-                        onClick = { onSaveClick(name, email, password) },
+                        onClick = {
+
+                            val success = dao.insertUser (name, email, password)
+
+                            if( success) {
+                                Toast.makeText(context, "Usuário salvo com sucesso!", Toast.LENGTH_SHORT).show()
+                                onCancelClick()
+                                  }
+
+                            else {
+                                Toast.makeText(context, "Erro ao salvar usuário", Toast.LENGTH_SHORT).show()
+                            }
+                                  },
                         enabled = name.isNotBlank() && email.isNotBlank() && password.isNotBlank()
                     ) {
                         Text("Salvar")

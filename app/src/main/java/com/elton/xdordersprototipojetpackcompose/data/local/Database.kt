@@ -24,6 +24,19 @@ class DatabaseHelper(context : Context) : SQLiteOpenHelper(
         """.trimIndent()
         )
 
+
+            db.execSQL(
+                """
+        CREATE TABLE IF NOT EXISTS product (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            category TEXT NOT NULL,
+            price NOT NULL
+        );
+        """.trimIndent()
+            )
+
+
         db.execSQL("""
             CREATE TABLE IF NOT EXISTS orders (
                 id INTEGER PRIMARY KEY,
@@ -35,12 +48,13 @@ class DatabaseHelper(context : Context) : SQLiteOpenHelper(
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS users")
+        db.execSQL("DROP TABLE IF EXISTS product")
         db.execSQL("DROP TABLE IF EXISTS orders")
         onCreate(db)
     }
 
     companion object {
         private const val DATABASE_NAME = "xd_orders.db"
-        private const val DATABASE_VERSION = 3
+        private const val DATABASE_VERSION = 5
     }
 }

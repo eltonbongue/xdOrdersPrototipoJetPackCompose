@@ -1,29 +1,33 @@
 package com.elton.xdordersprototipojetpackcompose.navigation
 
+import ProductPageScreen
 import UserPageScreen
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.elton.xdordersprototipojetpackcompose.ui.screens.HomeScreen
+import com.elton.xdordersprototipojetpackcompose.data.local.DatabaseHelper
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Bill.BillPageScreen
-import com.elton.xdordersprototipojetpackcompose.ui.screens.Discount.DiscountPagePrincipalScreen
-import com.elton.xdordersprototipojetpackcompose.ui.screens.Discount.DiscountPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Bill.FinishBillPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Cancel.CancelPagePrincipalScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Cancel.CancelPageScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.Discount.DiscountPagePrincipalScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.Discount.DiscountPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Home.HomePageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Home.PopUpPageScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.HomeScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Message.MessagePageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Order.OrderPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Others.OtherPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Out.OutBoxPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Payment.PartialPaymentPagePrincipalScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Payment.PartialPaymentPageScreen
-import com.elton.xdordersprototipojetpackcompose.ui.screens.TablePageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Settings.SettingsScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Subtotal.SubtotalPagePrincipalScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Subtotal.SubtotalPageScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.TablePageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Transfer.TransferOrderPageDestinationScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Transfer.TransferOrderPagePrincipalScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Transfer.TransferOrderPageScreen
@@ -135,8 +139,29 @@ fun AppNavigator(navController: NavHostController) {
              MessagePageScreen(navController)
         }
         composable(Screen.UserPage.route) {
-            UserPageScreen(navController)
+            val context = LocalContext.current
+            val dbHelper = remember { DatabaseHelper(context) }
+
+            UserPageScreen(
+                navController = navController,
+                dbHelper = dbHelper,
+                onCancelClick = { navController.popBackStack() }
+            )
         }
+
+        composable(Screen.ProductPage.route) {
+            val context = LocalContext.current
+            val dbHelper = remember { DatabaseHelper(context) }
+
+           ProductPageScreen(
+                navController = navController,
+                dbHelper = dbHelper,
+                onCancelClick = { navController.popBackStack() }
+            )
+        }
+
+
+
 
 
 
