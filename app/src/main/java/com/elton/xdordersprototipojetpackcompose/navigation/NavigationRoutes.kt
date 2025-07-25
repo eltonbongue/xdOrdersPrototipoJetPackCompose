@@ -26,4 +26,5 @@ sealed class Screen(val route: String) {
     object PopUpPage : Screen("popup_page")
     object OutBoxPage: Screen("outbox_page")
     object MessagePage: Screen("message_page")
+    object UserPage: Screen("user_page")
 }

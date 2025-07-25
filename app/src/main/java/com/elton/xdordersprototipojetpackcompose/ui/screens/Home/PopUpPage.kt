@@ -18,7 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
-import com.elton.xdordersprototipojetpackcompose.components.TopBarOrderXD
+import com.elton.xdordersprototipojetpackcompose.components.TopBar.TopBarOrderXD
+import com.elton.xdordersprototipojetpackcompose.components.TopBar.TopBarOutBoxXD
 
 @Composable
 fun PopUpPageScreen(navController: NavController , onDismiss: () -> Unit) {
@@ -36,7 +37,7 @@ fun PopUpPageScreen(navController: NavController , onDismiss: () -> Unit) {
                     .fillMaxWidth()
             ) {
 
-                TopBarOrderXD(
+                TopBarOutBoxXD(
                     title = "Controle por voz",
                     navController = navController
                 )

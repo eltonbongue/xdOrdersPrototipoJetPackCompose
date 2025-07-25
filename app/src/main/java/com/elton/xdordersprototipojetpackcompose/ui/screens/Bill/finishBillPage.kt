@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.elton.xdordersprototipojetpackcompose.components.BottomActionBarFull
+import com.elton.xdordersprototipojetpackcompose.components.BottomBar.BottomActionBarFull
 import com.elton.xdordersprototipojetpackcompose.data.GridButtonItem
 import com.elton.xdordersprototipojetpackcompose.ui.components.TopBarTableXD
 

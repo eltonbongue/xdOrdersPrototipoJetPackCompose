@@ -1,4 +1,4 @@
-package com.elton.xdordersprototipojetpackcompose.components
+package com.elton.xdordersprototipojetpackcompose.components.BottomBar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
