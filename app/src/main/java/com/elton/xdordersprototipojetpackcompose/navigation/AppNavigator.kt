@@ -134,10 +134,10 @@ fun AppNavigator(navController: NavHostController) {
         composable(Screen.MessagePage.route) {
              MessagePageScreen(navController)
         }
-
         composable(Screen.UserPage.route) {
-             UserPageScreen(navController)
+            UserPageScreen(navController)
         }
+
 
 
     }

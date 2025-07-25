@@ -1,6 +1,7 @@
 package com.elton.xdordersprototipojetpackcompose.ui.screens.Settings
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,6 +27,7 @@ import androidx.navigation.NavController
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.ui.Alignment
+import com.elton.xdordersprototipojetpackcompose.domain.model.SettingItemData
 import com.elton.xdordersprototipojetpackcompose.ui.components.TopBarXD
 
 
@@ -33,21 +35,21 @@ import com.elton.xdordersprototipojetpackcompose.ui.components.TopBarXD
 @Composable
 fun SettingsScreen(navController: NavController) {
     Scaffold(
-        topBar = { TopBarXD(
-            title = "Definições",
-            navController = navController
-        ) },
-
+        topBar = {
+            TopBarXD(
+                title = "Definições",
+                navController = navController
+            )
+        },
         content = { innerPadding ->
-            Column(modifier = Modifier.padding(innerPadding)
-                .background(
-                    color = Color(0xFFF5F5F5),
-                    shape = RoundedCornerShape(12.dp)
-                )
-
+            Column(
+                modifier = Modifier
+                    .padding(innerPadding)
+                    .background(
+                        color = Color(0xFFF5F5F5),
+                        shape = RoundedCornerShape(12.dp)
+                    )
             ) {
-
-
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -75,9 +77,30 @@ fun SettingsScreen(navController: NavController) {
                                         modifier = Modifier.padding(bottom = 8.dp, start = 12.dp, top = 6.dp)
                                     )
                                     items.forEachIndexed { index, item ->
-                                        SettingBoxItem(item = item)
-                                        if (index < items.size - 1) {
-                                              HorizontalDivider(
+                                        when (item) {
+                                            is SettingItemData.NavigableItem -> {
+                                                SettingBoxItem(item = item) {
+                                                    navController.navigate(item.screen.route)
+                                                }
+                                            }
+
+                                            is SettingItemData.StaticItem -> {
+                                                SettingBoxItem(item = item)
+                                            }
+
+                                            is SettingItemData.Divider -> {
+                                                HorizontalDivider(
+                                                    modifier = Modifier
+                                                        .fillMaxWidth()
+                                                        .padding(vertical = 8.dp),
+                                                    color = Color(0xFFE0E0E0),
+                                                    thickness = .5.dp
+                                                )
+                                            }
+                                        }
+
+                                        if (index < items.size - 1 && item !is SettingItemData.Divider) {
+                                            HorizontalDivider(
                                                 modifier = Modifier
                                                     .fillMaxWidth()
                                                     .padding(vertical = 8.dp),
@@ -97,8 +120,9 @@ fun SettingsScreen(navController: NavController) {
 }
 
 
+
 @Composable
-fun SettingBoxItem(item: SettingItemData) {
+fun SettingBoxItem(item: SettingItemData, onClick: (() -> Unit)? = null) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -107,6 +131,7 @@ fun SettingBoxItem(item: SettingItemData) {
                 color = Color.White,
                 shape = RoundedCornerShape(26.dp)
             )
+            .clickable(enabled = onClick != null, onClick = { onClick?.invoke() })
             .padding(16.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -125,13 +150,20 @@ fun SettingBoxItem(item: SettingItemData) {
                     fontWeight = FontWeight.Bold,
                     color = Color.Black
                 )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = item.value,
-                    fontSize = 13.sp,
-                    fontFamily = FontFamily.SansSerif,
-                    color = Color.DarkGray
-                )
+                if (item is SettingItemData.NavigableItem || item is SettingItemData.StaticItem) {
+                    val value = when (item) {
+                        is SettingItemData.NavigableItem -> item.value
+                        is SettingItemData.StaticItem -> item.value
+                        else -> ""
+                    }
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = value,
+                        fontSize = 13.sp,
+                        fontFamily = FontFamily.SansSerif,
+                        color = Color.DarkGray
+                    )
+                }
             }
         }
     }

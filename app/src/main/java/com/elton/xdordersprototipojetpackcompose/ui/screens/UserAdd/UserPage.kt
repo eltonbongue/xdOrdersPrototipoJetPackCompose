@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.OutlinedTextField
@@ -23,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.elton.xdordersprototipojetpackcompose.components.BaseOrderLayout
 import androidx.compose.material3.Text
+import androidx.compose.ui.Alignment
+import com.elton.xdordersprototipojetpackcompose.ui.components.TopBarXD
 
 
 @Composable
@@ -38,29 +41,26 @@ fun UserPageScreen(
 
     Scaffold(
         topBar = {
-            BaseOrderLayout(
-                title = "Mesa/Conta",
-                subtitle = "Selecione o/a mesa/cartão.",
+            TopBarXD(
+                title = "Casdastrar/User",
                 navController = navController
-            ) {
-
-            }
+            )
         },
         content = { innerPadding ->
             Column(
                 modifier = Modifier
                     .padding(innerPadding)
-                    .fillMaxSize()
                     .padding(16.dp)
-                    .background(
-                        color = Color(0xFFF5F5F5),
-                        shape = RoundedCornerShape(12.dp)
-                    ),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ,
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+
             ) {
                 Text(
+
                     text = "Cadastro de Usuário",
                     style = MaterialTheme.typography.h6
+
                 )
 
                 OutlinedTextField(
@@ -89,7 +89,8 @@ fun UserPageScreen(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    OutlinedButton(onClick = onCancelClick) {
+                    OutlinedButton(onClick = onCancelClick)
+                         {
                         Text("Cancelar")
                     }
                     Button(
