@@ -104,4 +104,30 @@ fun getAllUsers(): List<User> {
     cursor.close()
     return users
 }
+
+
+    fun getUserById(userId: Int): User? {
+        val db = dbHelper.readableDatabase
+        val cursor = db.rawQuery(
+            "SELECT id, name, email, password FROM users WHERE id = ?",
+            arrayOf(userId.toString())
+        )
+
+        var user: User? = null
+        if (cursor.moveToFirst()) {
+            user = User(
+                id = cursor.getInt(0),
+                name = cursor.getString(1),
+                email = cursor.getString(2),
+                password = cursor.getString(3)
+            )
+        }
+
+        cursor.close()
+        return user
+    }
+
+
+
+
 }

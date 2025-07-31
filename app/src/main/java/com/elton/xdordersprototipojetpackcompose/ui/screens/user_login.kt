@@ -1,5 +1,6 @@
 package com.elton.xdordersprototipojetpackcompose.ui.screens
 
+import android.R.style
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,20 +20,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.elton.xdordersprototipojetpackcompose.R
+import com.elton.xdordersprototipojetpackcompose.SessionManager
 import com.elton.xdordersprototipojetpackcompose.data.local.DAO
 import com.elton.xdordersprototipojetpackcompose.data.local.DatabaseHelper
 import com.elton.xdordersprototipojetpackcompose.domain.model.User
 import com.elton.xdordersprototipojetpackcompose.navigation.Screen
 import com.elton.xdordersprototipojetpackcompose.ui.components.TopBarTableXD
-import com.elton.xdordersprototipojetpackcompose.ui.components.TopBarXD
+
 
 @Composable
 fun UserLoginScreen(navController: NavController) {
     val context = LocalContext.current
+    val sessionManager = remember { SessionManager(context) }
     val dbHelper = remember { DatabaseHelper(context) }
     val dao = remember { DAO(dbHelper) }
     val users = remember { mutableStateOf(emptyList<User>()) }
@@ -64,11 +68,13 @@ fun UserLoginScreen(navController: NavController) {
             ) {
                 items(users.value) { user ->
                     UserAvatarItem(user = user) {
-                        // Ao clicar em um usuário, navega para a Home
+                        sessionManager.saveUserId(user.id) // ← salva a sessão
+                        sessionManager.saveUserName(user.name) // ← salva o nome do usuário
                         navController.navigate(Screen.HomePage.route) {
-                            popUpTo(Screen.HomePage.route) { inclusive = true }
+
                         }
                     }
+
                 }
             }
         }
@@ -76,14 +82,15 @@ fun UserLoginScreen(navController: NavController) {
 }
 
 
-
-
 @Composable
-fun UserAvatarItem(user: User, onClick: () -> Unit) {
+fun UserAvatarItem(user: User, onLogin: (String) -> Unit) {
+    val showDialog = remember { mutableStateOf(false) }
+    val password = remember { mutableStateOf("") }
+
     Column(
         modifier = Modifier
             .width(100.dp)
-            .clickable { onClick() },
+            .clickable { showDialog.value = true },
         horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
     ) {
         Image(
@@ -99,8 +106,56 @@ fun UserAvatarItem(user: User, onClick: () -> Unit) {
             text = user.name,
             color = Color.Black,
             fontSize = 14.sp,
-            fontWeight = FontWeight.Medium,
+            fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(top = 8.dp)
+        )
+    }
+
+    if (showDialog.value) {
+        androidx.compose.material3.AlertDialog(
+            onDismissRequest = { showDialog.value = false },
+            title = { Text("Digite sua senha" , modifier = Modifier.fillMaxWidth(), Color(0xFF103175) , textAlign =androidx.compose.ui.text.style.TextAlign.Center)  },
+            text = {
+                androidx.compose.material3.OutlinedTextField(
+                    value = password.value,
+                    onValueChange = { password.value = it },
+                    label = { Text("Senha") },
+                    singleLine = true,
+                    visualTransformation = PasswordVisualTransformation(),
+
+
+                )
+            },
+
+        confirmButton = {
+            val context = LocalContext.current
+            androidx.compose.material3.Button(
+                onClick = {
+                    if (user.password == password.value) {
+                        showDialog.value = false
+                        onLogin(password.value)
+                    } else {
+                        showDialog.value = false
+                        android.widget.Toast.makeText(
+                            context,
+                            "Senha incorreta!",
+                            android.widget.Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            ) {
+                Text("Entrar")
+            }
+        },
+            dismissButton = {
+                androidx.compose.material3.TextButton(
+                    onClick = { showDialog.value = false }
+                ) {
+                    Text("Cancelar")
+                }
+            },
+
+            containerColor = Color.White
         )
     }
 }
