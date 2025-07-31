@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Divider
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material.icons.filled.CleaningServices
@@ -21,25 +20,31 @@ import androidx.compose.material.icons.filled.Message
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Upload
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.elton.xdordersprototipojetpackcompose.R
+import com.elton.xdordersprototipojetpackcompose.SessionManager
+import com.elton.xdordersprototipojetpackcompose.domain.model.User
+import com.elton.xdordersprototipojetpackcompose.navigation.Screen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Home.TopActionButton
 
 
 @Composable
-fun OtherPageScreen(navController: NavController) {
+fun OtherPageScreen(navController: NavController, user: User) {
     val backgroundColor = Color(0xFF23007A)
     val buttonColor = Color(0xFF3C1B9E)
 
@@ -64,18 +69,22 @@ fun OtherPageScreen(navController: NavController) {
                 modifier = Modifier.fillMaxWidth()
 
             ) {
-                Column {
+                Column(
+                    modifier = Modifier,
+                    horizontalAlignment = Alignment.CenterHorizontally
+
+                ) {
                     Image(
                         painter = painterResource(R.drawable.account_user_png_photo),
                         contentDescription = null,
                         modifier = Modifier
                             .size(80.dp)
                             .clip(RoundedCornerShape(8.dp))
-                            .background(Color.Black)
+                            .background(Color(0xFF3C1B9E))
                     )
 
                     Text(
-                        text = "Supervisor",
+                        text = user.name,
                         color = Color.White,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
@@ -114,17 +123,23 @@ fun OtherPageScreen(navController: NavController) {
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    FullWidthButtonOther(
-                        text = "Terminar Sessão",
-                        icon = Icons.Default.Person,
-                        buttonColor,
-                        onClick = {
-                            navController.navigate("")
+                val context = LocalContext.current
+                val sessionManager = remember { SessionManager(context) }
+
+                FullWidthButtonOther(
+                    text = "Terminar Sessão",
+                    icon = Icons.Default.Person,
+                    buttonColor,
+                    onClick = {
+                        sessionManager.clearSession()
+                        navController.navigate(Screen.UserLogin.route) {
+                            popUpTo(0) { inclusive = true } // limpa o backstack
                         }
+                    }
+                )
 
-                        )
 
-                    Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(8.dp))
                     FullWidthButtonOther(
                         text = "Limpar caixa de saída",
                         icon = Icons.Default.CleaningServices,

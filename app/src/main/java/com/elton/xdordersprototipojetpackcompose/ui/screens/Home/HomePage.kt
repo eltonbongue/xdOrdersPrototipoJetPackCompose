@@ -19,9 +19,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.Divider
-import androidx.compose.material.TextButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.AttachMoney
@@ -35,8 +32,8 @@ import androidx.compose.material.icons.filled.SwapHoriz
 import androidx.compose.material.icons.filled.Upload
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -51,15 +48,16 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.elton.xdordersprototipojetpackcompose.R
 import com.elton.xdordersprototipojetpackcompose.data.GridButtonItem
+import com.elton.xdordersprototipojetpackcompose.domain.model.User
+
 
 @Composable
-fun HomePageScreen(navController: NavController) {
+fun HomePageScreen(navController: NavController, user: User) {
     val backgroundColor = Color(0xFF23007A)
     val buttonColor = Color(0xFF3C1B9E)
     var showDialog by remember { mutableStateOf(false) }
@@ -86,22 +84,25 @@ fun HomePageScreen(navController: NavController) {
                     modifier = Modifier.fillMaxWidth()
 
                 ) {
-                    Column {
+                    Column (
+                        modifier = Modifier,
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ){
                 Image(
                     painter = painterResource(R.drawable.account_user_png_photo),
                     contentDescription = null,
                     modifier = Modifier
                         .size(80.dp)
                         .clip(RoundedCornerShape(8.dp))
-                        .background(Color.Black)
+                        .background(Color(0xFF3C1B9E))
                 )
 
                 Text(
-                    text = "Supervisor",
+                    text = user.name,
                     color = Color.White,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(top = 8.dp)
+                    modifier = Modifier.padding(top = 8.dp),
                 )
                     }
 
