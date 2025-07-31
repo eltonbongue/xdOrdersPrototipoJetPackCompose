@@ -1,5 +1,6 @@
 package com.elton.xdordersprototipojetpackcompose.navigation
 
+import ProductPageScreen
 import UserPageScreen
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -157,6 +158,13 @@ fun AppNavigator(navController: NavHostController) {
                 dbHelper = dbHelper,
                 onCancelClick = { navController.popBackStack() }
             )
+        }
+
+        composable(Screen.ProductPage.route) {
+            val context = LocalContext.current
+            val dbHelper = remember { DatabaseHelper(context) }
+
+            ProductPageScreen(navController = navController, dbHelper = dbHelper)
         }
 
 
