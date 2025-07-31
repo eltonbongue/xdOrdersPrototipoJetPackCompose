@@ -1,4 +1,4 @@
-package com.elton.xdordersprototipojetpackcompose.components
+package com.elton.xdordersprototipojetpackcompose.components.TopBar
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,7 +23,7 @@ import com.elton.xdordersprototipojetpackcompose.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBarOrderXD(
+fun TopBarOutBoxXD(
     title: String,
     navController: NavController,
     showBackButton: Boolean = true,
@@ -34,7 +34,7 @@ fun TopBarOrderXD(
             if (showBackButton) {
 
                 IconButton(
-                    onClick = { navController.navigate("table_page") { popUpTo(0) } },
+                    onClick = { navController.navigate("home_page") { popUpTo(0) } },
                     modifier = Modifier.size(78.dp)
                 ) {
                     Row {
@@ -71,6 +71,4 @@ fun TopBarOrderXD(
     )
 
 }
-
-
 

@@ -8,8 +8,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.elton.xdordersprototipojetpackcompose.components.BottomActionBarFull
-import com.elton.xdordersprototipojetpackcompose.components.TopBarOrderXD
+import com.elton.xdordersprototipojetpackcompose.components.BottomBar.BottomActionBarFull
+import com.elton.xdordersprototipojetpackcompose.components.TopBar.TopBarOrderXD
 
 @Composable
 fun PartialPaymentPagePrincipalScreen(

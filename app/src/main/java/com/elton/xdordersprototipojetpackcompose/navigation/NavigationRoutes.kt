@@ -5,7 +5,15 @@ sealed class Screen(val route: String) {
     object StartActivity : Screen("start_activity")
     object UserLogin : Screen("user_login")
     object Settings : Screen("settings")
-    object HomePage : Screen("home_page")
+    /*
+    object HomePage : Screen("home_page/{userId}"){
+        fun UserIdRoute(userId: Int) = "home_page/$userId"
+    }
+    */
+    object HomePage : Screen("home_page/{userId}") {
+        fun userIdRoute(userId: Int) = "home_page/$userId"
+    }
+
     object TablePage : Screen("table_page")
     object OrderPage : Screen("order_page")
     object BillPage : Screen("bill_page")
@@ -26,4 +34,6 @@ sealed class Screen(val route: String) {
     object PopUpPage : Screen("popup_page")
     object OutBoxPage: Screen("outbox_page")
     object MessagePage: Screen("message_page")
+    object UserPage: Screen("user_page")
+    object ProductPage: Screen("product_page")
 }
