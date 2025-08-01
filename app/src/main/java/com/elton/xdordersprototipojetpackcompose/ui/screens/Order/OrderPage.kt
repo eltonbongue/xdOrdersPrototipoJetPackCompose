@@ -53,7 +53,7 @@ fun OrderPageScreen(navController: NavController) {
 
         Column(
             modifier = Modifier
-                .padding(top = innerPadding.calculateTopPadding()) // só top
+                .padding(top = innerPadding.calculateTopPadding())
                 .fillMaxSize()
                 .background(Color(0xFFF5F5F5), RoundedCornerShape(12.dp))
         ) {

@@ -24,16 +24,15 @@ import com.elton.xdordersprototipojetpackcompose.ui.components.TopBarTableXD
 
 @Composable
 fun FinishBillPageScreen(navController: NavController) {
-    val buttonColor = Color(0xFF1565C0)
 
     val buttonsItems = listOf(
-        GridButtonItem("Numérico", Icons.Default.AttachMoney) { navController.navigate("table_page") },
-        GridButtonItem("Cheque bancário", Icons.Default.AccountBalance) { navController.navigate("rota_anular") },
-        GridButtonItem("Visa", Icons.Default.CreditCard) { navController.navigate("rota_subtotal") },
-        GridButtonItem("Master Card", Icons.Default.CreditCard) { navController.navigate("bill_page") },
-        GridButtonItem("Multibanco", Icons.Default.CreditCard) { navController.navigate("rota_transferencia") },
-        GridButtonItem("Cheque refeição", Icons.Default.CreditCard) { navController.navigate("rota_pagamento") },
-        GridButtonItem("OUTROS", Icons.Default.Wallet) { navController.navigate("rota_outros") }
+        GridButtonItem("Numérico", Icons.Default.AttachMoney,Color(0xFF1565C0)) { navController.navigate("table_page") },
+        GridButtonItem("Cheque bancário", Icons.Default.AccountBalance, Color(0xFF1565C0)) { navController.navigate("rota_anular") },
+        GridButtonItem("Visa", Icons.Default.CreditCard, Color(0xFF1565C0)) { navController.navigate("rota_subtotal") },
+        GridButtonItem("Master Card", Icons.Default.CreditCard, Color(0xFF1565C0)) { navController.navigate("bill_page") },
+        GridButtonItem("Multibanco", Icons.Default.CreditCard, Color(0xFF1565C0)) { navController.navigate("rota_transferencia") },
+        GridButtonItem("Cheque refeição", Icons.Default.CreditCard, Color(0xFF1565C0)) { navController.navigate("rota_pagamento") },
+        GridButtonItem("OUTROS", Icons.Default.Wallet, Color(0xFF1565C0)) { navController.navigate("rota_outros") }
     )
 
     Scaffold(

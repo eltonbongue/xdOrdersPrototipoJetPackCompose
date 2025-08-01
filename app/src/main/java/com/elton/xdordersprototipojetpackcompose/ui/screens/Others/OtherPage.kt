@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.Upload
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -40,13 +41,15 @@ import com.elton.xdordersprototipojetpackcompose.R
 import com.elton.xdordersprototipojetpackcompose.SessionManager
 import com.elton.xdordersprototipojetpackcompose.domain.model.User
 import com.elton.xdordersprototipojetpackcompose.navigation.Screen
+import com.elton.xdordersprototipojetpackcompose.navigation.Screen.HomePage
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Home.TopActionButton
 
 
 @Composable
 fun OtherPageScreen(navController: NavController, user: User) {
-    val backgroundColor = Color(0xFF23007A)
-    val buttonColor = Color(0xFF3C1B9E)
+    val backgroundColor = Color(0xFFF5F5F5)
+    val buttonColor = Color(0xFFFFFFFF)
+    val fullButtonColor= Color(0xFF5E608D)
 
     Column(
         modifier = Modifier
@@ -80,12 +83,12 @@ fun OtherPageScreen(navController: NavController, user: User) {
                         modifier = Modifier
                             .size(80.dp)
                             .clip(RoundedCornerShape(8.dp))
-                            .background(Color(0xFF3C1B9E))
+                            .background(Color.White)
                     )
 
                     Text(
                         text = user.name,
-                        color = Color.White,
+                        color = Color(0xFF5E608D),
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(top = 8.dp)
@@ -104,7 +107,7 @@ fun OtherPageScreen(navController: NavController, user: User) {
                         onClick = { navController.navigate("outbox_page") }
                     )
                     Divider(
-                        color = Color.White.copy(alpha = 0.5f),
+                        color = fullButtonColor.copy(alpha = 0.5f),
                         thickness = 0.5.dp,
                         modifier = Modifier
                             .fillMaxWidth()
@@ -151,14 +154,18 @@ fun OtherPageScreen(navController: NavController, user: User) {
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    FullWidthButtonOther(
-                        text = "Menu anterior",
-                        icon = Icons.Default.ArrowBackIosNew,
-                        buttonColor,
-                        onClick = {
-                             navController.navigate("home_page")
+
+                FullWidthButtonOther(
+                    text = "Menu anterior",
+                    icon = Icons.Default.ArrowBackIosNew,
+                    backgroundColor = buttonColor,
+                    onClick = {
+                        val userId = user.id
+                        navController.navigate(HomePage.userIdRoute(userId)) {
+                            popUpTo("home_page")
                         }
-                    )
+                    }
+                )
 
             }
         }
@@ -182,9 +189,9 @@ fun FullWidthButtonOther(text: String, icon: ImageVector, backgroundColor: Color
             ),
         shape = RoundedCornerShape(8.dp)
     ) {
-        Icon(imageVector = icon, contentDescription = text, tint = Color.Red)
+        Icon(imageVector = icon, contentDescription = text, tint = Color.Black)
         Spacer(modifier = Modifier.width(12.dp))
-        Text(text = text, color = Color.White)
+        Text(text = text, color = Color(0xFF5E608D), fontSize = 14.sp, fontWeight = FontWeight.Bold)
     }
 }
 
