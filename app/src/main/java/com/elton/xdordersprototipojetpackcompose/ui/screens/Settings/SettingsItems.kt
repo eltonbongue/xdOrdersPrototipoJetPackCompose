@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AppBlocking
 import androidx.compose.material.icons.filled.AppShortcut
 import androidx.compose.material.icons.filled.Apps
+import androidx.compose.material.icons.filled.Category
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Group
 import androidx.compose.material.icons.filled.Info
@@ -15,6 +16,7 @@ import androidx.compose.material.icons.filled.Print
 import androidx.compose.material.icons.filled.PrivacyTip
 import androidx.compose.material.icons.filled.ProductionQuantityLimits
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.TableBar
 import androidx.compose.material.icons.filled.Wifi
 import androidx.compose.material.icons.filled.WifiTethering
 import androidx.compose.ui.graphics.Color
@@ -140,6 +142,23 @@ val settingsList: List<SettingItemData> = listOf(
         label = "Produtos",
         value = "Cadastrar Produtos\nNome da versão:2.18.0\nCódigo da versão: 161",
         icon = Icons.Default.ProductionQuantityLimits,
+        iconColor = Color.DarkGray,
+        group = "Teste",
+        screen = Screen.ProductPage
+    )
+    ,
+    SettingItemData.NavigableItem(
+        label = "Categoria",
+        value = "Cadastrar Categoria\nNome da versão:2.18.0\nCódigo da versão: 161",
+        icon = Icons.Default.Category,
+        iconColor = Color.DarkGray,
+        group = "Teste",
+        screen = Screen.ProductPage
+    ),
+    SettingItemData.NavigableItem(
+        label = "Mesas",
+        value = "Cadastrar Mesa\nNome da versão:2.18.0\nCódigo da versão: 161",
+        icon = Icons.Default.TableBar,
         iconColor = Color.DarkGray,
         group = "Teste",
         screen = Screen.ProductPage
