@@ -141,6 +141,16 @@ fun getAllUsers(): List<User> {
         return user
     }
 
+    fun getAllCategories(): List<String> {
+        val db = dbHelper.readableDatabase
+        val cursor = db.rawQuery("SELECT name FROM categories", null)
+        val categories = mutableListOf<String>()
+        while (cursor.moveToNext()) {
+            categories.add(cursor.getString(0))
+        }
+        cursor.close()
+        return categories
+    }
 
 
 
