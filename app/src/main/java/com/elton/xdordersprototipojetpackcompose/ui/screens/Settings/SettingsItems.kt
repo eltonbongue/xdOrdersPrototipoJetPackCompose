@@ -153,7 +153,7 @@ val settingsList: List<SettingItemData> = listOf(
         icon = Icons.Default.Category,
         iconColor = Color.DarkGray,
         group = "Teste",
-        screen = Screen.ProductPage
+        screen = Screen.CategoryPage
     ),
     SettingItemData.NavigableItem(
         label = "Mesas",

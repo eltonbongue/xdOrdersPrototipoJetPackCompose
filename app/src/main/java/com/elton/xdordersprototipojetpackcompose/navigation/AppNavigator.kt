@@ -20,6 +20,7 @@ import com.elton.xdordersprototipojetpackcompose.ui.screens.Discount.DiscountPag
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Bill.FinishBillPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Cancel.CancelPagePrincipalScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Cancel.CancelPageScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.Category.CategoryPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Home.HomePageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Home.PopUpPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Message.MessagePageScreen
@@ -165,6 +166,10 @@ fun AppNavigator(navController: NavHostController) {
             val dbHelper = remember { DatabaseHelper(context) }
 
             ProductPageScreen(navController = navController, dbHelper = dbHelper)
+        }
+
+        composable(Screen.CategoryPage.route) {
+            CategoryPageScreen(navController = navController, dbHelper = DatabaseHelper(LocalContext.current))
         }
 
 

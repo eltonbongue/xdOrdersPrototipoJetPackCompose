@@ -34,6 +34,20 @@ class DAO (private val dbHelper: DatabaseHelper) {
         }
     }
 
+    fun insertCategory(name: String): Boolean {
+        return try {
+            val db = dbHelper.writableDatabase
+            val values = ContentValues().apply {
+                put("name", name)
+            }
+            val result = db.insert("categories", null, values)
+            db.close()
+            result != -1L
+        } catch (e: Exception) {
+            false
+        }
+    }
+
     fun insertOrder(order: Order) {
         val db = dbHelper.writableDatabase
         val contentValues = ContentValues().apply {
