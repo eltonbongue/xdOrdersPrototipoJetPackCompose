@@ -71,42 +71,51 @@ fun CategoryPageScreen(
                     label = { Text("Nome da Categoria") },
                     modifier = Modifier.fillMaxWidth()
                 )
-                // Campo Dropdown de Categoria
 
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 24.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                OutlinedButton(onClick = onCancelClick) {
+                    Text("Cancelar")
                 }
 
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                Button(
+                    onClick = {
+                        try {
+                            val success = dao.insertCategory(name.trim())
+                            if (success) {
+                                Toast.makeText(
+                                    context,
+                                    "Categoria salva com sucesso!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                onCancelClick()
+                            } else {
+                                Toast.makeText(
+                                    context,
+                                    "Erro ao salvar categoria",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            Toast.makeText(
+                                context,
+                                "Erro inesperado ao salvar categoria",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    },
+                    enabled = name.trim().isNotEmpty()
                 ) {
-                    OutlinedButton(onClick = onCancelClick) {
-                        Text("Cancelar")
-                    }
-
-                    Button(
-                        onClick = {
-
-                                try {
-                                    val success = dao.insertCategory(name)
-
-                                    if (success) {
-                                        Toast.makeText(context, "Produto salvo com sucesso!", Toast.LENGTH_SHORT).show()
-                                        onCancelClick()
-                                    } else {
-                                        Toast.makeText(context, "Erro ao salvar produto", Toast.LENGTH_SHORT).show()
-                                    }
-                                } catch (e: Exception) {
-                                    e.printStackTrace()
-                                    Toast.makeText(context, "Erro inesperado ao salvar produto", Toast.LENGTH_SHORT).show()
-                                }
-
-                        },
-                        enabled = name.isNotBlank()
-                    ) {
-                        Text("Salvar")
-                    }
-
+                    Text("Salvar")
                 }
+            }
+        }
         }
     )
 }
