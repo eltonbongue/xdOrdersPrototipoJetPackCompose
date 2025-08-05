@@ -7,10 +7,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.elton.xdordersprototipojetpackcompose.SessionManager
+import com.elton.xdordersprototipojetpackcompose.data.local.DAO
 import com.elton.xdordersprototipojetpackcompose.data.local.DatabaseHelper
 import com.elton.xdordersprototipojetpackcompose.domain.model.User
 import com.elton.xdordersprototipojetpackcompose.ui.screens.HomeScreen
@@ -37,6 +39,8 @@ import com.elton.xdordersprototipojetpackcompose.ui.screens.Transfer.TransferOrd
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Transfer.TransferOrderPagePrincipalScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Transfer.TransferOrderPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.UserLoginScreen
+import com.elton.xdordersprototipojetpackcompose.viewModel.OrderViewModel
+import com.elton.xdordersprototipojetpackcompose.viewModel.OrderViewModelFactory
 
 
 @Composable
@@ -70,9 +74,20 @@ fun AppNavigator(navController: NavHostController) {
             TablePageScreen(navController)
         }
 
-        composable(Screen.OrderPage.route) {
-            OrderPageScreen(navController)
+        composable(Screen.OrderPage.route) { backStackEntry ->
+            val context = LocalContext.current
+            val dbHelper = remember { DatabaseHelper(context) }
+            val dao = remember { DAO(dbHelper) }
+            val factory = remember { OrderViewModelFactory(dao) }
+
+            val viewModel: OrderViewModel = viewModel(
+                viewModelStoreOwner = backStackEntry,
+                factory = factory
+            )
+
+            OrderPageScreen(navController = navController, viewModel = viewModel)
         }
+
 
         composable(Screen.BillPage.route) {
             BillPageScreen(navController)

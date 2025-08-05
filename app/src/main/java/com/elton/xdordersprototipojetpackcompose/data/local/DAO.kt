@@ -1,7 +1,10 @@
 package com.elton.xdordersprototipojetpackcompose.data.local
 
 import android.content.ContentValues
+import android.database.sqlite.SQLiteDatabase
+import com.elton.xdordersprototipojetpackcompose.domain.model.Category
 import com.elton.xdordersprototipojetpackcompose.domain.model.Order
+import com.elton.xdordersprototipojetpackcompose.domain.model.Product
 import com.elton.xdordersprototipojetpackcompose.domain.model.User
 
 
@@ -20,19 +23,21 @@ class DAO (private val dbHelper: DatabaseHelper) {
         return result != -1L// verifica se a inserção foi bem-sucedida
     }
 
-    fun insertProduct(name: String, category: String, price: Double): Boolean {
+    fun insertProduct(name: String, categoryId: Int, price: Double): Boolean {
         return try {
             val db = dbHelper.writableDatabase
             val values = ContentValues().apply {
                 put("name", name)
-                put("category", category)
                 put("price", price)
+                put("category_id", categoryId)
+                put("description", "") // Adiciona uma descrição vazia
             }
-            db.insert("product", null, values) != -1L
+            db.insert("products", null, values) != -1L
         } catch (e: Exception) {
             false
         }
     }
+
 
     fun insertCategory(name: String): Boolean {
         return try {
@@ -79,26 +84,34 @@ class DAO (private val dbHelper: DatabaseHelper) {
     }
 
 
-/*
-fun getAllProducts(): List<Product> {
-    val db = dbHelper.readableDatabase
-    val cursor = db.rawQuery("SELECT * FROM product", null)
+    class ProdutoDao(private val db: SQLiteDatabase) {
 
-    val produtos = mutableListOf<Product>()
-    if (cursor.moveToFirst()) {
-        do {
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
-            val name = cursor.getString(cursor.getColumnIndexOrThrow("name"))
-            val categoria = cursor.getString(cursor.getColumnIndexOrThrow("category"))
-            val preco = cursor.getDouble(cursor.getColumnIndexOrThrow("price"))
+        fun getProdutosPorCategoria(categoriaId: Int): List<Product> {
+            val produtos = mutableListOf<Product>()
+            val cursor = db.rawQuery(
+                "SELECT * FROM products WHERE category_id = ?",
+                arrayOf(categoriaId.toString())
+            )
 
-            produtos.add(Product(id, name, categoria, preco))
-        } while (cursor.moveToNext())
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    val id = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
+                    val nome = cursor.getString(cursor.getColumnIndexOrThrow("name"))
+                    val price = cursor.getDouble(cursor.getColumnIndexOrThrow("price"))
+                    val categoriaId = cursor.getInt(cursor.getColumnIndexOrThrow("category_id"))
+                    val descricao = cursor.getString(cursor.getColumnIndexOrThrow("description"))
+                        ?: "" // Usar "" se a descrição for nula
+
+
+                    produtos.add(Product(id, nome, price, categoriaId, descricao))
+                } while (cursor.moveToNext())
+            }
+
+            cursor?.close()
+            return produtos
+        }
     }
-    cursor.close()
-    return produtos
-}
-*/
+
 
 fun getAllUsers(): List<User> {
     val db = dbHelper.readableDatabase
@@ -141,15 +154,33 @@ fun getAllUsers(): List<User> {
         return user
     }
 
-    fun getAllCategories(): List<String> {
+    fun getAllCategories(): List<Category> {
         val db = dbHelper.readableDatabase
-        val cursor = db.rawQuery("SELECT name FROM categories", null)
-        val categories = mutableListOf<String>()
+        val cursor = db.rawQuery("SELECT id, name FROM categories", null)
+        val categories = mutableListOf<Category>()
         while (cursor.moveToNext()) {
-            categories.add(cursor.getString(0))
+            val id = cursor.getInt(0)
+            val name = cursor.getString(1)
+            categories.add(Category(id, name))
         }
         cursor.close()
         return categories
+    }
+
+    fun getCategoryIdByName(name: String): Int? {
+        val db = dbHelper.readableDatabase
+        val cursor = db.rawQuery(
+            "SELECT id FROM categories WHERE name = ?",
+            arrayOf(name)
+        )
+
+        cursor.use {
+            return if (it.moveToFirst()) {
+                it.getInt(it.getColumnIndexOrThrow("id"))
+            } else {
+                null
+            }
+        }
     }
 
 

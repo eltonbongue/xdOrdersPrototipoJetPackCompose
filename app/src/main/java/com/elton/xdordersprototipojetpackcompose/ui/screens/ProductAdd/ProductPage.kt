@@ -37,7 +37,7 @@ fun ProductPageScreen(
 
     // Carrega categorias uma única vez
     if (allCategories.value.isEmpty()) {
-        allCategories.value = dao.getAllCategories()
+        allCategories.value = dao.getAllCategories().map { it.name }
     }
 
     val filteredCategories = allCategories.value.filter {
@@ -126,16 +126,25 @@ fun ProductPageScreen(
                 Button(
                     onClick = {
                         val parsedPrice = price.replace(',', '.').toDoubleOrNull()
+
                         if (parsedPrice != null && selectedCategory.isNotBlank()) {
                             try {
-                                val success = dao.insertProduct(name, selectedCategory, parsedPrice)
+                                // Buscar ID da categoria pelo nome
+                                val categoryId = dao.getCategoryIdByName(selectedCategory)
 
-                                if (success) {
-                                    Toast.makeText(context, "Produto salvo com sucesso!", Toast.LENGTH_SHORT).show()
-                                    onCancelClick()
+                                if (categoryId != null) {
+                                    val success = dao.insertProduct(name, categoryId, parsedPrice)
+
+                                    if (success) {
+                                        Toast.makeText(context, "Produto salvo com sucesso!", Toast.LENGTH_SHORT).show()
+                                        onCancelClick()
+                                    } else {
+                                        Toast.makeText(context, "Erro ao salvar produto", Toast.LENGTH_SHORT).show()
+                                    }
                                 } else {
-                                    Toast.makeText(context, "Erro ao salvar produto", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(context, "Categoria não encontrada", Toast.LENGTH_SHORT).show()
                                 }
+
                             } catch (e: Exception) {
                                 e.printStackTrace()
                                 Toast.makeText(context, "Erro inesperado ao salvar produto", Toast.LENGTH_SHORT).show()
@@ -148,6 +157,7 @@ fun ProductPageScreen(
                 ) {
                     Text("Salvar")
                 }
+
             }
         }
     }
