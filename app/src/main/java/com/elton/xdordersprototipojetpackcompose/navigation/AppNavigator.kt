@@ -35,6 +35,7 @@ import com.elton.xdordersprototipojetpackcompose.ui.screens.TablePageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Settings.SettingsScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Subtotal.SubtotalPagePrincipalScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Subtotal.SubtotalPageScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.Tables.RegisterTableScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Transfer.TransferOrderPageDestinationScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Transfer.TransferOrderPagePrincipalScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Transfer.TransferOrderPageScreen
@@ -187,6 +188,12 @@ fun AppNavigator(navController: NavHostController) {
             CategoryPageScreen(navController = navController, dbHelper = DatabaseHelper(LocalContext.current))
         }
 
+        composable(Screen.RegisterTablePage.route) {
+            val context = LocalContext.current
+            val dbHelper = remember { DatabaseHelper(context) }
+
+            RegisterTableScreen( navController = navController, dbHelper = DatabaseHelper(LocalContext.current))
+        }
 
 
     }
