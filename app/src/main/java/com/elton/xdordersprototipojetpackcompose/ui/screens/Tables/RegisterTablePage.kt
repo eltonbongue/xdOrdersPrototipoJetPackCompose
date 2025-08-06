@@ -1,12 +1,17 @@
 package com.elton.xdordersprototipojetpackcompose.ui.screens.Tables
 
 
+import android.net.Uri
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -28,6 +33,7 @@ import androidx.navigation.NavController
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
+import coil.compose.rememberAsyncImagePainter
 import com.elton.xdordersprototipojetpackcompose.data.local.DAO
 import com.elton.xdordersprototipojetpackcompose.data.local.DatabaseHelper
 import com.elton.xdordersprototipojetpackcompose.ui.components.TopBarXD
@@ -37,16 +43,18 @@ import com.elton.xdordersprototipojetpackcompose.ui.components.TopBarXD
 fun RegisterTableScreen(
     navController: NavController,
     dbHelper: DatabaseHelper,
-    onSaveClick: (String, String, String) -> Unit = { _, _, _ -> },
     onCancelClick: () -> Unit = {}
 ) {
     val dao = remember { DAO(dbHelper) }
     val context = LocalContext.current
 
     var name by remember { mutableStateOf("") }
-    var status by remember { mutableStateOf("Livre") }
-    var expanded by remember { mutableStateOf(false) }
-    val statusOptions = listOf("Livre", "Ocupado")
+    var imageUri by remember { mutableStateOf<Uri?>(null) }
+
+    val imagePickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent(),
+        onResult = { uri -> imageUri = uri }
+    )
 
     Scaffold(
         topBar = {
@@ -75,39 +83,25 @@ fun RegisterTableScreen(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            ExposedDropdownMenuBox(
-                expanded = expanded,
-                onExpandedChange = { expanded = !expanded }
+            Button(
+                onClick = { imagePickerLauncher.launch("image/*") },
+                modifier = Modifier.fillMaxWidth()
             ) {
-                OutlinedTextField(
-                    value = status,
-                    onValueChange = {},
-                    readOnly = true,
-                    label = { Text("Status") },
-                    trailingIcon = {
-                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
-                    },
-                    modifier = Modifier
-                        .menuAnchor()
-                        .fillMaxWidth()
-                )
-
-                ExposedDropdownMenu(
-                    expanded = expanded,
-                    onDismissRequest = { expanded = false }
-                ) {
-                    statusOptions.forEach { selectionOption ->
-                        DropdownMenuItem(
-                            text = { Text(selectionOption) },
-                            onClick = {
-                                status = selectionOption
-                                expanded = false
-                            }
-                        )
-                    }
-                }
+                Text("Selecionar Imagem (Opcional)")
             }
 
+
+            imageUri?.let { uri ->
+                Image(
+                    painter = rememberAsyncImagePainter(model = uri),
+                    contentDescription = "Imagem da mesa selecionada",
+                    modifier = Modifier
+                        .size(180.dp)
+                        .padding(top = 8.dp)
+                )
+            }
+
+            // Botões de ação
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
@@ -118,16 +112,15 @@ fun RegisterTableScreen(
 
                 Button(
                     onClick = {
-                        val success = dao.insertTable(name = name, status = status)
+                        val success = dao.insertTable(
+                            name = name,
+                            imageUri = imageUri?.toString()
+                        )
                         if (success) {
-                            Toast
-                                .makeText(context, "Mesa salva com sucesso!", Toast.LENGTH_SHORT)
-                                .show()
+                            Toast.makeText(context, "Mesa salva com sucesso!", Toast.LENGTH_SHORT).show()
                             onCancelClick()
                         } else {
-                            Toast
-                                .makeText(context, "Erro ao salvar mesa", Toast.LENGTH_SHORT)
-                                .show()
+                            Toast.makeText(context, "Erro ao salvar mesa", Toast.LENGTH_SHORT).show()
                         }
                     },
                     enabled = name.isNotBlank()
@@ -138,3 +131,4 @@ fun RegisterTableScreen(
         }
     }
 }
+
