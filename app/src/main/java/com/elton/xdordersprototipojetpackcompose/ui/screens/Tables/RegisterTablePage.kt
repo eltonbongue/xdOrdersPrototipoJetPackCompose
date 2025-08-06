@@ -1,6 +1,5 @@
 package com.elton.xdordersprototipojetpackcompose.ui.screens.Tables
 
-
 import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult

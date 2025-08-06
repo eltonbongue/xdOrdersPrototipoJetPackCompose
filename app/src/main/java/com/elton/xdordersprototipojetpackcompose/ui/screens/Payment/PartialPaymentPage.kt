@@ -13,10 +13,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.elton.xdordersprototipojetpackcompose.components.BaseOrderLayout
 import com.elton.xdordersprototipojetpackcompose.components.HorizontalPagerXD
+import com.elton.xdordersprototipojetpackcompose.domain.model.Table
 import com.elton.xdordersprototipojetpackcompose.navigation.Screen
 
 @Composable
 fun PartialPaymentPageScreen(navController: NavController) {
+    val mesas = listOf<Table>()
     Scaffold(
         topBar = {
             BaseOrderLayout(
@@ -27,8 +29,9 @@ fun PartialPaymentPageScreen(navController: NavController) {
                 ) {
                 HorizontalPagerXD(
                     navController = navController,
-                    onMinhasButtonClick = {
-                        navController.navigate(Screen.PartialPaymentPagePrincipal.route)
+                    mesas = mesas,
+                    onMinhasButtonClick = { Table ->
+                        navController.navigate("partial_payment_page/${Table.id}")
                     }
                 )
             }

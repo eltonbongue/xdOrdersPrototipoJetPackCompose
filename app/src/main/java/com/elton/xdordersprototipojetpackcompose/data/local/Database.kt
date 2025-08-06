@@ -107,6 +107,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
 
     companion object {
         private const val DATABASE_NAME = "xd_orders.db"
-        private const val DATABASE_VERSION = 7
+        private const val DATABASE_VERSION = 8
     }
 }

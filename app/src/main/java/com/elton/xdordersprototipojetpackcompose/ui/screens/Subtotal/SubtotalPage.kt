@@ -13,10 +13,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.elton.xdordersprototipojetpackcompose.components.BaseOrderLayout
 import com.elton.xdordersprototipojetpackcompose.components.HorizontalPagerXD
+import com.elton.xdordersprototipojetpackcompose.domain.model.Table
 import com.elton.xdordersprototipojetpackcompose.navigation.Screen
 
 @Composable
 fun SubtotalPageScreen(navController: NavController) {
+    val mesas = listOf<Table>()
     Scaffold(
         topBar = {
             BaseOrderLayout(
@@ -27,8 +29,9 @@ fun SubtotalPageScreen(navController: NavController) {
                 ) {
                 HorizontalPagerXD(
                     navController = navController,
-                    onMinhasButtonClick = {
-                        navController.navigate(Screen.SubtotalPagePrincipal.route)
+                    mesas = mesas,
+                    onMinhasButtonClick = { Table ->
+                        navController.navigate("subtotal_page/${Table.id}")
                     }
                 )
             }
