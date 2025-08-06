@@ -161,6 +161,6 @@ val settingsList: List<SettingItemData> = listOf(
         icon = Icons.Default.TableBar,
         iconColor = Color.DarkGray,
         group = "Teste",
-        screen = Screen.ProductPage
+        screen = Screen.RegisterTablePage
     )
 )

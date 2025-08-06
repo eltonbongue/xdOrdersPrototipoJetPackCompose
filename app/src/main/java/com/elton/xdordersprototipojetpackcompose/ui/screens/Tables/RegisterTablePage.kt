@@ -81,7 +81,7 @@ fun RegisterTableScreen(
             ) {
                 OutlinedTextField(
                     value = status,
-                    onValueChange = {}, // Campo somente leitura, não altera valor
+                    onValueChange = {},
                     readOnly = true,
                     label = { Text("Status") },
                     trailingIcon = {
