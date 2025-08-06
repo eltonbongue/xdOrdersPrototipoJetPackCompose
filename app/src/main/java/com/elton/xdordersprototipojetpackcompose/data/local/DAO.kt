@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import com.elton.xdordersprototipojetpackcompose.domain.model.Category
 import com.elton.xdordersprototipojetpackcompose.domain.model.Order
 import com.elton.xdordersprototipojetpackcompose.domain.model.Product
+import com.elton.xdordersprototipojetpackcompose.domain.model.Table
 import com.elton.xdordersprototipojetpackcompose.domain.model.User
 
 
@@ -60,6 +61,16 @@ class DAO (private val dbHelper: DatabaseHelper) {
             put("quantity", order.quantity)
         }
         db.insert("orders", null, contentValues)
+        db.close()
+    }
+
+    fun insertTable(table: Table){
+        val db = dbHelper.writableDatabase
+        val contentValues = ContentValues().apply {
+            put("name", table.name)
+            put("status", table.status)
+        }
+        db.insert("tables", null, contentValues)
         db.close()
     }
 
