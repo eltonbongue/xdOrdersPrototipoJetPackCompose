@@ -18,25 +18,24 @@ import coil.compose.rememberAsyncImagePainter
 @Composable
 fun MesaItem(
     nome: String,
-    imagemUri: String?
+    imagemUri: String?,
     onClick: () -> Unit
 ) {
     Box(
         modifier = Modifier
-            .size(150.dp)
+            .width(150.dp)
+            .height(130.dp)
             .clip(RoundedCornerShape(12.dp))
             .clickable { onClick() }
     ) {
         if (!imagemUri.isNullOrBlank()) {
-            // Exibe a imagem da mesa, se existir
             Image(
                 painter = rememberAsyncImagePainter(model = imagemUri),
-                contentDescription = "Imagem da Mesa",
+                contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize()
             )
         } else {
-            // Fundo padrão se não houver imagem
             Box(
                 modifier = Modifier
                     .fillMaxSize()
