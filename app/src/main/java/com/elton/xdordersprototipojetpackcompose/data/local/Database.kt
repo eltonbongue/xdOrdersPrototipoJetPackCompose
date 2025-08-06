@@ -56,7 +56,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
     CREATE TABLE IF NOT EXISTS tables (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL UNIQUE,
-        status TEXT DEFAULT 'livre'
+        imageUri TEXT
     );
     """.trimIndent()
         )
