@@ -64,20 +64,22 @@ class DAO (private val dbHelper: DatabaseHelper) {
         db.close()
     }
 
-    fun insertTable(name: String, status: String): Boolean {
+    fun insertTable(name: String, imageUri: String?): Boolean {
         return try {
             val db = dbHelper.writableDatabase
             val contentValues = ContentValues().apply {
                 put("name", name)
-                put("status", status)
+                put("imageUri", imageUri)
             }
             val result = db.insert("tables", null, contentValues)
             db.close()
             result != -1L
         } catch (e: Exception) {
+            e.printStackTrace() // opcional, ajuda em debug
             false
         }
     }
+
 
 
     fun getAllOrders(): List<Order> {
