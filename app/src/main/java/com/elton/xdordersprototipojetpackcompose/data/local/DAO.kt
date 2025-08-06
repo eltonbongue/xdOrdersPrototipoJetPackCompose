@@ -80,6 +80,26 @@ class DAO (private val dbHelper: DatabaseHelper) {
         }
     }
 
+    fun getAllTables(): List<Table> {
+        val db = dbHelper.readableDatabase
+        val cursor = db.query(
+            "tables",
+            arrayOf("id", "name", "imageUri"),
+            null, null, null, null, null
+        )
+
+        val tables = mutableListOf<Table>()
+        while (cursor.moveToNext()) {
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
+            val name = cursor.getString(cursor.getColumnIndexOrThrow("name"))
+            val imageUri = cursor.getString(cursor.getColumnIndexOrThrow("imageUri"))
+            tables.add(Table(id = id, name = name, imagemUri = imageUri))
+        }
+
+        cursor.close()
+        db.close()
+        return tables
+    }
 
 
     fun getAllOrders(): List<Order> {
@@ -129,24 +149,24 @@ class DAO (private val dbHelper: DatabaseHelper) {
     }
 
 
-fun getAllUsers(): List<User> {
-    val db = dbHelper.readableDatabase
-    val cursor = db.rawQuery("SELECT id, name, email, password FROM users", null)
+    fun getAllUsers(): List<User> {
+        val db = dbHelper.readableDatabase
+        val cursor = db.rawQuery("SELECT id, name, email, password FROM users", null)
 
-    val users = mutableListOf<User>()
-    while (cursor.moveToNext()) {
-        val user = User(
-            id = cursor.getInt(0),
-            name = cursor.getString(1),
-            email = cursor.getString(2),
-            password = cursor.getString(3)
-        )
-        users.add(user)
+        val users = mutableListOf<User>()
+        while (cursor.moveToNext()) {
+            val user = User(
+                id = cursor.getInt(0),
+                name = cursor.getString(1),
+                email = cursor.getString(2),
+                password = cursor.getString(3)
+            )
+            users.add(user)
+        }
+
+        cursor.close()
+        return users
     }
-
-    cursor.close()
-    return users
-}
 
 
     fun getUserById(userId: Int): User? {
@@ -199,6 +219,9 @@ fun getAllUsers(): List<User> {
         }
     }
 
-
-
 }
+
+
+
+
+
