@@ -53,12 +53,12 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
         // Tabela de mesas
         db.execSQL(
             """
-            CREATE TABLE IF NOT EXISTS tables (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT NOT NULL UNIQUE,
-                capacity INTEGER DEFAULT 1
-            );
-            """.trimIndent()
+    CREATE TABLE IF NOT EXISTS tables (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL UNIQUE,
+        status TEXT DEFAULT 'livre'
+    );
+    """.trimIndent()
         )
 
         // Tabela de pedidos
