@@ -145,19 +145,8 @@ fun AppNavigator(navController: NavHostController) {
             // OtherPagePrincipalScreen(navController)
         }
 
-        composable(
-            route = Screen.PartialPaymentPage.route,
-            arguments = listOf(
-                navArgument("mesaId") { type = NavType.IntType }
-            )
-        ) { backStackEntry ->
-            val mesaId = backStackEntry.arguments?.getInt("mesaId")
-                ?: throw IllegalStateException("mesaId não encontrado")
-
-            PartialPaymentPageScreen(
-                mesaId = mesaId,
-                navController = navController
-            )
+        composable (Screen.PartialPaymentPage.route){
+           PartialPaymentPageScreen(navController)
         }
 
 
