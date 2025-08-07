@@ -33,7 +33,9 @@ fun TablePageScreen(navController: NavController) {
     val viewModel: TablesViewModel = viewModel(factory = TablesViewModelFactory(dao))
 
     // Observa a lista de mesas
-    val mesas = viewModel.mesas.collectAsState().value
+    val mesasState = viewModel.mesas.collectAsState()
+    val mesas = mesasState.value
+
 
     Scaffold(
         topBar = {
@@ -46,7 +48,7 @@ fun TablePageScreen(navController: NavController) {
                     navController = navController,
                     mesas = mesas,
                     onMinhasButtonClick  = { table ->
-                        navController.navigate("partial_payment_page/${table.id}")
+                        navController.navigate(Screen.OrderPage.route)
                     }
                 )
             }
