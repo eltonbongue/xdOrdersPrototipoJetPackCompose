@@ -29,7 +29,10 @@ sealed class Screen(val route: String) {
     object TransferOderPageDestination: Screen("transfer_page_destination")
     object OtherPage : Screen("other_page")
     object OtherPagePrincipal: Screen("other_page_principal")
-    object PartialPaymentPage : Screen("partial_payment_page")
+    object PartialPaymentPage : Screen("partial_payment_page/{mesaId}") {
+        fun createRoute(mesaId: Int): String = "partial_payment_page/$mesaId"
+    }
+
     object PartialPaymentPagePrincipal: Screen("partial_payment_page_principal")
     object PopUpPage : Screen("popup_page")
     object OutBoxPage: Screen("outbox_page")
