@@ -93,7 +93,7 @@ class DAO (private val dbHelper: DatabaseHelper) {
             val id = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
             val name = cursor.getString(cursor.getColumnIndexOrThrow("name"))
             val imageUri = cursor.getString(cursor.getColumnIndexOrThrow("imageUri"))
-            tables.add(Table(id = id, name = name, imagemUri = imageUri))
+            tables.add(Table(id = id, name = name, imageUri = imageUri))
         }
 
         cursor.close()
