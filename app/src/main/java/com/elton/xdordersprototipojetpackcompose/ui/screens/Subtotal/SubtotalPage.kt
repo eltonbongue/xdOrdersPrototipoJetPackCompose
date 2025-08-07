@@ -30,10 +30,11 @@ fun SubtotalPageScreen(navController: NavController) {
                 HorizontalPagerXD(
                     navController = navController,
                     mesas = mesas,
-                    onMinhasButtonClick = { Table ->
-                        navController.navigate("subtotal_page/${Table.id}")
+                    onMinhasButtonClick  = { table ->
+                        navController.navigate(Screen.SubtotalPagePrincipal.route)
                     }
                 )
+
             }
         },
 
