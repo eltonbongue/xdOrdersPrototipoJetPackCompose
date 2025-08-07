@@ -21,6 +21,7 @@ fun TransferOrderPagePrincipalScreen(
             TopBarOrderXD(
                 title = "(Transferência) Mesa/Cartão: 1",
                 navController = navController,
+                backRoute = "transfer_order_page"
             )
         },
 

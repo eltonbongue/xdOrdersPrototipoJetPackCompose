@@ -21,6 +21,7 @@ fun PartialPaymentPagePrincipalScreen(
             TopBarOrderXD(
                 title = "(Pagamento Parcial) Mesa/Cartão: 1",
                 navController = navController,
+                backRoute = "partial_payment_page"
             )
         },
 

@@ -82,7 +82,8 @@ fun OrderPageScreen(
         topBar = {
             TopBarOrderXD(
                 title = "(Pedido)Mesa/Cartão: 1",
-                navController = navController
+                navController = navController,
+                backRoute = "table_page",
             )
         }
     ) { innerPadding ->

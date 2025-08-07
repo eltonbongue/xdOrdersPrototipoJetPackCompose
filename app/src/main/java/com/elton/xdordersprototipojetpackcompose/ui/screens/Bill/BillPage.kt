@@ -55,7 +55,7 @@ fun BillPageScreen(navController: NavController) {
             ) {
                 HorizontalPagerXD(
                     navController = navController,
-                    mesas = mesas,
+                    mesas = mesasState.value,
                     onMinhasButtonClick = { table ->
                         navController.navigate(Screen.FinishBillPage.route)
                     }
