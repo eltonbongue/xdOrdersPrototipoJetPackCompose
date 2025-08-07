@@ -1,5 +1,6 @@
 package com.elton.xdordersprototipojetpackcompose.ui.screens.Tables
 
+import android.util.Log
 import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -10,17 +11,25 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
+import coil.compose.rememberImagePainter
+import android.net.Uri
+import coil.request.ImageRequest
 
 @Composable
 fun MesaItem(
     nome: String,
-    imagemUri: String?,
+    imageUri: String?,
     onClick: () -> Unit
 ) {
+    val context = LocalContext.current
+
     Box(
         modifier = Modifier
             .width(150.dp)
@@ -28,13 +37,25 @@ fun MesaItem(
             .clip(RoundedCornerShape(12.dp))
             .clickable { onClick() }
     ) {
-        if (!imagemUri.isNullOrBlank()) {
+        if (!imageUri.isNullOrBlank()) {
+
+            val uri = Uri.parse(imageUri)
+
             Image(
-                painter = rememberAsyncImagePainter(model = imagemUri),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
+                painter = rememberAsyncImagePainter(
+                    ImageRequest.Builder(context)
+                        .data(uri)
+                        .crossfade(true)
+                        .build()
+                ),
+                contentDescription = "Imagem da mesa",
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clip(RoundedCornerShape(12.dp)),
+                contentScale = ContentScale.Crop
             )
+
+
         } else {
             Box(
                 modifier = Modifier
@@ -45,12 +66,16 @@ fun MesaItem(
 
         Text(
             text = nome,
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            color = if (imageUri.isNullOrBlank())
+                MaterialTheme.colorScheme.onPrimaryContainer
+            else
+                Color.White,
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier
                 .align(Alignment.Center)
-                .background(Color(0x80000000), RoundedCornerShape(4.dp))
-                .padding(horizontal = 8.dp, vertical = 4.dp)
+                .padding(8.dp),
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
         )
     }
 }
