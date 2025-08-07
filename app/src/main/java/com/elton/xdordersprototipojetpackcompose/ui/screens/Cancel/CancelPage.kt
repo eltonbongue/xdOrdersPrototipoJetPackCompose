@@ -49,6 +49,7 @@ fun CancelPageScreen(navController: NavController) {
                     mesas = mesas,
                     onMinhasButtonClick  = { table ->
                         navController.navigate(Screen.CancelPagePrincipal.route)
+
                     }
                 )
 
