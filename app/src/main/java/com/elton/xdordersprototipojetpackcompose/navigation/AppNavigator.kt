@@ -9,8 +9,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.elton.xdordersprototipojetpackcompose.SessionManager
 import com.elton.xdordersprototipojetpackcompose.data.local.DAO
 import com.elton.xdordersprototipojetpackcompose.data.local.DatabaseHelper
@@ -143,9 +145,21 @@ fun AppNavigator(navController: NavHostController) {
             // OtherPagePrincipalScreen(navController)
         }
 
-        composable(Screen.PartialPaymentPage.route) {
-            PartialPaymentPageScreen(navController)
+        composable(
+            route = Screen.PartialPaymentPage.route,
+            arguments = listOf(
+                navArgument("mesaId") { type = NavType.IntType }
+            )
+        ) { backStackEntry ->
+            val mesaId = backStackEntry.arguments?.getInt("mesaId")
+                ?: throw IllegalStateException("mesaId não encontrado")
+
+            PartialPaymentPageScreen(
+                mesaId = mesaId,
+                navController = navController
+            )
         }
+
 
         composable (Screen.PartialPaymentPagePrincipal.route) {
             PartialPaymentPagePrincipalScreen(navController)
