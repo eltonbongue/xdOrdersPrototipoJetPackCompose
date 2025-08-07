@@ -28,7 +28,7 @@ fun MinhasScreen(
             items(mesas) { mesa ->
                 MesaItem(
                     nome = mesa.name,
-                    imagemUri = mesa.imagemUri,
+                    imageUri = mesa.imageUri,
                     onClick = { onMesaClick(mesa) }
                 )
             }
