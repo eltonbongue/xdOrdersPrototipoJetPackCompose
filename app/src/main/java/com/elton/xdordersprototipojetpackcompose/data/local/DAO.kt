@@ -24,21 +24,22 @@ class DAO (private val dbHelper: DatabaseHelper) {
         return result != -1L// verifica se a inserção foi bem-sucedida
     }
 
-    fun insertProduct(name: String, categoryId: Int, price: Double): Boolean {
+    fun insertProduct(name: String, categoryId: Int, price: Double, imageUri: String?): Boolean {
         return try {
             val db = dbHelper.writableDatabase
             val values = ContentValues().apply {
                 put("name", name)
                 put("price", price)
                 put("category_id", categoryId)
-                put("description", "") // Adiciona uma descrição vazia
+                put("image_uri", imageUri)
             }
-            db.insert("products", null, values) != -1L
+            val result = db.insert("products", null, values)
+            db.close()
+            result != -1L
         } catch (e: Exception) {
             false
         }
     }
-
 
     fun insertCategory(name: String): Boolean {
         return try {
@@ -135,11 +136,11 @@ class DAO (private val dbHelper: DatabaseHelper) {
                     val nome = cursor.getString(cursor.getColumnIndexOrThrow("name"))
                     val price = cursor.getDouble(cursor.getColumnIndexOrThrow("price"))
                     val categoriaId = cursor.getInt(cursor.getColumnIndexOrThrow("category_id"))
-                    val descricao = cursor.getString(cursor.getColumnIndexOrThrow("description"))
+                    val imageUri =  cursor.getString(cursor.getColumnIndexOrThrow("image_uri"))
                         ?: "" // Usar "" se a descrição for nula
 
 
-                    produtos.add(Product(id, nome, price, categoriaId, descricao))
+                    produtos.add(Product(id, nome, price, categoriaId, imageUri))
                 } while (cursor.moveToNext())
             }
 
