@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
 import android.net.Uri
+import androidx.compose.ui.text.font.FontWeight
 import coil.request.ImageRequest
 
 @Composable
@@ -70,7 +71,7 @@ fun MesaItem(
                 MaterialTheme.colorScheme.onPrimaryContainer
             else
                 Color.White,
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Black),
             modifier = Modifier
                 .align(Alignment.Center)
                 .padding(8.dp),
