@@ -1,12 +1,15 @@
 package com.elton.xdordersprototipojetpackcompose.ui.screens.Order
 
 import ProdutoViewModel
+import android.graphics.Paint
 import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -38,11 +41,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.foundation.lazy.items
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import coil.compose.rememberAsyncImagePainter
 import com.elton.xdordersprototipojetpackcompose.components.TopBar.TopBarOrderXD
 import com.elton.xdordersprototipojetpackcompose.data.local.DAO
 import com.elton.xdordersprototipojetpackcompose.data.local.DAO.ProdutoDao
@@ -206,23 +213,46 @@ fun ProdutoButtonsList(
     ) {
         items(produtos) { produto ->
 
+            Column(
+                modifier = Modifier
+                    .padding(4.dp)
+                    .width(150.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 Button(
                     onClick = { onProdutoClick(produto) },
                     modifier = Modifier
-                        .padding(2.dp)
-                        .width(150.dp)
-                        .height(130.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1565C0)),
-                    shape = RoundedCornerShape(4.dp)
+                        .height(130.dp)
+                        .fillMaxWidth(),
+                    shape = RoundedCornerShape(4.dp),
+                    contentPadding = PaddingValues(0.dp)
                 ) {
-                    Text(
-                        text = produto.name,
-                        textAlign = TextAlign.Center,
-                        color = Color.White,
-                        maxLines = 2,
-                        modifier = Modifier.fillMaxWidth()
-                    )
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        if (produto.imageUri != null) {
+                            Image(
+                                painter = rememberAsyncImagePainter(produto.imageUri),
+                                contentDescription = "Imagem do produto",
+                                modifier = Modifier.fillMaxSize(),
+                                contentScale = ContentScale.Crop
+                            )
+                        }
+                    }
                 }
+
+                Text(
+                    text = produto.name,
+                    textAlign = TextAlign.Center,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Black,
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontFamily = FontFamily.Monospace    ,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier
+                        .padding(top = 4.dp)
+                        .fillMaxWidth()
+                )
+            }
         }
     }
 }
