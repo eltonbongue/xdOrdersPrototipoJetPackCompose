@@ -42,7 +42,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
                 name TEXT NOT NULL,
                 price REAL NOT NULL,
                 category_id INTEGER NOT NULL,
-                description TEXT,
+                image_uri TEXT,
                 FOREIGN KEY (category_id) REFERENCES categories(id),
                 UNIQUE(name, category_id)
 
@@ -107,6 +107,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
 
     companion object {
         private const val DATABASE_NAME = "xd_orders.db"
-        private const val DATABASE_VERSION = 8
+        private const val DATABASE_VERSION = 11
     }
 }
