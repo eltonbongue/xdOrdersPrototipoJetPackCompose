@@ -118,9 +118,12 @@ fun RegisterTableScreen(
                             name = name,
                             imageUri = realPath
                         )
+                        val clearTextFieldValue = {
+                            name = ""
+                        }
                         if (success) {
                             Toast.makeText(context, "Mesa salva com sucesso!", Toast.LENGTH_SHORT).show()
-                            onCancelClick()
+                            clearTextFieldValue()
                         } else {
                             Toast.makeText(context, "Erro ao salvar mesa", Toast.LENGTH_SHORT).show()
                         }

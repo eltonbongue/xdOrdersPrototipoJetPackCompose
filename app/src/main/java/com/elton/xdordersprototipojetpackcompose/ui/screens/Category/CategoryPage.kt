@@ -88,13 +88,16 @@ fun CategoryPageScreen(
                     onClick = {
                         try {
                             val success = dao.insertCategory(name.trim())
+                            val clearTextFieldValue = {
+                                name = ""
+                            }
                             if (success) {
                                 Toast.makeText(
                                     context,
                                     "Categoria salva com sucesso!",
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                onCancelClick()
+                               clearTextFieldValue()
                             } else {
                                 Toast.makeText(
                                     context,

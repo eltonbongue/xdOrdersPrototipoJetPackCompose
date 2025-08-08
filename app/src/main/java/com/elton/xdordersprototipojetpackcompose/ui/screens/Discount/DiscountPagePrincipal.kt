@@ -39,7 +39,7 @@ fun DiscountPagePrincipalScreen(navController: NavController) {
             TopBarTableXD(
                 title = "(Desconto) Mesa/Cartão: 1",
                 subtitle = "Indique o desconto(em percentagem)",
-                backroute = "",
+                backroute = "discount_page",
                 navController = navController,
             )
         },

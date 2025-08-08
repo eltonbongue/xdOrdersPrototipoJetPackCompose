@@ -165,6 +165,13 @@ fun ProductPageScreen(
                             try {
                                 val categoryId = dao.getCategoryIdByName(selectedCategory)
 
+                                val clearTextFieldValue = {
+                                    name = ""
+                                    query = ""
+                                    price = ""
+                                    selectedCategory = ""
+                                    imageUri = null
+                                }
                                 if (categoryId != null) {
                                     val imagePath = savedImageUri?.toString() ?: ""
                                     val success =
@@ -176,7 +183,7 @@ fun ProductPageScreen(
                                             "Produto salvo com sucesso!",
                                             Toast.LENGTH_SHORT
                                         ).show()
-                                        onCancelClick()
+                                        clearTextFieldValue()
                                     } else {
                                         Toast.makeText(
                                             context,
