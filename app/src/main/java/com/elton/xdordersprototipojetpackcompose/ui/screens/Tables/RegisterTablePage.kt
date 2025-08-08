@@ -33,6 +33,7 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
 import coil.compose.rememberAsyncImagePainter
+import com.elton.xdordersprototipojetpackcompose.components.FIleUtils.copyImageToPersistentStorage
 import com.elton.xdordersprototipojetpackcompose.data.local.DAO
 import com.elton.xdordersprototipojetpackcompose.data.local.DatabaseHelper
 import com.elton.xdordersprototipojetpackcompose.ui.components.TopBarXD
@@ -111,9 +112,10 @@ fun RegisterTableScreen(
 
                 Button(
                     onClick = {
+                        val realPath = imageUri?.let { copyImageToPersistentStorage(context, it) }
                         val success = dao.insertTable(
                             name = name,
-                            imageUri = imageUri?.toString()
+                            imageUri = realPath
                         )
                         if (success) {
                             Toast.makeText(context, "Mesa salva com sucesso!", Toast.LENGTH_SHORT).show()
