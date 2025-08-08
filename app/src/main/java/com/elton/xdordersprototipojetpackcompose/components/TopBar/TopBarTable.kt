@@ -24,6 +24,7 @@ import com.elton.xdordersprototipojetpackcompose.navigation.Screen.HomePage
 @Composable
 fun TopBarTableXD(
     title: String,
+    backroute: String,
     subtitle: String,
     navController: NavController,
     showBackButton: Boolean = true,
@@ -36,9 +37,9 @@ fun TopBarTableXD(
                 val context = LocalContext.current
                 val sessionManager = SessionManager(context)
                 val user = sessionManager.getUser() // Recupera o usuário logado
-                val userId = user.id
+
                 IconButton(
-                    onClick = { navController.navigate(HomePage.userIdRoute(userId)) { popUpTo("home_page") } },
+                    onClick = { navController.navigate(backroute) { popUpTo(0) } },
                     modifier = Modifier.size(78.dp)
                 ){
                     Row {

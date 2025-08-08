@@ -51,6 +51,7 @@ fun UserLoginScreen(navController: NavController) {
             TopBarTableXD(
                 title = "Usuários",
                 subtitle = "Selecione um usuário para iniciar sessão.",
+                backroute = "home",
                 navController = navController
             )
         }
@@ -68,8 +69,8 @@ fun UserLoginScreen(navController: NavController) {
             ) {
                 items(users.value) { user ->
                     UserAvatarItem(user = user) {
-                        sessionManager.saveUserId(user.id) // ← salva a sessão
-                        sessionManager.saveUserName(user.name) // ← salva o nome do usuário
+                        sessionManager.saveUserId(user.id)
+                        sessionManager.saveUserName(user.name)
                         navController.navigate(Screen.HomePage.route) {
 
                         }

@@ -24,6 +24,7 @@ fun TransferOrderPageScreen (navController: NavController) {
             BaseOrderLayout(
                 title = "(Transferência)Mesa/Cartão",
                 subtitle = "Selecione o/a mesa/cartão.",
+                backroute = "home_page/{userId}",
                 navController = navController
             ) {
                 HorizontalPagerXD(

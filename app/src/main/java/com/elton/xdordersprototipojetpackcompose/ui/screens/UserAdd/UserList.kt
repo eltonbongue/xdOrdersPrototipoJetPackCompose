@@ -43,6 +43,7 @@ fun ListUserScreen(
         topBar = {
             TopBarXD(
                 title = "Lista de Usuários",
+                backroute = "settings",
                 navController = navController
             )
         }

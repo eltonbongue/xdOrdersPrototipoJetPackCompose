@@ -60,6 +60,7 @@ fun RegisterTableScreen(
         topBar = {
             TopBarXD(
                 title = "Cadastrar Mesa",
+                backroute = "settings",
                 navController = navController
             )
         }

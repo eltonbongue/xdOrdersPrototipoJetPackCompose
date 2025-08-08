@@ -49,6 +49,7 @@ fun CategoryPageScreen(
         topBar = {
             TopBarXD(
                 title = "Cadastrar Categoria",
+                backroute = "settings",
                 navController = navController
             )
         },

@@ -42,6 +42,7 @@ fun PartialPaymentPageScreen(navController: NavController) {
             BaseOrderLayout(
                 title = "Mesa/Conta",
                 subtitle = "Selecione o/a mesa/cartão.",
+                backroute = "home_page/{userId}",
                 navController = navController,
 
                 ) {

@@ -62,6 +62,7 @@ fun ProductPageScreen(
         topBar = {
             TopBarXD(
                 title = "Cadastrar Produto",
+                backroute = "settings",
                 navController = navController
             )
         }

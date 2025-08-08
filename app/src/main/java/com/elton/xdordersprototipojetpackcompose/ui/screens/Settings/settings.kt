@@ -38,6 +38,7 @@ fun SettingsScreen(navController: NavController) {
         topBar = {
             TopBarXD(
                 title = "Definições",
+                backroute = "home",
                 navController = navController
             )
         },

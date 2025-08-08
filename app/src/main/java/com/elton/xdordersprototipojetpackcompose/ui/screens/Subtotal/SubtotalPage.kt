@@ -42,6 +42,7 @@ fun SubtotalPageScreen(navController: NavController) {
             BaseOrderLayout(
                 title = "Mesa/Conta",
                 subtitle = "(Subtotal) Mesa/Cartão:1 ",
+                backroute = "home_page/{userId}",
                 navController = navController,
 
                 ) {

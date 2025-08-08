@@ -42,6 +42,7 @@ fun CancelPageScreen(navController: NavController) {
             BaseOrderLayout(
                 title = "(Anulação)Mesa/Cartão",
                 subtitle = "Selecione o/a mesa/cartão.",
+                backroute = "home_page/{userId}",
                 navController = navController
             ) {
                 HorizontalPagerXD(

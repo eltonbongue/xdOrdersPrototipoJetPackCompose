@@ -47,6 +47,7 @@ fun UserPageScreen(
         topBar = {
             TopBarXD(
                 title = "Casdastrar/User",
+                backroute = "settings",
                 navController = navController
             )
         },

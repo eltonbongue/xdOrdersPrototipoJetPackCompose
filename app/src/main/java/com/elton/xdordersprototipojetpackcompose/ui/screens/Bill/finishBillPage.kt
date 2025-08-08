@@ -40,6 +40,7 @@ fun FinishBillPageScreen(navController: NavController) {
             TopBarTableXD(
                 title = "(Conta)Mesa/Cartão: 1",
                 subtitle = "Selecione um método de pagamento.",
+                backroute = "bill_page",
                 navController = navController
             )
         },

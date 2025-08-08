@@ -19,6 +19,7 @@ import com.elton.xdordersprototipojetpackcompose.R
 @Composable
 fun TopBarXD(
     title: String,
+    backroute: String,
     navController: NavController,
     showBackButton: Boolean = true,
     backgroundColor: Color = Color(0xFF103175)
@@ -28,7 +29,7 @@ fun TopBarXD(
             if (showBackButton) {
 
                 IconButton(
-                    onClick = { navController.navigate("home") { popUpTo(0) } },
+                    onClick = { navController.navigate(backroute) { popUpTo(0) } },
                     modifier = Modifier.size(78.dp)
                 ) {
                     Row {

@@ -42,6 +42,7 @@ fun DiscountPageScreen(navController: NavController) {
             BaseOrderLayout(
                 title = "Mesa/Cartão",
                 subtitle = "Selecione o/a mesa/cartão.",
+                backroute = "",
                 navController = navController,
 
                 ) {
