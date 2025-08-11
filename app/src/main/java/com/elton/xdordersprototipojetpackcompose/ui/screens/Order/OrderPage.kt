@@ -70,7 +70,7 @@ fun OrderPageScreen(
 ) {
 
     val dbHelper = remember { DatabaseHelper(navController.context) }
-    val produtoDao = remember { ProdutoDao(dbHelper.readableDatabase) }
+    val produtoDao = remember { ProdutoDao(dbHelper) }
 
     val produtoViewModel: ProdutoViewModel = viewModel(
         factory = ProdutoViewModelFactory(produtoDao)
@@ -78,7 +78,6 @@ fun OrderPageScreen(
 
     val coroutineScope = rememberCoroutineScope()
     val categories = viewModel.categories.value
-
 
     val pagerState = rememberPagerState(
         initialPage = 0,
