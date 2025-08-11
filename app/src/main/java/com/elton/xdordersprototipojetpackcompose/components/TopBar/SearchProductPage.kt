@@ -125,13 +125,7 @@ fun ProductItem(product: Product, onClick: () -> Unit) {
                 .padding(16.dp)
         ) {
 
-            Icon(
-                imageVector = Icons.Filled.ArrowBack,
-                contentDescription = null,
-                modifier = Modifier
-                    .padding(end = 12.dp)
-                    .size(32.dp)
-            )
+
             androidx.compose.foundation.layout.Column(
                 modifier = Modifier.weight(1f)
             ) {
