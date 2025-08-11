@@ -121,30 +121,46 @@ class DAO (private val dbHelper: DatabaseHelper) {
     }
 
 
-    class ProdutoDao(private val db: SQLiteDatabase) {
+    class ProdutoDao(private val dbHelper: DatabaseHelper) {
+
+        fun getAllProductNamesAndIds(): List<Pair<Int, String>> {
+            val products = mutableListOf<Pair<Int, String>>()
+            val db = dbHelper.readableDatabase
+            db.query("products", arrayOf("id", "name"), null, null, null, null, "name ASC")
+                .use { cursor ->
+                    val idIdx = cursor.getColumnIndexOrThrow("id")
+                    val nameIdx = cursor.getColumnIndexOrThrow("name")
+                    while (cursor.moveToNext()) {
+                        products.add(cursor.getInt(idIdx) to cursor.getString(nameIdx))
+                    }
+                }
+            db.close()
+            return products
+        }
 
         fun getProdutosPorCategoria(categoriaId: Int): List<Product> {
             val produtos = mutableListOf<Product>()
-            val cursor = db.rawQuery(
-                "SELECT * FROM products WHERE category_id = ?",
-                arrayOf(categoriaId.toString())
-            )
-
-            if (cursor != null && cursor.moveToFirst()) {
-                do {
-                    val id = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
-                    val nome = cursor.getString(cursor.getColumnIndexOrThrow("name"))
-                    val price = cursor.getDouble(cursor.getColumnIndexOrThrow("price"))
-                    val categoriaId = cursor.getInt(cursor.getColumnIndexOrThrow("category_id"))
-                    val imageUri =  cursor.getString(cursor.getColumnIndexOrThrow("image_uri"))
-                        ?: "" // Usar "" se a descrição for nula
-
-
-                    produtos.add(Product(id, nome, price, categoriaId, imageUri))
-                } while (cursor.moveToNext())
-            }
-
-            cursor?.close()
+            val db = dbHelper.readableDatabase
+            db.rawQuery("SELECT * FROM products WHERE category_id = ?", arrayOf(categoriaId.toString()))
+                .use { cursor ->
+                    val idIdx = cursor.getColumnIndexOrThrow("id")
+                    val nameIdx = cursor.getColumnIndexOrThrow("name")
+                    val priceIdx = cursor.getColumnIndexOrThrow("price")
+                    val catIdx = cursor.getColumnIndexOrThrow("category_id")
+                    val imgIdx = cursor.getColumnIndexOrThrow("image_uri")
+                    while (cursor.moveToNext()) {
+                        produtos.add(
+                            Product(
+                                cursor.getInt(idIdx),
+                                cursor.getString(nameIdx),
+                                cursor.getDouble(priceIdx),
+                                cursor.getInt(catIdx),
+                                cursor.getString(imgIdx) ?: ""
+                            )
+                        )
+                    }
+                }
+            db.close()
             return produtos
         }
     }
