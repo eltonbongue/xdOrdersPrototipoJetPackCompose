@@ -1,6 +1,7 @@
 package com.elton.xdordersprototipojetpackcompose.navigation
 
 import ProductPageScreen
+import ProductSearchScreen
 import UserPageScreen
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -15,6 +16,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.elton.xdordersprototipojetpackcompose.SessionManager
 import com.elton.xdordersprototipojetpackcompose.data.local.DAO
+import com.elton.xdordersprototipojetpackcompose.data.local.DAO.ProdutoDao
 import com.elton.xdordersprototipojetpackcompose.data.local.DatabaseHelper
 import com.elton.xdordersprototipojetpackcompose.domain.model.User
 import com.elton.xdordersprototipojetpackcompose.ui.screens.HomeScreen
@@ -197,6 +199,28 @@ fun AppNavigator(navController: NavHostController) {
 
             RegisterTableScreen( navController = navController, dbHelper = DatabaseHelper(LocalContext.current))
         }
+
+        composable(Screen.SearchProductPage.route) {
+            val context = LocalContext.current
+            val dbHelper = remember { DatabaseHelper(context) }
+            val dao = remember { DAO(dbHelper) } // cria DAO principal
+
+            val produtoDao = remember { ProdutoDao(dbHelper) }
+            ProductSearchScreen(
+                navController = navController,
+                produtoDao = produtoDao,
+                onBack = { navController.popBackStack() },
+                onProductSelected = { product ->
+                    navController.popBackStack()
+                }
+            )
+
+        }
+
+
+
+
+
 
 
     }
