@@ -38,4 +38,5 @@ sealed class Screen(val route: String) {
     object ProductPage: Screen("product_page")
     object CategoryPage: Screen("category_page")
     object RegisterTablePage: Screen("register_table_page")
+    object SearchProductPage: Screen("search_product_page")
 }
