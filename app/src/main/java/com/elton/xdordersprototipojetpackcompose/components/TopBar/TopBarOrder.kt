@@ -1,5 +1,6 @@
 package com.elton.xdordersprototipojetpackcompose.components.TopBar
 
+import android.R.attr.onClick
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
@@ -69,12 +70,17 @@ fun TopBarOrderXD(
             )
         },
         actions = {
-            Icon(
-                imageVector = Icons.Rounded.Search,
-                contentDescription = "Buscar",
-                modifier = Modifier.size(38.dp),
-                tint = Color.White
-            )
+            IconButton(
+                onClick = { navController.navigate("search_product_page") { popUpTo(0) } },
+                modifier = Modifier.size(78.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Rounded.Search,
+                    contentDescription = "Buscar",
+                    modifier = Modifier.size(38.dp),
+                    tint = Color.White
+                )
+            }
         },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = backgroundColor
@@ -83,6 +89,3 @@ fun TopBarOrderXD(
     )
 
 }
-
-
-
