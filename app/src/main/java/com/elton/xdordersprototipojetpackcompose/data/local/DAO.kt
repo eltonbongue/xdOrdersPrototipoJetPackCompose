@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import com.elton.xdordersprototipojetpackcompose.domain.model.Category
 import com.elton.xdordersprototipojetpackcompose.domain.model.Order
 import com.elton.xdordersprototipojetpackcompose.domain.model.Product
+import com.elton.xdordersprototipojetpackcompose.domain.model.ProdutoCompleto
 import com.elton.xdordersprototipojetpackcompose.domain.model.Table
 import com.elton.xdordersprototipojetpackcompose.domain.model.User
 
@@ -163,6 +164,31 @@ class DAO (private val dbHelper: DatabaseHelper) {
             db.close()
             return produtos
         }
+
+        fun getProdutoCompletoPorId(produtoId: Int): ProdutoCompleto? {
+            val db = dbHelper.readableDatabase
+            val cursor = db.rawQuery("""
+        SELECT p.id, p.name, p.price, p.image_uri, c.name AS categoryName
+        FROM products p
+        JOIN categories c ON p.category_id = c.id
+        WHERE p.id = ?
+    """.trimIndent(), arrayOf(produtoId.toString()))
+
+            var produto: ProdutoCompleto? = null
+            if (cursor.moveToFirst()) {
+                produto = ProdutoCompleto(
+                    id = cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                    name = cursor.getString(cursor.getColumnIndexOrThrow("name")),
+                    price = cursor.getDouble(cursor.getColumnIndexOrThrow("price")),
+                    imageUri = cursor.getString(cursor.getColumnIndexOrThrow("image_uri")),
+                    categoryName = cursor.getString(cursor.getColumnIndexOrThrow("categoryName"))
+                )
+            }
+            cursor.close()
+            return produto
+        }
+
+
     }
 
 
@@ -184,6 +210,7 @@ class DAO (private val dbHelper: DatabaseHelper) {
         cursor.close()
         return users
     }
+
 
 
     fun getUserById(userId: Int): User? {
