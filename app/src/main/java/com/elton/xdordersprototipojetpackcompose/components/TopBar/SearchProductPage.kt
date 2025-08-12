@@ -1,5 +1,14 @@
+import android.R.attr.width
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -11,7 +20,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
+
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -24,12 +33,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.elton.xdordersprototipojetpackcompose.components.BaseOrderLayout
-import com.elton.xdordersprototipojetpackcompose.data.local.DAO
+import com.elton.xdordersprototipojetpackcompose.R
+import android.net.Uri
+import androidx.compose.foundation.border
+import androidx.compose.ui.graphics.Color
 import com.elton.xdordersprototipojetpackcompose.data.local.DAO.ProdutoDao
 import com.elton.xdordersprototipojetpackcompose.domain.model.Product
+import com.elton.xdordersprototipojetpackcompose.domain.model.ProdutoCompleto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -69,8 +87,8 @@ fun ProductSearchScreen(
 
     BaseOrderLayout(
         title = "Mesa/Conta",
-        subtitle = "(Subtotal) Mesa/Cartão:1 ",
-        backroute = "home_page/{userId}",
+        subtitle = "Mesa/Cartão:1 ",
+        backroute = "order_page",
         navController = navController
     ) {
         TextField(
@@ -93,51 +111,92 @@ fun ProductSearchScreen(
 
         LazyColumn {
             items(filteredProducts.size) { index ->
-                val (id, name) = filteredProducts[index]
-                val product = Product(
-                    id = id,
-                    name = name,
-                    price = 0.0,
-                    categoryId = 0,
-                    imageUri = ""
-                )
+                val (id, _) = filteredProducts[index]
 
-                ProductItem(product = product) {
-                    onProductSelected(product)
-                }
+                ProductItem(
+                    productId = id,
+                    dao = produtoDao,
+                    onClick = {
+                        // Recupera o produto completo e chama o callback
+                        val produtoCompleto = produtoDao.getProdutoCompletoPorId(id)
+                        produtoCompleto?.let {
+                            onProductSelected(
+                                Product(
+                                    id = it.id,
+                                    name = it.name,
+                                    price = it.price,
+                                    categoryId = 0, // se precisar pode adaptar
+                                    imageUri = it.imageUri
+                                )
+                            )
+                        }
+                    }
+                )
             }
         }
     }
 }
 
 @Composable
-fun ProductItem(product: Product, onClick: () -> Unit) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 12.dp, vertical = 6.dp)
-            .clickable { onClick() },
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-    ) {
-        androidx.compose.foundation.layout.Row(
+fun ProductItem(productId: Int, dao: ProdutoDao, onClick: () -> Unit) {
+    val context = LocalContext.current
+    var produto by remember { mutableStateOf<ProdutoCompleto?>(null) }
+
+    LaunchedEffect(productId) {
+        produto = withContext(Dispatchers.IO) {
+            dao.getProdutoCompletoPorId(productId)
+        }
+    }
+
+    produto?.let { p ->
+        Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(horizontal = 12.dp, vertical = 6.dp)
+                .clickable { onClick() },
+            colors = CardDefaults.cardColors(containerColor = Color.White),
+            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
         ) {
-
-
-            androidx.compose.foundation.layout.Column(
-                modifier = Modifier.weight(1f)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
             ) {
-                Text(
-                    text = product.name,
-                    style = MaterialTheme.typography.titleMedium
-                )
-                Text(
-                    text = "R\$ ${"%.2f".format(product.price)}",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.primary
-                )
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(p.name, style = MaterialTheme.typography.titleMedium)
+                    Text(
+                        "${"%.2f".format(p.price)} KZ",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Text(
+                        "Categoria: ${p.categoryName}",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+
+                Box(
+                    modifier = Modifier
+                        .size(56.dp)
+                        .padding(4.dp)
+                ) {
+                    if (!p.imageUri.isNullOrBlank()) {
+                        Image(
+                            painter = rememberAsyncImagePainter(p.imageUri),
+                            contentDescription = "Foto do produto ${p.id}",
+                            modifier = Modifier.fillMaxSize(),
+                            contentScale = ContentScale.Crop
+                        )
+                    } else {
+                        Image(
+                            painter = painterResource(R.drawable.account_user_png_photo),
+                            contentDescription = "Imagem padrão",
+                            modifier = Modifier.fillMaxSize(),
+                            contentScale = ContentScale.Crop
+                        )
+                    }
+                }
             }
         }
     }
