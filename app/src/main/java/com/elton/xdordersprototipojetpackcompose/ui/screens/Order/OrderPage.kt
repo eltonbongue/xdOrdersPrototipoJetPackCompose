@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +20,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -26,17 +28,22 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -154,29 +161,79 @@ fun CategoryContent(
     }
 
     val produtos = viewModel.produtosPorCategoria[categoryId] ?: emptyList()
-    val context = LocalContext.current
+
+    var produtoSelecionado by remember { mutableStateOf<Product?>(null) }
+    var mostrarPopup by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(start = 2.dp, end = 2.dp, top = 4.dp, bottom = 4.dp)
+            .padding(4.dp)
     ) {
-        Spacer(modifier = Modifier.height(2.dp))
-
         if (produtos.isEmpty()) {
             Text("Nenhum produto encontrado.")
-        } else {
+        }  else {
             ProdutoButtonsList(
                 produtos = produtos,
-                onProdutoClick = { produto ->
-                    // Ação ao clicar no botão do produto
-                    Toast.makeText(context, "Selecionado: ${produto.name}", Toast.LENGTH_SHORT).show()
+                onProdutoClick = { /* */ },
+                onProdutoLongClick = { produto ->
+                    produtoSelecionado = produto
+                    mostrarPopup = true // Mostra popup apenas no long click
                 }
             )
+        }
 
+        if (produtoSelecionado != null && mostrarPopup) {
+            var quantidade by remember { mutableStateOf(1) }
+            var complemento by remember { mutableStateOf("") }
+
+            AlertDialog(
+                onDismissRequest = { produtoSelecionado = null },
+                title = { Text(text = produtoSelecionado!!.name) },
+                text = {
+                    Column {
+                        Text("Categoria: ${produtoSelecionado!!.categoryId}")
+                        Text("Preço: R$ ${produtoSelecionado!!.price}")
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text("Quantidade: ")
+                            Button(onClick = { if (quantidade > 1) quantidade-- }) { Text("-") }
+                            Text("$quantidade", modifier = Modifier.padding(horizontal = 8.dp))
+                            Button(onClick = { quantidade++ }) { Text("+") }
+                        }
+
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text("Complementos:")
+                        OutlinedTextField(
+                            value = complemento,
+                            onValueChange = { complemento = it },
+                            label = { Text("Digite os complementos") },
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
+                },
+                confirmButton = {
+                    Row {
+                        Button(
+                            onClick = {
+                                // Aqui você pode adicionar a lógica para inserir o produto
+                                produtoSelecionado = null
+                            }
+                        ) {
+                            Text("Inserir")
+                        }
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Button(onClick = { produtoSelecionado = null }) {
+                            Text("Fechar")
+                        }
+                    }
+                }
+            )
         }
     }
 }
+
 
 
 
@@ -199,10 +256,12 @@ fun MyScreenWithViewModel(navController: NavController, dbHelper: DatabaseHelper
 }
 
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ProdutoButtonsList(
     produtos: List<Product>,
-    onProdutoClick: (Product) -> Unit
+    onProdutoClick: (Product) -> Unit,
+    onProdutoLongClick: (Product) -> Unit
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
@@ -218,23 +277,23 @@ fun ProdutoButtonsList(
                     .width(150.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Button(
-                    onClick = { onProdutoClick(produto) },
+                Box(
                     modifier = Modifier
                         .height(130.dp)
-                        .fillMaxWidth(),
-                    shape = RoundedCornerShape(4.dp),
-                    contentPadding = PaddingValues(0.dp)
+                        .fillMaxWidth()
+                        .combinedClickable(
+                            onClick = { onProdutoClick(produto) },
+                            onLongClick = { onProdutoLongClick(produto) }
+                        ),
+                    contentAlignment = Alignment.Center
                 ) {
-                    Box(modifier = Modifier.fillMaxSize()) {
-                        if (produto.imageUri != null) {
-                            Image(
-                                painter = rememberAsyncImagePainter(produto.imageUri),
-                                contentDescription = "Imagem do produto",
-                                modifier = Modifier.fillMaxSize(),
-                                contentScale = ContentScale.Crop
-                            )
-                        }
+                    if (produto.imageUri != null) {
+                        Image(
+                            painter = rememberAsyncImagePainter(produto.imageUri),
+                            contentDescription = "Imagem do produto",
+                            modifier = Modifier.fillMaxSize(),
+                            contentScale = ContentScale.Crop
+                        )
                     }
                 }
 
