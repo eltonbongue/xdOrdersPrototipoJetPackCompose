@@ -1,4 +1,11 @@
 package com.elton.xdordersprototipojetpackcompose.domain.model
 
-class ProdutoCompleto {
-}
+data class ProdutoCompleto (
+
+    val id: Int,
+    val name: String,
+    val price: Double,
+    val imageUri: String?,
+    val categoryName: String
+
+)
