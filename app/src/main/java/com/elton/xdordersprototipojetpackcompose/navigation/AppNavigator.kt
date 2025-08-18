@@ -2,6 +2,7 @@ package com.elton.xdordersprototipojetpackcompose.navigation
 
 import ProductPageScreen
 import ProductSearchScreen
+import ProdutoViewModel
 import UserPageScreen
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -15,6 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.elton.xdordersprototipojetpackcompose.SessionManager
+import com.elton.xdordersprototipojetpackcompose.components.SelecionarMesaScreen
 import com.elton.xdordersprototipojetpackcompose.data.local.DAO
 import com.elton.xdordersprototipojetpackcompose.data.local.DAO.ProdutoDao
 import com.elton.xdordersprototipojetpackcompose.data.local.DatabaseHelper
@@ -31,6 +33,7 @@ import com.elton.xdordersprototipojetpackcompose.ui.screens.Home.HomePageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Home.PopUpPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Message.MessagePageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Order.OrderPageScreen
+import com.elton.xdordersprototipojetpackcompose.ui.screens.Order.OrdersScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Others.OtherPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Out.OutBoxPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Payment.PartialPaymentPagePrincipalScreen
@@ -46,6 +49,9 @@ import com.elton.xdordersprototipojetpackcompose.ui.screens.Transfer.TransferOrd
 import com.elton.xdordersprototipojetpackcompose.ui.screens.UserLoginScreen
 import com.elton.xdordersprototipojetpackcompose.viewModel.OrderViewModel
 import com.elton.xdordersprototipojetpackcompose.viewModel.OrderViewModelFactory
+import com.elton.xdordersprototipojetpackcompose.viewModel.PedidoViewModel
+import com.elton.xdordersprototipojetpackcompose.viewModel.PedidoViewModelFactory
+import com.elton.xdordersprototipojetpackcompose.viewModel.ProdutoViewModelFactory
 
 
 @Composable
@@ -82,16 +88,42 @@ fun AppNavigator(navController: NavHostController) {
         composable(Screen.OrderPage.route) { backStackEntry ->
             val context = LocalContext.current
             val dbHelper = remember { DatabaseHelper(context) }
-            val dao = remember { DAO(dbHelper) }
-            val factory = remember { OrderViewModelFactory(dao) }
 
-            val viewModel: OrderViewModel = viewModel(
+            // DAOs
+            val orderDao = remember { DAO(dbHelper) }
+            val produtoDao = remember { ProdutoDao(dbHelper) }
+            val pedidoDao = remember { dbHelper.pedidoDao() }
+
+            // Factories
+            val orderFactory = remember { OrderViewModelFactory(orderDao) }
+            val produtoFactory = remember { ProdutoViewModelFactory(produtoDao) }
+            val pedidoFactory = remember { PedidoViewModelFactory(pedidoDao) }
+
+            // ViewModels
+            val orderViewModel: OrderViewModel = viewModel(
                 viewModelStoreOwner = backStackEntry,
-                factory = factory
+                factory = orderFactory
             )
 
-            OrderPageScreen(navController = navController, viewModel = viewModel)
+            val produtoViewModel: ProdutoViewModel = viewModel(
+                viewModelStoreOwner = backStackEntry,
+                factory = produtoFactory
+            )
+
+            val pedidoViewModel: PedidoViewModel = viewModel(
+                viewModelStoreOwner = backStackEntry,
+                factory = pedidoFactory
+            )
+
+            OrderPageScreen(
+                    navController = navController,
+                    orderViewModel = orderViewModel,
+                    produtoViewModel = produtoViewModel,
+                    pedidoViewModel = pedidoViewModel
+
+            )
         }
+
 
 
         composable(Screen.BillPage.route) {
@@ -217,10 +249,19 @@ fun AppNavigator(navController: NavHostController) {
 
         }
 
+        composable(Screen.OrderPagePrincipal.route) {
+            val context = LocalContext.current
+            val dbHelper = remember { DatabaseHelper(context) }
+
+            OrdersScreen(navController = navController)
+        }
 
 
 
-
+        composable("selecionar_mesa") { backStackEntry ->
+            val pedidoViewModel: PedidoViewModel = viewModel(viewModelStoreOwner = backStackEntry)
+            SelecionarMesaScreen(navController, pedidoViewModel)
+        }
 
 
     }
