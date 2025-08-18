@@ -261,7 +261,6 @@ Row (
 @Composable
 fun TopActionButton(icon: ImageVector,label: String, onClick: () -> Unit) {
     val interactionSource = remember { MutableInteractionSource() }
-    // Removendo animação de escala personalizada (rememberButtonScale) pois não está definida
     val scale = 1f
 
     Column(
@@ -303,7 +302,7 @@ fun FullWidthButton(
     ) {
         Card(
             modifier = Modifier
-                .size(110.dp) // mesmo tamanho dos botões da grid
+                .size(110.dp)
                 .clickable(
                     interactionSource = interactionSource,
                     indication = null,
@@ -361,7 +360,6 @@ fun GridButton(
                 onClick = onClick
             ),
         shape = RoundedCornerShape(24.dp),
-       // elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(containerColor = Color(0xFF2C80AF))
     ) {
         Column(
