@@ -38,6 +38,7 @@ import com.elton.xdordersprototipojetpackcompose.components.pages.MinhasScreen
 import com.elton.xdordersprototipojetpackcompose.components.pages.TodasScreen
 import com.elton.xdordersprototipojetpackcompose.components.pages.ZonaPrincipalScreen
 import com.elton.xdordersprototipojetpackcompose.domain.model.Table
+import com.elton.xdordersprototipojetpackcompose.viewModel.PedidoViewModel
 import com.elton.xdordersprototipojetpackcompose.viewModel.TablesViewModel
 import kotlinx.coroutines.launch
 
@@ -139,4 +140,22 @@ modifier = Modifier
     }
 
     }
+}
+
+@Composable
+fun SelecionarMesaScreen(
+    navController: NavController,
+    pedidoViewModel: PedidoViewModel
+) {
+    val tablesViewModel: TablesViewModel = viewModel()
+    val mesas by tablesViewModel.mesas.collectAsState()
+
+    HorizontalPagerXD(
+        navController = navController,
+        mesas = mesas,
+        onMinhasButtonClick = { mesa ->
+            pedidoViewModel.setTableId(mesa.id.toString())
+            navController.navigate("order_page")
+        }
+    )
 }
