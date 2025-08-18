@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
 import com.elton.xdordersprototipojetpackcompose.domain.model.Category
 import com.elton.xdordersprototipojetpackcompose.domain.model.Order
+import com.elton.xdordersprototipojetpackcompose.domain.model.PedidoCompletoDto
 import com.elton.xdordersprototipojetpackcompose.domain.model.Product
 import com.elton.xdordersprototipojetpackcompose.domain.model.ProdutoCompleto
 import com.elton.xdordersprototipojetpackcompose.domain.model.Table
@@ -262,6 +263,53 @@ class DAO (private val dbHelper: DatabaseHelper) {
             }
         }
     }
+
+
+    class PedidoDao(private val db: SQLiteDatabase) {
+
+        fun getPedidoCompleto(orderId: Int): List<PedidoCompletoDto> {
+            val lista = mutableListOf<PedidoCompletoDto>()
+
+            val sql = """
+            SELECT 
+                o.id AS orderId,
+                t.name AS tableId,
+                p.name AS productName,
+                oi.quantity AS quantity,
+                oi.unit_price AS unitPrice,
+                oi.total_price AS totalPrice,
+                oi.notes AS notes
+            FROM orders o
+            INNER JOIN tables t ON o.table_id = t.id
+            INNER JOIN order_items oi ON oi.order_id = o.id
+            INNER JOIN products p ON oi.product_id = p.id
+            WHERE o.id = ?
+        """.trimIndent()
+
+            val cursor = db.rawQuery(sql, arrayOf(orderId.toString()))
+
+            cursor.use {
+                if (cursor.moveToFirst()) {
+                    do {
+                        lista.add(
+                            PedidoCompletoDto(
+                                orderId = cursor.getInt(cursor.getColumnIndexOrThrow("orderId")),
+                                tableId = cursor.getInt(cursor.getColumnIndexOrThrow("tableId")),
+                                productName = cursor.getString(cursor.getColumnIndexOrThrow("productName")),
+                                quantity = cursor.getInt(cursor.getColumnIndexOrThrow("quantity")),
+                                unitPrice = cursor.getDouble(cursor.getColumnIndexOrThrow("unitPrice")),
+                                totalPrice = cursor.getDouble(cursor.getColumnIndexOrThrow("totalPrice")),
+                                complement = cursor.getString(cursor.getColumnIndexOrThrow("complement"))
+                            )
+                        )
+                    } while (cursor.moveToNext())
+                }
+            }
+
+            return lista
+        }
+    }
+
 
 }
 
