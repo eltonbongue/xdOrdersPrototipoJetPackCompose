@@ -29,6 +29,7 @@ fun PartialPaymentPageScreen(navController: NavController) {
 
     val context = LocalContext.current
 
+
     // Cria o DAO e o ViewModel manualmente
     val dao = remember { DAO(DatabaseHelper(context)) }
     val viewModel: TablesViewModel = viewModel(factory = TablesViewModelFactory(dao))
