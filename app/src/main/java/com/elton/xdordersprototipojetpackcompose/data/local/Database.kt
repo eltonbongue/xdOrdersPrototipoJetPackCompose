@@ -109,4 +109,9 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
         private const val DATABASE_NAME = "xd_orders.db"
         private const val DATABASE_VERSION = 11
     }
+
+    fun pedidoDao(): DAO.PedidoDao {
+        return DAO.PedidoDao(writableDatabase)
+    }
+
 }
