@@ -396,7 +396,7 @@ fun CartBottomBar(
         modifier = Modifier
             .fillMaxWidth()
             .height(120.dp),
-        color = MaterialTheme.colorScheme.primary
+        color = Color(0xFF2C80AF)
     ) {
         Row(
             modifier = Modifier
@@ -412,7 +412,7 @@ fun CartBottomBar(
                 items(pedido) { item ->
                     Text(
                         text = "${item.productName} x${item.quantity}",
-                        color = Color.Black,
+                        color = Color.White,
                         style = MaterialTheme.typography.bodyMedium,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
@@ -426,11 +426,14 @@ fun CartBottomBar(
             Button(
                 onClick = onConcluirClick,
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.secondary
+                    containerColor = Color.White
                 ),
                 modifier = Modifier.align(Alignment.Bottom)
             ) {
-                Text("Concluir")
+                Text(
+                    text = "Concluir",
+                    color = Color(0xFF2C80AF)
+                )
             }
         }
     }
