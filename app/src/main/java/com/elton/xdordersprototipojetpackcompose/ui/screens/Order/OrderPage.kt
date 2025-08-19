@@ -211,7 +211,7 @@ fun CategoryContent(
                     pedido = pedidoConvertido,
                     onConcluirClick = {
                         // 👉 Aqui você decide se salva na BD antes de navegar
-                        navController.navigate("detalhes_pedido")
+                        navController.navigate("order_page_principal")
                     }
                 )
             }
@@ -410,7 +410,7 @@ fun CartBottomBar(
                     .weight(1f)
                     .fillMaxHeight()
             ) {
-                items(pedido) { item ->
+                items(pedido.asReversed() ) { item ->
                     Text(
                         text = "${item.productName} x${item.quantity}",
                         color = Color.White,
