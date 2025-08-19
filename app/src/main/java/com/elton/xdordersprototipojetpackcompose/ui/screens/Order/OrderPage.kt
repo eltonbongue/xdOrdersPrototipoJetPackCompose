@@ -64,6 +64,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.elton.xdordersprototipojetpackcompose.components.TopBar.TopBarOrderXD
@@ -396,7 +397,7 @@ fun CartBottomBar(
         modifier = Modifier
             .fillMaxWidth()
             .height(120.dp),
-        color = Color(0xFF2C80AF)
+        color = Color(0xFF103175)
     ) {
         Row(
             modifier = Modifier
@@ -432,7 +433,9 @@ fun CartBottomBar(
             ) {
                 Text(
                     text = "Concluir",
-                    color = Color(0xFF2C80AF)
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF103175)
                 )
             }
         }
