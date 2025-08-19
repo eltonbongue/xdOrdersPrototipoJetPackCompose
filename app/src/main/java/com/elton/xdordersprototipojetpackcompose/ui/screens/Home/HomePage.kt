@@ -78,13 +78,14 @@ fun HomePageScreen(navController: NavController, user: User) {
         modifier = Modifier
             .fillMaxSize()
             .background(backgroundColor)
-            .padding(16.dp)
+            .padding(0.dp)
     ) {
         Spacer( modifier = Modifier.height(16.dp))
 
 Row (
     modifier = Modifier
-        .fillMaxWidth(),
+        .fillMaxWidth()
+    .padding(start = 16.dp, end = 16.dp, top = 8.dp),
     horizontalArrangement = Arrangement.SpaceBetween,
     verticalAlignment = Alignment.CenterVertically
 
@@ -122,6 +123,7 @@ Row (
             modifier = Modifier
                 .fillMaxWidth()
                 .height(150.dp)
+                .padding(16.dp)
                 .background(
                     color = Color(0xFF2C80AF),
                     shape = RoundedCornerShape(12.dp)
@@ -220,7 +222,7 @@ Row (
                     )
                 }
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(4.dp))
 
                 // Grid Buttons
                 val buttons = listOf(
@@ -302,7 +304,8 @@ fun FullWidthButton(
     ) {
         Card(
             modifier = Modifier
-                .size(110.dp)
+                .width(120.dp)
+                .height(105.dp)
                 .clickable(
                     interactionSource = interactionSource,
                     indication = null,
@@ -321,7 +324,7 @@ fun FullWidthButton(
                 Icon(
                     imageVector = icon,
                     contentDescription = text,
-                    tint = Color.Green,
+                    tint = Color.White,
                     modifier = Modifier.size(32.dp)
                 )
                 Spacer(modifier = Modifier.height(8.dp))
@@ -353,7 +356,7 @@ fun GridButton(
 
     Card(
         modifier = Modifier
-            .aspectRatio(1f) // quadrado perfeito
+            .aspectRatio(1.2f) // quadrado perfeito
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
