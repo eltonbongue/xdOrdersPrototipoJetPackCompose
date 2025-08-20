@@ -7,7 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import com.elton.xdordersprototipojetpackcompose.data.local.DatabaseHelper
 import com.elton.xdordersprototipojetpackcompose.navigation.AppNavigator
 import com.elton.xdordersprototipojetpackcompose.ui.theme.XdOrdersPrototipoJetPackComposeTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
