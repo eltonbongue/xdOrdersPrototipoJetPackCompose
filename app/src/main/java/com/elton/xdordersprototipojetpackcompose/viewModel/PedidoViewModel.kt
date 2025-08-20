@@ -6,13 +6,16 @@ import com.elton.xdordersprototipojetpackcompose.data.local.DAO.PedidoDao
 import com.elton.xdordersprototipojetpackcompose.domain.model.OrderItem
 import com.elton.xdordersprototipojetpackcompose.domain.model.PedidoCompletoDto
 import com.elton.xdordersprototipojetpackcompose.domain.model.Product
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class PedidoViewModel(private val pedidoDao: PedidoDao) : ViewModel() {
+@HiltViewModel
+class PedidoViewModel @Inject constructor(private val pedidoDao: PedidoDao) : ViewModel() {
 
     // ID da mesa selecionada (contexto do pedido)
     private val _tableId = MutableStateFlow<String?>(null)
