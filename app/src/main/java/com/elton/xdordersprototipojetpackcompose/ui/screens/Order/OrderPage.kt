@@ -404,7 +404,7 @@ fun CartBottomBar(
                 .fillMaxSize()
                 .padding(8.dp)
         ) {
-            // Lista de pedidos com scroll
+
             LazyColumn(
                 modifier = Modifier
                     .weight(1f)
@@ -441,4 +441,3 @@ fun CartBottomBar(
         }
     }
 }
-
