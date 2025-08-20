@@ -9,6 +9,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -50,7 +51,6 @@ import com.elton.xdordersprototipojetpackcompose.ui.screens.UserLoginScreen
 import com.elton.xdordersprototipojetpackcompose.viewModel.OrderViewModel
 import com.elton.xdordersprototipojetpackcompose.viewModel.OrderViewModelFactory
 import com.elton.xdordersprototipojetpackcompose.viewModel.PedidoViewModel
-import com.elton.xdordersprototipojetpackcompose.viewModel.PedidoViewModelFactory
 import com.elton.xdordersprototipojetpackcompose.viewModel.ProdutoViewModelFactory
 
 
@@ -92,12 +92,10 @@ fun AppNavigator(navController: NavHostController) {
             // DAOs
             val orderDao = remember { DAO(dbHelper) }
             val produtoDao = remember { ProdutoDao(dbHelper) }
-            val pedidoDao = remember { dbHelper.pedidoDao() }
 
             // Factories
             val orderFactory = remember { OrderViewModelFactory(orderDao) }
             val produtoFactory = remember { ProdutoViewModelFactory(produtoDao) }
-            val pedidoFactory = remember { PedidoViewModelFactory(pedidoDao) }
 
             // ViewModels
             val orderViewModel: OrderViewModel = viewModel(
@@ -110,9 +108,8 @@ fun AppNavigator(navController: NavHostController) {
                 factory = produtoFactory
             )
 
-            val pedidoViewModel: PedidoViewModel = viewModel(
-                viewModelStoreOwner = backStackEntry,
-                factory = pedidoFactory
+            val pedidoViewModel: PedidoViewModel = hiltViewModel(
+                backStackEntry
             )
 
             OrderPageScreen(
