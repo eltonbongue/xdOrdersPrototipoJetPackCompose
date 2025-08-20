@@ -4,13 +4,16 @@ import androidx.lifecycle.viewModelScope
 import com.elton.xdordersprototipojetpackcompose.data.local.DAO.ProdutoDao
 import com.elton.xdordersprototipojetpackcompose.domain.model.OrderItem
 import com.elton.xdordersprototipojetpackcompose.domain.model.Product
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class ProdutoViewModel(private val dao: ProdutoDao) : ViewModel() {
+@HiltViewModel
+class ProdutoViewModel @Inject constructor(private val dao: ProdutoDao) : ViewModel() {
 
     private val _produtosPorCategoria = mutableStateMapOf<Int, List<Product>>()
     val produtosPorCategoria: Map<Int, List<Product>> get() = _produtosPorCategoria
