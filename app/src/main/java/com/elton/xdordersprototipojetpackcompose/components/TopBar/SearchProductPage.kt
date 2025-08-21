@@ -1,4 +1,5 @@
-import android.R.attr.width
+package com.elton.xdordersprototipojetpackcompose.ui.components
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -44,34 +45,31 @@ import com.elton.xdordersprototipojetpackcompose.components.BaseOrderLayout
 import com.elton.xdordersprototipojetpackcompose.R
 import android.net.Uri
 import androidx.compose.foundation.border
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.elton.xdordersprototipojetpackcompose.data.local.DAO.ProdutoDao
 import com.elton.xdordersprototipojetpackcompose.domain.model.Product
 import com.elton.xdordersprototipojetpackcompose.domain.model.ProdutoCompleto
+import com.elton.xdordersprototipojetpackcompose.viewModel.ProdutoViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
 
 @Composable
 fun ProductSearchScreen(
     navController: NavHostController,
-    produtoDao: ProdutoDao,
+    viewModel: ProdutoViewModel = hiltViewModel(),
     onBack: () -> Unit,
     onProductSelected: (Product) -> Unit
 ) {
     var query by rememberSaveable { mutableStateOf("") }
-
-
-    val allProducts = remember { mutableStateListOf<Pair<Int, String>>() }
+    val allProducts by viewModel.allProducts.collectAsState()
 
     // Carrega todos os produtos quando a tela abre
     LaunchedEffect(Unit) {
-        withContext(Dispatchers.IO) {
-            val productsFromDb = produtoDao.getAllProductNamesAndIds()
-            withContext(Dispatchers.Main) {
-                allProducts.clear()
-                allProducts.addAll(productsFromDb)
-            }
-        }
+        viewModel.carregarTodosProdutos()
     }
 
     // Lista filtrada conforme a pesquisa
@@ -79,15 +77,15 @@ fun ProductSearchScreen(
         if (query.isBlank()) {
             allProducts
         } else {
-            allProducts.filter { (_, name) ->
-                name.contains(query, ignoreCase = true)
+            allProducts.filter { product ->
+                product.name.contains(query, ignoreCase = true)
             }
         }
     }
 
     BaseOrderLayout(
         title = "Mesa/Conta",
-        subtitle = "Mesa/Cartão:1 ",
+        subtitle = "Mesa/Cartão: 1",
         backroute = "order_page",
         navController = navController
     ) {
@@ -96,58 +94,41 @@ fun ProductSearchScreen(
             onValueChange = { query = it },
             placeholder = { Text("Pesquisar produtos...") },
             singleLine = true,
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             shape = MaterialTheme.shapes.medium,
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = MaterialTheme.colorScheme.primary,
-                unfocusedBorderColor = MaterialTheme.colorScheme.outline,
-                focusedLeadingIconColor = MaterialTheme.colorScheme.primary,
-                cursorColor = MaterialTheme.colorScheme.primary,
-                focusedLabelColor = MaterialTheme.colorScheme.primary
+            colors = TextFieldDefaults.colors(
+                focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+                unfocusedIndicatorColor = MaterialTheme.colorScheme.outline,
+                cursorColor = MaterialTheme.colorScheme.primary
             )
-
         )
 
         LazyColumn {
-            items(filteredProducts.size) { index ->
-                val (id, _) = filteredProducts[index]
+            items(
+                count = filteredProducts.size,
+                key = { index -> filteredProducts[index].id }
+            ) { index ->
+                val product = filteredProducts[index]
+
+                // Obtem ProdutoCompleto pelo ViewModel (busca no Repository/DAO)
+                val produtoCompleto by viewModel.getProdutoCompleto(product.id)
+                    .collectAsState(initial = null)
 
                 ProductItem(
-                    productId = id,
-                    dao = produtoDao,
-                    onClick = {
-                        // Recupera o produto completo e chama o callback
-                        val produtoCompleto = produtoDao.getProdutoCompletoPorId(id)
-                        produtoCompleto?.let {
-                            onProductSelected(
-                                Product(
-                                    id = it.id,
-                                    name = it.name,
-                                    price = it.price,
-                                    categoryId = 0, // se precisar pode adaptar
-                                    imageUri = it.imageUri
-                                )
-                            )
-                        }
-                    }
+                    produto = produtoCompleto,
+                    onClick = { onProductSelected(product) }
                 )
             }
         }
     }
 }
 
+
 @Composable
-fun ProductItem(productId: Int, dao: ProdutoDao, onClick: () -> Unit) {
-    val context = LocalContext.current
-    var produto by remember { mutableStateOf<ProdutoCompleto?>(null) }
-
-    LaunchedEffect(productId) {
-        produto = withContext(Dispatchers.IO) {
-            dao.getProdutoCompletoPorId(productId)
-        }
-    }
-
+fun ProductItem(
+    produto: ProdutoCompleto?,
+    onClick: () -> Unit
+) {
     produto?.let { p ->
         Card(
             modifier = Modifier
@@ -201,3 +182,4 @@ fun ProductItem(productId: Int, dao: ProdutoDao, onClick: () -> Unit) {
         }
     }
 }
+
