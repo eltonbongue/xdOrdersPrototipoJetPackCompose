@@ -1,12 +1,8 @@
 package com.elton.xdordersprototipojetpackcompose.navigation
 
 import ProductPageScreen
-import ProductSearchScreen
-import ProdutoViewModel
 import UserPageScreen
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -22,6 +18,7 @@ import com.elton.xdordersprototipojetpackcompose.data.local.DAO
 import com.elton.xdordersprototipojetpackcompose.data.local.DAO.ProdutoDao
 import com.elton.xdordersprototipojetpackcompose.data.local.DatabaseHelper
 import com.elton.xdordersprototipojetpackcompose.domain.model.User
+import com.elton.xdordersprototipojetpackcompose.ui.components.ProductSearchScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.HomeScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Bill.BillPageScreen
 import com.elton.xdordersprototipojetpackcompose.ui.screens.Discount.DiscountPagePrincipalScreen
@@ -51,7 +48,7 @@ import com.elton.xdordersprototipojetpackcompose.ui.screens.UserLoginScreen
 import com.elton.xdordersprototipojetpackcompose.viewModel.OrderViewModel
 import com.elton.xdordersprototipojetpackcompose.viewModel.OrderViewModelFactory
 import com.elton.xdordersprototipojetpackcompose.viewModel.PedidoViewModel
-import com.elton.xdordersprototipojetpackcompose.viewModel.ProdutoViewModelFactory
+import com.elton.xdordersprototipojetpackcompose.viewModel.ProdutoViewModel
 
 
 @Composable
@@ -91,11 +88,9 @@ fun AppNavigator(navController: NavHostController) {
 
             // DAOs
             val orderDao = remember { DAO(dbHelper) }
-            val produtoDao = remember { ProdutoDao(dbHelper) }
 
             // Factories
             val orderFactory = remember { OrderViewModelFactory(orderDao) }
-            val produtoFactory = remember { ProdutoViewModelFactory(produtoDao) }
 
             // ViewModels
             val orderViewModel: OrderViewModel = viewModel(
@@ -103,14 +98,8 @@ fun AppNavigator(navController: NavHostController) {
                 factory = orderFactory
             )
 
-            val produtoViewModel: ProdutoViewModel = viewModel(
-                viewModelStoreOwner = backStackEntry,
-                factory = produtoFactory
-            )
-
-            val pedidoViewModel: PedidoViewModel = hiltViewModel(
-                backStackEntry
-            )
+            val produtoViewModel: ProdutoViewModel = hiltViewModel(backStackEntry)
+            val pedidoViewModel: PedidoViewModel = hiltViewModel(backStackEntry)
 
             OrderPageScreen(
                     navController = navController,
@@ -230,14 +219,12 @@ fun AppNavigator(navController: NavHostController) {
         }
 
         composable(Screen.SearchProductPage.route) {
-            val context = LocalContext.current
-            val dbHelper = remember { DatabaseHelper(context) }
-            val dao = remember { DAO(dbHelper) } // cria DAO principal
 
-            val produtoDao = remember { ProdutoDao(dbHelper) }
+            val produtoViewModel: ProdutoViewModel = hiltViewModel()
+
             ProductSearchScreen(
                 navController = navController,
-                produtoDao = produtoDao,
+                viewModel = produtoViewModel,
                 onBack = { navController.popBackStack() },
                 onProductSelected = { product ->
                     navController.popBackStack()

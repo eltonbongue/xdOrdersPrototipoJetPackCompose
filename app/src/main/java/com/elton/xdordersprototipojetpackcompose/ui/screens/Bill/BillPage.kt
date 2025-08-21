@@ -1,6 +1,5 @@
 package com.elton.xdordersprototipojetpackcompose.ui.screens.Bill
 
-import ProdutoViewModel
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,7 +25,6 @@ import com.elton.xdordersprototipojetpackcompose.data.local.DatabaseHelper
 import com.elton.xdordersprototipojetpackcompose.domain.model.Table
 import com.elton.xdordersprototipojetpackcompose.navigation.Screen
 import com.elton.xdordersprototipojetpackcompose.viewModel.OrderViewModel
-import com.elton.xdordersprototipojetpackcompose.viewModel.ProdutoViewModelFactory
 import com.elton.xdordersprototipojetpackcompose.viewModel.TablesViewModel
 import com.elton.xdordersprototipojetpackcompose.viewModel.TablesViewModelFactory
 
