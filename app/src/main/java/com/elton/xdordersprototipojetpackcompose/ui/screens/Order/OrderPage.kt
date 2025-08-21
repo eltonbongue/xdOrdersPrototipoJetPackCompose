@@ -1,8 +1,5 @@
 package com.elton.xdordersprototipojetpackcompose.ui.screens.Order
 
-import ProdutoViewModel
-import android.graphics.Paint
-import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -65,6 +62,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.elton.xdordersprototipojetpackcompose.components.TopBar.TopBarOrderXD
@@ -75,6 +73,7 @@ import com.elton.xdordersprototipojetpackcompose.domain.model.PedidoCompletoDto
 import com.elton.xdordersprototipojetpackcompose.domain.model.Product
 import com.elton.xdordersprototipojetpackcompose.viewModel.OrderViewModel
 import com.elton.xdordersprototipojetpackcompose.viewModel.PedidoViewModel
+import com.elton.xdordersprototipojetpackcompose.viewModel.ProdutoViewModel
 import kotlinx.coroutines.launch
 
 
@@ -84,12 +83,10 @@ import kotlinx.coroutines.launch
 fun OrderPageScreen(
     navController: NavController,
     orderViewModel: OrderViewModel,
-    produtoViewModel: ProdutoViewModel,
-    pedidoViewModel: PedidoViewModel
+    produtoViewModel: ProdutoViewModel = hiltViewModel(),
+    pedidoViewModel: PedidoViewModel = hiltViewModel()
 ) {
 
-    val dbHelper = remember { DatabaseHelper(navController.context) }
-    val produtoDao = remember { ProdutoDao(dbHelper) }
     val tableId by pedidoViewModel.tableId.collectAsState()
     val pedidoCompleto by pedidoViewModel.pedidoCompleto.collectAsState()
 
