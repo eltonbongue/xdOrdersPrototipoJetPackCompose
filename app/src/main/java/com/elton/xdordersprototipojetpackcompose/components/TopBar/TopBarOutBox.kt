@@ -34,7 +34,7 @@ fun TopBarOutBoxXD(
             if (showBackButton) {
 
                 IconButton(
-                    onClick = { navController.navigate("home_page") { popUpTo(0) } },
+                    onClick = { navController.navigate("home_page/{userId}") { popUpTo(0) } },
                     modifier = Modifier.size(78.dp)
                 ) {
                     Row {

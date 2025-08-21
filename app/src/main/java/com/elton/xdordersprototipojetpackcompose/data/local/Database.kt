@@ -41,9 +41,11 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
                 price REAL NOT NULL,
-                category_id INTEGER,
-                description TEXT,
-                FOREIGN KEY (category_id) REFERENCES categories(id)
+                category_id INTEGER NOT NULL,
+                image_uri TEXT,
+                FOREIGN KEY (category_id) REFERENCES categories(id),
+                UNIQUE(name, category_id)
+
             );
             """.trimIndent()
         )
@@ -51,12 +53,12 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
         // Tabela de mesas
         db.execSQL(
             """
-            CREATE TABLE IF NOT EXISTS tables (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT NOT NULL UNIQUE,
-                capacity INTEGER DEFAULT 1
-            );
-            """.trimIndent()
+    CREATE TABLE IF NOT EXISTS tables (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL UNIQUE,
+        imageUri TEXT
+    );
+    """.trimIndent()
         )
 
         // Tabela de pedidos
@@ -105,6 +107,11 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
 
     companion object {
         private const val DATABASE_NAME = "xd_orders.db"
-        private const val DATABASE_VERSION = 6
+        private const val DATABASE_VERSION = 11
     }
+
+    fun pedidoDao(): DAO.PedidoDao {
+        return DAO.PedidoDao(writableDatabase)
+    }
+
 }

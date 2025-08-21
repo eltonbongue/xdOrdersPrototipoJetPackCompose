@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -25,16 +26,17 @@ import com.elton.xdordersprototipojetpackcompose.R
 @Composable
 fun TopBarOrderXD(
     title: String,
+    backRoute: String,
     navController: NavController,
     showBackButton: Boolean = true,
-    backgroundColor: Color = Color(0xFF103175)
+    backgroundColor: Color = Color(0xFF103175),
 ) {
     TopAppBar(
         navigationIcon = {
             if (showBackButton) {
 
                 IconButton(
-                    onClick = { navController.navigate("table_page") { popUpTo(0) } },
+                    onClick = { navController.navigate(backRoute) { popUpTo(0) } },
                     modifier = Modifier.size(78.dp)
                 ) {
                     Row {
@@ -65,12 +67,23 @@ fun TopBarOrderXD(
                 color = Color.White
             )
         },
+        actions = {
+            IconButton(
+                onClick = { navController.navigate("search_product_page") { popUpTo(0) } },
+                modifier = Modifier.size(78.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Rounded.Search,
+                    contentDescription = "Buscar",
+                    modifier = Modifier.size(38.dp),
+                    tint = Color.White
+                )
+            }
+        },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = backgroundColor
         )
+
     )
 
 }
-
-
-

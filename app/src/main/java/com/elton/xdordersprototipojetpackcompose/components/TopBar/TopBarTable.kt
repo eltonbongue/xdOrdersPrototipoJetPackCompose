@@ -11,15 +11,20 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.elton.xdordersprototipojetpackcompose.R
+import com.elton.xdordersprototipojetpackcompose.SessionManager
+import com.elton.xdordersprototipojetpackcompose.domain.model.User
+import com.elton.xdordersprototipojetpackcompose.navigation.Screen.HomePage
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBarTableXD(
     title: String,
+    backroute: String,
     subtitle: String,
     navController: NavController,
     showBackButton: Boolean = true,
@@ -29,10 +34,14 @@ fun TopBarTableXD(
         navigationIcon = {
             if (showBackButton) {
 
+                val context = LocalContext.current
+                val sessionManager = SessionManager(context)
+                val user = sessionManager.getUser() // Recupera o usuário logado
+
                 IconButton(
-                    onClick = { navController.navigate("home_page") { popUpTo(0) } },
+                    onClick = { navController.navigate(backroute) { popUpTo(0) } },
                     modifier = Modifier.size(78.dp)
-                ) {
+                ){
                     Row {
                         Icon(
                             imageVector = Icons.Rounded.ArrowBack,

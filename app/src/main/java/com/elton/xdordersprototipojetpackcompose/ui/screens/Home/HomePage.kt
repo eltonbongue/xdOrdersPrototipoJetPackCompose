@@ -4,17 +4,22 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -30,10 +35,11 @@ import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.Receipt
 import androidx.compose.material.icons.filled.SwapHoriz
 import androidx.compose.material.icons.filled.Upload
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -43,11 +49,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter.Companion.tint
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -58,71 +71,100 @@ import com.elton.xdordersprototipojetpackcompose.domain.model.User
 
 @Composable
 fun HomePageScreen(navController: NavController, user: User) {
-    val backgroundColor = Color(0xFF23007A)
-    val buttonColor = Color(0xFF3C1B9E)
+    val backgroundColor = Color(0xFFF5F5F5)
     var showDialog by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(backgroundColor)
-            .padding(16.dp)
+            .padding(0.dp)
     ) {
+        Spacer( modifier = Modifier.height(16.dp))
+
+Row (
+    modifier = Modifier
+        .fillMaxWidth()
+    .padding(start = 16.dp, end = 16.dp, top = 8.dp),
+    horizontalArrangement = Arrangement.SpaceBetween,
+    verticalAlignment = Alignment.CenterVertically
 
 
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 40.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(buttonColor)
-                    .padding(16.dp)
-            ) {
-                Row(
-                   verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
+){
 
-                ) {
-                    Column (
-                        modifier = Modifier,
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ){
-                Image(
-                    painter = painterResource(R.drawable.account_user_png_photo),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(80.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(Color(0xFF3C1B9E))
+    Icon(
+        painter = painterResource(id = R.drawable.xd_logo),
+        contentDescription = "Logo XD",
+        modifier = Modifier.size(38.dp),
+        tint = Color(0xFF2C80AF)
+    )
+
+    Spacer(modifier = Modifier.width(32.dp))
+
+    Image(
+            painter = painterResource(R.drawable.account_user_png_photo),
+            contentDescription = null,
+            modifier = Modifier
+                .size(60.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .border(
+                    width = 1.dp,
+                    color = Color(0xFF2C80AF),
+                    shape = RoundedCornerShape(50.dp)
                 )
+
+    )
+
+
+}
+        Spacer( modifier = Modifier.height(16.dp))
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(150.dp)
+                .padding(16.dp)
+                .background(
+                    color = Color(0xFF2C80AF),
+                    shape = RoundedCornerShape(12.dp)
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+
 
                 Text(
                     text = user.name,
                     color = Color.White,
-                    fontSize = 16.sp,
+                    fontSize = 20 .sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(top = 8.dp),
                 )
-                    }
 
-                Spacer(modifier = Modifier.width(100.dp))
 
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.width(180.dp)
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(0.8f)
+                    .height(100.dp)
+                    .offset(y = 75.dp) // empurra para baixo
+                    .background(
+                        color = Color.White,
+                        shape = RoundedCornerShape(16.dp)
+                    ),
+                contentAlignment = Alignment.Center
+            )
+            {
+                Row(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(24.dp)),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     TopActionButton(
                         icon = Icons.Default.Upload,
                         label = "CAIXA DE SAÍDA",
                         onClick = { navController.navigate("outbox_page") }
                     )
-                    Divider(
-                        color = Color.White.copy(alpha = 0.5f),
-                        thickness = 0.5.dp,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 16.dp)
+                    Spacer(
+                        modifier = Modifier.width(24.dp)
                     )
                     TopActionButton(
                         icon = Icons.Default.Message,
@@ -130,84 +172,121 @@ fun HomePageScreen(navController: NavController, user: User) {
                         onClick = { navController.navigate("message_page") }
                     )
                 }
-                }
             }
-
-        Spacer(modifier = Modifier.height(56.dp))
-            // Voice Control
-        FullWidthButton(
-            text = "CONTROLE POR VOZ",
-            icon = Icons.Default.Mic,
-            backgroundColor = Color(0xFF3C1B9E),
-            onClick = {
-                showDialog = true
-            }
-        )
-
-        if (showDialog) {
-            PopUpPageScreen(
-                navController = navController,
-                onDismiss = { showDialog = false }
-            )
         }
 
 
-        Spacer(modifier = Modifier.height(50.dp))
+        Spacer(modifier = Modifier.height(100.dp))
 
-            // Grid Buttons
-            val buttons = listOf(
-                GridButtonItem("PEDIR", Icons.Default.CalendarToday) { navController.navigate("table_page") },
-                GridButtonItem("ANULAR", Icons.Default.Cancel) { navController.navigate("cancel_page") },
-                GridButtonItem("SUBTOTAL", Icons.Default.CalendarToday) { navController.navigate("subtotal_page") },
-                GridButtonItem("CONTA", Icons.Default.Receipt) { navController.navigate("bill_page") },
-                GridButtonItem("TRANSFERÊNCIA", Icons.Default.SwapHoriz) { navController.navigate("transfer_page") },
-                GridButtonItem("PAGAMENTO PARCIAL", Icons.Default.CreditCard) { navController.navigate("partial_payment_page") },
-                GridButtonItem("OUTROS", Icons.Default.CalendarToday) { navController.navigate("other_page") },
-                GridButtonItem("DESCONTO", Icons.Default.AttachMoney) { navController.navigate("discount_page") },
-                GridButtonItem("MENU INICIAL", Icons.Default.ArrowBack) { navController.navigate("home") }
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .clip(RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp))
+                .background(Color(0x142C80AF)
+                )
+        )
+        {
+
+           
+            Image(
+                painter = painterResource(id = R.drawable.leftside_picture),
+                contentDescription = null,
+                modifier = Modifier
+                    .align(Alignment.BottomStart)
+                    .width(210.dp)
+                    .height(150.dp)
+                    .padding(0.dp),
+
             )
 
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(3),
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(24.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                contentPadding = PaddingValues(bottom = 24.dp),
+
+
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 8.dp, vertical = 16.dp)
             ) {
-                items(buttons) { buttonItem ->
-                    GridButton(
-                        text = buttonItem.text,
-                        icon = buttonItem.icon,
-                        backgroundColor = buttonColor,
-                        onClick = buttonItem.onClick
+                FullWidthButton(
+                    text = "CONTROLE POR VOZ",
+                    icon = Icons.Default.Mic,
+                    backgroundColor = Color(0xFF2C80AF),
+                    onClick = {
+                        showDialog = true
+                    }
+                )
+
+                if (showDialog) {
+                    PopUpPageScreen(
+                        navController = navController,
+                        onDismiss = { showDialog = false }
                     )
                 }
 
+                Spacer(modifier = Modifier.height(4.dp))
+
+                // Grid Buttons
+                val buttons = listOf(
+                    GridButtonItem("PEDIR", Icons.Default.CalendarToday, Color(0xFF505050)) { navController.navigate("table_page") },
+                    GridButtonItem("ANULAR", Icons.Default.Cancel, Color(0xFF505050)) { navController.navigate("cancel_page") },
+                    GridButtonItem("SUBTOTAL", Icons.Default.CalendarToday, Color(0xFF505050)) { navController.navigate("subtotal_page") },
+                    GridButtonItem("CONTA", Icons.Default.Receipt,Color(0xFF505050)) { navController.navigate("bill_page") },
+                    GridButtonItem("TRANSFERÊNCIA", Icons.Default.SwapHoriz, Color(0xFF505050)) { navController.navigate("transfer_page") },
+                    GridButtonItem("PAGAMENTO PARCIAL", Icons.Default.CreditCard, Color(0xFF505050)) { navController.navigate("partial_payment_page") },
+                    GridButtonItem("OUTROS", Icons.Default.CalendarToday, Color(0xFF505050)) { navController.navigate("other_page") },
+                    GridButtonItem("DESCONTO", Icons.Default.AttachMoney, Color(0xFF505050)) { navController.navigate("discount_page") },
+                    GridButtonItem("MENU INICIAL", Icons.Default.ArrowBack,Color(0xFF505050)) { navController.navigate("home") }
+                )
+
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(3),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    contentPadding = PaddingValues(top = 16.dp, bottom = 24.dp, start = 8.dp, end = 8.dp),
+                ) {
+                    items(buttons) { buttonItem ->
+                        GridButton(
+                            text = buttonItem.text,
+                            icon = buttonItem.icon,
+                            onClick = buttonItem.onClick
+                        )
+                    }
+                }
             }
+        }
     }
 }
 
 
 @Composable
-fun TopActionButton(icon: ImageVector, label: String, onClick: () -> Unit) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
+fun TopActionButton(icon: ImageVector,label: String, onClick: () -> Unit) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val scale = 1f
+
+    Column(
         modifier = Modifier
-            .background(Color.Transparent)
-            .clickable(onClick = onClick)
+            .graphicsLayer(scaleX = scale, scaleY = scale)
+            .clip(RoundedCornerShape(8.dp))
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+                onClick = onClick
+            )
+            .padding(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Icon(
             imageVector = icon,
             contentDescription = label,
-            tint = Color.White,
+            tint = Color(0xFF2C80AF),
             modifier = Modifier.size(24.dp)
         )
-        Spacer(modifier = Modifier.width(8.dp))
-        Text(text = label, color = Color.White, fontWeight = FontWeight.Medium)
+
+        Text(text = label, color = Color(0xFF2C80AF), fontWeight = FontWeight.Medium, fontSize = 12.sp, textAlign = TextAlign.Center)
     }
 }
-
-
 
 
 @Composable
@@ -215,48 +294,83 @@ fun FullWidthButton(
     text: String,
     icon: ImageVector,
     backgroundColor: Color,
-    onClick: () -> Unit // ← recebe o onClick
+    onClick: () -> Unit
 ) {
-    Button(
-        onClick = onClick, // ← usa o onClick recebido
-        colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(56.dp)
-            .border(
-                width = 0.5.dp,
-                color = Color(0xFF5E608D),
-                shape = RoundedCornerShape(12.dp)
-            ),
-        shape = RoundedCornerShape(8.dp)
+    val interactionSource = remember { MutableInteractionSource() }
+
+    Box(
+        modifier = Modifier.fillMaxWidth(),
+        contentAlignment = Alignment.Center
     ) {
-        Icon(imageVector = icon, contentDescription = text, tint = Color.White)
-        Spacer(modifier = Modifier.width(12.dp))
-        Text(text = text, color = Color.White)
+        Card(
+            modifier = Modifier
+                .width(120.dp)
+                .height(105.dp)
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = null,
+                    onClick = onClick
+                ),
+            shape = RoundedCornerShape(24.dp),
+            colors = CardDefaults.cardColors(containerColor = backgroundColor)
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(8.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = text,
+                    tint = Color.White,
+                    modifier = Modifier.size(32.dp)
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = text,
+                    color = Color.White,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 12.sp,
+                    textAlign = TextAlign.Center,
+                    lineHeight = 14.sp,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.padding(horizontal = 4.dp)
+                )
+            }
+        }
     }
 }
 
 
 
-
 @Composable
-fun GridButton(text: String, icon: ImageVector, backgroundColor: Color, onClick: () -> Unit) {
-    Button(
-        onClick = onClick,
-        colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
+fun GridButton(
+    text: String,
+    icon: ImageVector,
+    onClick: () -> Unit
+) {
+    val interactionSource = remember { MutableInteractionSource() }
+
+    Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .height(90.dp)
-            .border(
-                width = .5.dp,
-                color = Color(0xFF5E608D),
-                shape = RoundedCornerShape(12.dp)
+            .aspectRatio(1.2f) // quadrado perfeito
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+                onClick = onClick
             ),
-        shape = RoundedCornerShape(12.dp)
+        shape = RoundedCornerShape(24.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFF2C80AF))
     ) {
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(8.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
                 imageVector = icon,
@@ -268,14 +382,18 @@ fun GridButton(text: String, icon: ImageVector, backgroundColor: Color, onClick:
             Text(
                 text = text,
                 color = Color.White,
-                fontSize = 11.sp,
-                maxLines = 2,
-                softWrap = true,
-                lineHeight = 14.sp,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Medium,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(horizontal = 2.dp)
+                lineHeight = 14.sp,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.padding(horizontal = 4.dp)
             )
         }
     }
 }
+
+
+
 

@@ -11,6 +11,7 @@ import com.elton.xdordersprototipojetpackcompose.ui.components.TopBarTableXD
 fun BaseOrderLayout(
     title: String,
     subtitle: String,
+    backroute: String,
     navController: NavController,
     showBackButton: Boolean = true,
     content: @Composable () -> Unit
@@ -20,7 +21,8 @@ fun BaseOrderLayout(
             title = title,
             subtitle = subtitle,
             navController = navController,
-            showBackButton = showBackButton
+            showBackButton = showBackButton,
+            backroute = backroute,
         )
 
 

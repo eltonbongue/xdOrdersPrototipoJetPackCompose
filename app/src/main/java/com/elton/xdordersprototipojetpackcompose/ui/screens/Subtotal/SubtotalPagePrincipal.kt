@@ -21,6 +21,7 @@ fun SubtotalPagePrincipalScreen(
             TopBarOrderXD(
                 title = "(Subtotal) Mesa/Cartão: 1",
                 navController = navController,
+                backRoute = "subtotal_page"
             )
         },
 

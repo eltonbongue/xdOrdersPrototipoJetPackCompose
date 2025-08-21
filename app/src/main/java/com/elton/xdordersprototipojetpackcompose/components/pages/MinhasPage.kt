@@ -2,44 +2,40 @@ package com.elton.xdordersprototipojetpackcompose.components.pages
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.elton.xdordersprototipojetpackcompose.domain.model.Table
+import com.elton.xdordersprototipojetpackcompose.ui.screens.Tables.MesaItem
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 
 @Composable
 fun MinhasScreen(
-    onButtonClick: () -> Unit
+    mesas: List<Table>,
+    onMesaClick: (Table) -> Unit
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp)
     ) {
-
-        Button(
-            onClick = onButtonClick, // << agora é um parâmetro!
-            modifier = Modifier
-                .width(150.dp)
-                .height(130.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1565C0)),
-            shape = RoundedCornerShape(2.dp)
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(3),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Text(
-                text = "Mesa/Cartão 1",
-                modifier = Modifier.padding(4.dp),
-                color = Color.White,
-                fontSize = 14.sp
-            )
+            items(mesas) { mesa ->
+                MesaItem(
+                    nome = mesa.name,
+                    imageUri = mesa.imageUri,
+                    onClick = { onMesaClick(mesa) }
+                )
+            }
         }
-
     }
 }

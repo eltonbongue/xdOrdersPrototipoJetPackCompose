@@ -22,6 +22,7 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,20 +32,26 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.elton.xdordersprototipojetpackcompose.components.pages.MinhasScreen
 import com.elton.xdordersprototipojetpackcompose.components.pages.TodasScreen
 import com.elton.xdordersprototipojetpackcompose.components.pages.ZonaPrincipalScreen
+import com.elton.xdordersprototipojetpackcompose.domain.model.Table
+import com.elton.xdordersprototipojetpackcompose.viewModel.PedidoViewModel
+import com.elton.xdordersprototipojetpackcompose.viewModel.TablesViewModel
 import kotlinx.coroutines.launch
 
 
 
 @Composable
-fun HorizontalPagerXD(navController: NavController, onMinhasButtonClick: () -> Unit) {
+fun HorizontalPagerXD(navController: NavController, mesas: List<Table>, onMinhasButtonClick: (Table) -> Unit) {
 var searchText by remember { mutableStateOf("") }
 val tabTitles = listOf("Minhas", "Todas", "Zona Principal")
 val pagerState = rememberPagerState(initialPage = 0, pageCount = { tabTitles.size })
 val coroutineScope = rememberCoroutineScope()
+    val tablesViewModel: TablesViewModel = viewModel()
+    val mesas by tablesViewModel.mesas.collectAsState()
 
 Column(
 modifier = Modifier
@@ -126,11 +133,29 @@ modifier = Modifier
 
     HorizontalPager(state = pagerState) { page ->
         when (page) {
-            0 -> MinhasScreen(onButtonClick = onMinhasButtonClick)
+            0 -> MinhasScreen(mesas = mesas , onMesaClick = onMinhasButtonClick )
             1 -> TodasScreen()
             2 -> ZonaPrincipalScreen()
         }
     }
 
     }
+}
+
+@Composable
+fun SelecionarMesaScreen(
+    navController: NavController,
+    pedidoViewModel: PedidoViewModel
+) {
+    val tablesViewModel: TablesViewModel = viewModel()
+    val mesas by tablesViewModel.mesas.collectAsState()
+
+    HorizontalPagerXD(
+        navController = navController,
+        mesas = mesas,
+        onMinhasButtonClick = { mesa ->
+            pedidoViewModel.setTableId(mesa.id.toString())
+            navController.navigate("order_page")
+        }
+    )
 }

@@ -18,6 +18,7 @@ fun CancelPagePrincipalScreen(navController: NavController) {
         TopBarOrderXD(
                 title = "(Anulação) Mesa/Cartão: 1",
                 navController = navController,
+                backRoute = "cancel_page"
             )
         },
 

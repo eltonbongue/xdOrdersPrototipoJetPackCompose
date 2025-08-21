@@ -47,6 +47,7 @@ fun UserPageScreen(
         topBar = {
             TopBarXD(
                 title = "Casdastrar/User",
+                backroute = "settings",
                 navController = navController
             )
         },
@@ -102,9 +103,16 @@ fun UserPageScreen(
 
                             val success = dao.insertUser (name, email, password)
 
+                            val clearTextFieldValue = {
+                                name = ""
+                                email = ""
+                                password = ""
+                            }
+
+
                             if( success) {
                                 Toast.makeText(context, "Usuário salvo com sucesso!", Toast.LENGTH_SHORT).show()
-                                onCancelClick()
+                                clearTextFieldValue()
                                   }
 
                             else {

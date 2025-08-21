@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.hilt)
     kotlin("kapt")
 }
 
@@ -11,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.elton.xdordersprototipojetpackcompose"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -30,12 +31,23 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
+    }
+
+    composeOptions{
+        kotlinCompilerExtensionVersion = "1.5.3"
+
+    }
+
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
     }
 
     buildFeatures {
@@ -56,7 +68,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.navigation.compose.android)
+    implementation(libs.androidx.navigation.compose)
 
 
     // Accompanist (UI utilitários)
@@ -67,6 +79,8 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:1.5.0")
     implementation("androidx.compose.foundation:foundation:1.5.0")
 
+    //Para adiconar carregar imagens
+    implementation("io.coil-kt:coil-compose:2.5.0") //
     // Testes
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -75,4 +89,11 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+
+    // Caso esteja usando Hilt com Navigation Compose
+    implementation(libs.androidx.hilt.navigation.compose)
 }
