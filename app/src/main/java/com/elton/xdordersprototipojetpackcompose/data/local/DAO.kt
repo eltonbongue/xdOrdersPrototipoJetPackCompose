@@ -140,6 +140,30 @@ class DAO (private val dbHelper: DatabaseHelper) {
             return products
         }
 
+        fun getTodosProdutos(): List<Product> {
+            val db = dbHelper.readableDatabase
+            val cursor = db.rawQuery("""
+        SELECT id, name, price, image_uri, category_id
+        FROM products
+    """.trimIndent(), null)
+
+            val produtos = mutableListOf<Product>()
+            while (cursor.moveToNext()) {
+                produtos.add(
+                    Product(
+                        id = cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                        name = cursor.getString(cursor.getColumnIndexOrThrow("name")),
+                        price = cursor.getDouble(cursor.getColumnIndexOrThrow("price")),
+                        imageUri = cursor.getString(cursor.getColumnIndexOrThrow("image_uri")),
+                        categoryId = cursor.getInt(cursor.getColumnIndexOrThrow("category_id"))
+                    )
+                )
+            }
+            cursor.close()
+            return produtos
+        }
+
+
         fun getProdutosPorCategoria(categoriaId: Int): List<Product> {
             val produtos = mutableListOf<Product>()
             val db = dbHelper.readableDatabase
